@@ -6,7 +6,7 @@ nav a{white-space:nowrap;flex:none}
 .prose h3{font-size:19px;margin:28px 0 6px;font-weight:700;color:var(--ink)}
 .prose p,.prose li{color:#D3D6DA}
 .prose strong{color:var(--ink);font-weight:700}
-.prose blockquote{margin:20px 0;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--mint);border-radius:10px}
+.prose blockquote{margin:20px 0;padding:14px 18px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px}
 .prose blockquote p{margin:0;font-size:16px}
 .prose ul{padding-left:20px}.prose li p{margin:4px 0}
 .prose table{border-collapse:collapse;width:100%;font-size:14.5px;margin:12px 0;display:block;overflow-x:auto}
@@ -26,16 +26,16 @@ nav a{white-space:nowrap;flex:none}
 .chains ol{margin:0;padding:0;list-style:none;counter-reset:g}
 .chains li{padding:5px 0 5px 12px;border-left:2px solid var(--line);font-size:14px;margin-left:4px}
 .chains li .yr{font-size:12.5px;margin-left:6px}
-.chains li.end{color:var(--mint);font-weight:600}
+.chains li.end{color:var(--accent);font-weight:600}
 .todo{max-width:760px;margin:0 auto}
 .todo h2{font-size:20px;margin:26px 0 4px}
 .todo .hint{color:var(--mute);font-size:14px;margin:0 0 8px}
 .task{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:8px 0;cursor:pointer}
-.task input{width:22px;height:22px;accent-color:var(--mint);margin:2px 0 0;cursor:pointer}
+.task input{width:22px;height:22px;accent-color:var(--accent);margin:2px 0 0;cursor:pointer}
 .task.done span{color:var(--mute);text-decoration:line-through}
 .task b{font-weight:700}
 .prog{font-size:14px;color:var(--mute)}
-.prog b{color:var(--mint)}
+.prog b{color:var(--accent)}
 @media print{
  :root{--bg:#fff;--panel:#fff;--panel2:#fff;--line:#ccc;--ink:#111;--mute:#555;--land:#ddd}
  body{background:#fff;color:#111;font-size:12pt}
