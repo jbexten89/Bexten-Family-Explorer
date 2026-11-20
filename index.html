@@ -118,13 +118,20 @@ nav a{white-space:nowrap;flex:none}
  .prose h2{break-after:avoid}
 }
 @media screen and (max-width:760px){.fanwrap{overflow-x:auto;padding:8px}#fan{min-width:880px}}
+.brand{display:flex;gap:16px;align-items:flex-start}
+.appicon{width:64px;height:64px;border-radius:15px;border:1px solid var(--line);box-shadow:0 0 18px rgba(46,139,255,.25);flex:none}
+@media(max-width:760px){.appicon{width:52px;height:52px;border-radius:12px}.brand{gap:12px}}
+@media print{.appicon{box-shadow:none}}
 </style>
 </head>
 <body>
 <header>
+<div class="brand">
+<img class="appicon" src="icons/icon-192.png" alt="" width="64" height="64">
 <div>
 <h1>The Bexten Family Explorer</h1>
 <p class="sub">The ancestors of Tony and Althea Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer. Compiled November 2026.</p>
+</div>
 </div>
 <nav aria-label="Views"><a href="#tree" data-v="tree">Tree</a><a href="#map" data-v="map">Map</a><a href="#story" data-v="story">Story</a><a href="#report" data-v="report">Report</a><a href="#charts" data-v="charts">Charts</a><a href="#todo" data-v="todo">To-do</a></nav>
 </header>
