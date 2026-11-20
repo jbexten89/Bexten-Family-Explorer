@@ -290,7 +290,7 @@ function drawMap(m){
  let reg="";Object.entries(g.regions||{}).forEach(([n,q])=>{reg+=T(q[0],q[1],n,"middle","#5d6673",10,'letter-spacing="2.5" font-weight="700"')});
  const near=q=>[...used].some(k=>{const p=g.places[k];return Math.hypot(p[0]-q[0],p[1]-q[1])<34});
  let cty="";Object.entries(g.cities||{}).forEach(([n,q])=>{if(q[0]<4||q[0]>g.w-4||q[1]<4||q[1]>g.h-4||near(q))return;const rt=q[0]>g.w-80;cty+=`<circle cx="${q[0]}" cy="${q[1]}" r="2.2" fill="#8a929e"/>`+T(q[0]+(rt?-6:6),q[1]+4,n,rt?"end":"start","#8a929e",10.5,'paint-order="stroke" stroke="#0b0d11" stroke-width="3"')});
- svg.innerHTML=`<defs>${defs}</defs><rect width="${g.w}" height="${g.h}" fill="#0b0d11"/><path d="${g.other||""}" fill="#1c2028"/><path d="${g.land}" fill="var(--land)"/><path d="${g.lakes||""}" fill="#0b0d11" stroke="#4a6587" stroke-width="0.6"/><path d="${g.rivers||""}" fill="none" stroke="#4a6587" stroke-width="1" stroke-linejoin="round"/><path d="${g.borders}" fill="none" stroke="#3d4450" stroke-width="0.9"/>${reg}${cty}${r}${pts}`;
+ svg.innerHTML=`<defs>${defs}</defs><rect width="${g.w}" height="${g.h}" fill="#0b0d11"/><path d="${g.other||""}" fill="#1c2028"/><path d="${g.land}" fill="var(--land)"/><path d="${g.lakes||""}" fill="#0b0d11" stroke="#4a6587" stroke-width="0.6"/><path d="${g.rivers||""}" fill="none" stroke="#4a6587" stroke-width="1" stroke-linejoin="round"/><path d="${g.land}" fill="none" stroke="#596273" stroke-width="0.8"/><path d="${g.borders}" fill="none" stroke="#7b8596" stroke-width="1.3" stroke-linejoin="round"/><path d="${g.cborders||""}" fill="none" stroke="#c3cad4" stroke-width="2" stroke-linejoin="round"/>${reg}${cty}${r}${pts}`;
 }
 function drawJourney(){
  const lines=LINES.filter(L=>active==="all"||L.id===active);
