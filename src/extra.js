@@ -62,7 +62,6 @@ const TODO=[
   ["mamie2","<b>Mail the Lucas County Probate Court</b> (700 Adams St., Suite 200, Toledo) for Herbert Smith and Mamie Miller's marriage record, about 1907. It may name Mamie's parents."],
   ["munster","<b>Email or mail the Bistumsarchiv Münster</b> (Georgskommende 19, 48143 Münster, Germany) for Caspar Anton Bexte's 1868 Stromberg baptism, using the German letter in the doc."]]],
  ["Visits and sign-ins","Things only you can do. Claude can't type your passwords for you.",[
-  ["obit","<b>Sign back in to the Toledo library</b> in the Claude app's browser on your computer, so Claude can read Herbert Smith's 1949 obituary and settle the tenth child."],
   ["stromberg","<b>Look at Anthony's possible baptism</b> at the Toledo Ohio FamilySearch Center, 11050 Avenue Road, Perrysburg (by appointment: 419-392-4643). Ask for FamilySearch films 8206436 or 7992106, Stromberg (St. Lambertus), and find Caspar Anton Bexte, born July 16, 1868, with any notes in the margin. Also check the death register 1868–1885 for him."]]],
  ["Optional extras","",[
   ["schmidt2","<b>Wendell Smith and Barbara Ankenbrandt</b>: their death records aren't online. Monroe County, Michigan, death records (about 1889 and 1906) would give exact dates and maybe their German hometown."],
