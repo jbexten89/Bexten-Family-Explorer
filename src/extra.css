@@ -155,3 +155,5 @@ html,body{height:100%;overflow:hidden}
 .grave .who small{white-space:nowrap}
 .grave.flash{animation:flash 1.6s ease-out}
 @keyframes flash{0%,30%{border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,139,255,.35)}100%{border-color:var(--line);box-shadow:none}}
+.gmap .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.82) contrast(.92) saturate(.6)}
+.gmap .leaflet-bar a{background:#171a20;color:var(--ink);border-color:var(--line)}
