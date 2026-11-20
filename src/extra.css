@@ -239,4 +239,23 @@ html,body,#app{touch-action:manipulation}
 body.modal #app{overflow:hidden}
 .toc{display:flex;gap:8px;align-items:center}
 .toc .jump{flex:1;min-width:0}
-@media print{.otd,
+@media print{.otd,.sheet,#sharebtn,#indexbtn{display:none!important}}
+.ixback{margin:0 0 4px}.ixback a{color:var(--accent);text-decoration:none;font-weight:700}
+.ixh{margin:0 0 10px}
+.ixnote{color:var(--mute);font-size:14px;margin:0 0 10px}
+.ixd{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none;vertical-align:1px}
+.ixd.f{background:var(--mint)}.ixd.m{background:var(--peri)}
+.ixnote .ixd{margin:0 3px 0 8px}
+.ixaz{display:flex;flex-wrap:wrap;gap:2px;margin:4px 0 6px}
+.ixaz a,.ixaz span{min-width:26px;min-height:32px;display:flex;align-items:center;justify-content:center;font:700 14px "Nunito Sans",sans-serif;border-radius:8px}
+.ixaz a{color:var(--accent);text-decoration:none}.ixaz span{color:#3a404a}
+.ixl{color:var(--mute);font-size:13px;letter-spacing:.06em;margin:16px 0 6px;text-transform:uppercase}
+.ixr{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:0 0 6px}
+.ixr[open]{border-color:var(--accent)}
+.ixr summary{display:flex;align-items:center;gap:8px;padding:12px 14px;min-height:48px;cursor:pointer;list-style:none}
+.ixr summary::-webkit-details-marker{display:none}
+.ixr summary b{flex:1;font-weight:700}
+.ixc{color:var(--mute);font-size:13px;text-align:right}
+.ixps{padding:0 8px 8px 26px}
+.ixp{display:flex;flex-direction:column;align-items:flex-start;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);color:var(--ink);padding:9px 6px;font:600 15px "Nunito Sans",sans-serif;cursor:pointer}
+.ixp i{font-style:normal;color:var(--mute);font-size:13px;font-weight:400}
