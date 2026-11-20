@@ -46,8 +46,9 @@ var SHARE_URL="https://jbexten89.github.io/Bexten-Family-Explorer/";
  document.getElementById("sharebtn").addEventListener("click",open);
  sh.addEventListener("click",function(e){if(e.target===sh||e.target.closest("[data-close]"))close()});
  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
- document.getElementById("share-go").addEventListener("click",function(){if(navigator.share){navigator.share({title:"The Bexten Family Explorer",text:"Our family tree, maps and story",url:SHARE_URL}).catch(function(){})}else{location.href="mailto:?subject="+encodeURIComponent("The Bexten Family Explorer")+"&body="+encodeURIComponent(SHARE_URL)}});
- document.getElementById("share-copy").addEventListener("click",function(){var b=this;(navigator.clipboard?navigator.clipboard.writeText(SHARE_URL):Promise.reject()).then(function(){b.textContent="Copied"},function(){b.textContent=SHARE_URL});setTimeout(function(){b.textContent="Copy link"},2500)});
+ var SHARE_MSG="Here's our family history app: the Bexten family tree, maps and story.\n\n"+SHARE_URL+"\n\nTo keep it on your phone like an app:\n• iPhone: open the link in Safari, tap the Share button, then Add to Home Screen.\n• Android: open it in Chrome, tap the ⋮ menu, then Add to Home screen (or Install app).\n\nTap Tree to explore, Map for where they lived, and Story to read it all.";
+ document.getElementById("share-go").addEventListener("click",function(){if(navigator.share){navigator.share({title:"The Bexten Family Explorer",text:SHARE_MSG}).catch(function(){})}else{location.href="mailto:?subject="+encodeURIComponent("The Bexten Family Explorer")+"&body="+encodeURIComponent(SHARE_MSG)}});
+ document.getElementById("share-copy").addEventListener("click",function(){var b=this;(navigator.clipboard?navigator.clipboard.writeText(SHARE_MSG):Promise.reject()).then(function(){b.textContent="Copied"},function(){b.textContent=SHARE_URL});setTimeout(function(){b.textContent="Copy link and instructions"},2500)});
 })();
 
 // ---------- story audio ----------
