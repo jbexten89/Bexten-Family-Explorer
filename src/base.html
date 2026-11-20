@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bexten Family Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* VOICE: warm, quiet family keepsake; facts first, every claim marked by how sure it is
+   IDEA: a family archive drawer at night: pedigree cards and a voyage chart
+   PICTURE: the pedigree itself (tree view) and a two-panel voyage map, Europe and America
+   COLOUR and TYPE: near-black ground, charcoal panels, mint for Dad's side, periwinkle for Mom's, amber only for unproven; Nunito Sans, light numerals
+   LAYOUT: title row with two views; selected-person card above a four-generation grid; map panels side by side, stacking on phones */
+:root{color-scheme:dark;--bg:#07080A;--panel:#111317;--panel2:#171a20;--line:#252a33;--ink:#E6E8EB;--mute:#9AA0A6;--mint:#3CC79A;--peri:#8EA6FF;--amber:#E3A04F;--land:#262c37}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
+a{color:var(--mint)}
+header{padding:28px max(5vw,16px) 8px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:end;justify-content:space-between;max-width:1280px;margin:0 auto}
+h1{margin:0;font-size:clamp(30px,4.4vw,44px);line-height:1.05;font-weight:700;text-wrap:balance}
+.sub{margin:6px 0 0;color:var(--mute);font-size:15px}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a,.chip,.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);text-decoration:none;font:600 15px "Nunito Sans",sans-serif;cursor:pointer}
+nav a[aria-current=page]{background:var(--mint);border-color:var(--mint);color:#06110c}
+.chip[aria-pressed=true]{border-color:currentColor;background:var(--panel2)}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+main{max-width:1280px;margin:0 auto;padding:12px max(5vw,16px) 48px}
+.view[hidden]{display:none}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.focus{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 24px;align-items:start;margin-bottom:16px}
+.focus h2{margin:0;font-size:28px;line-height:1.15;font-weight:700;text-wrap:balance}
+.meta{color:var(--mute);margin:4px 0 10px}
+.facts{margin:0;padding-left:18px}.facts li{margin:2px 0}
+.tag{font-size:13px;color:var(--mute);display:inline-flex;gap:6px;align-items:center}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.unp{color:var(--amber)}
+.tools{display:flex;flex-direction:column;gap:8px;align-items:stretch;min-width:220px}
+input[type=search]{min-height:44px;font:16px "Nunito Sans",sans-serif;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--ink)}
+.kids{margin-top:10px;font-size:14px;color:var(--mute)}
+.kids button{background:none;border:0;color:var(--mint);font:600 14px "Nunito Sans",sans-serif;cursor:pointer;padding:6px 2px;min-height:32px}
+.scroll{overflow-x:auto;padding-bottom:6px}
+.ped{display:grid;grid-template-columns:repeat(4,minmax(170px,1fr));grid-template-rows:repeat(8,minmax(64px,auto));gap:8px 14px;min-width:760px}
+.colh{font-size:13px;color:var(--mute);display:grid;grid-template-columns:repeat(4,minmax(170px,1fr));gap:14px;min-width:760px;margin-bottom:6px}
+.p{all:unset;box-sizing:border-box;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;justify-content:center;gap:2px;min-height:64px}
+.p:hover{background:var(--panel2)}.p:focus-visible{outline:2px solid var(--mint)}
+.p b{font-weight:600;font-size:15px;line-height:1.25;display:flex;gap:8px;align-items:baseline}
+.p span{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.p.sel{border-color:var(--mint)}
+.p.none{cursor:default;border-style:dashed;color:var(--mute);background:transparent}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:13px;color:var(--mute)}
+.maps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mapc{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.mapc h3{margin:0;padding:12px 16px 0;font-size:15px;font-weight:600;color:var(--mute)}
+.mapc svg{display:block;width:100%;height:auto}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.journey{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.journey h3{margin:0 0 8px;font-size:17px;font-weight:700;display:flex;gap:8px;align-items:center}
+.journey ol{margin:0;padding:0;list-style:none}
+.journey li{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:15px}
+.journey li:first-child{border-top:0}
+.yr{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{font-size:13px;color:var(--mute);margin-top:14px}
+@media(max-width:760px){.maps{grid-template-columns:minmax(0,1fr)}.focus{grid-template-columns:minmax(0,1fr)}.tools{min-width:0}}
+@media(prefers-reduced-motion:no-preference){.route{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1.4s ease-out forwards}@keyframes draw{to{stroke-dashoffset:0}}}
+</style>
+</head>
+<body>
+<header>
+<div>
+<h1>The Bexten Family Explorer</h1>
+<p class="sub">The ancestors of Tony and Betty Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer. Compiled November 2026.</p>
+</div>
+<nav aria-label="Views"><a href="#tree" id="nav-tree">Family tree</a><a href="#map" id="nav-map">Migration map</a></nav>
+</header>
+<main>
+<section class="view" id="view-tree" aria-label="Family tree">
+<div class="card focus">
+<div id="focus"></div>
+<div class="tools">
+<label for="find" class="tag">Find a person</label>
+<input type="search" id="find" list="names" placeholder="Type a name">
+<datalist id="names"></datalist>
+<button class="btn" id="home" type="button">Back to the start</button>
+</div>
+</div>
+<div class="scroll">
+<div class="colh"><span>Selected</span><span>Parents</span><span>Grandparents</span><span>Great-grandparents</span></div>
+<div class="ped" id="ped"></div>
+</div>
+<div class="legend">
+<span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span>
+<span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span>
+<span class="tag">Click anyone to move back a generation</span>
+<span class="tag unp">Amber marks a link that is not yet proven</span>
+</div>
+</section>
+<section class="view" id="view-map" aria-label="Migration map" hidden>
+<div class="chips" id="chips" role="group" aria-label="Family lines"></div>
+<div class="maps">
+<div class="mapc"><h3>Europe: where they left from</h3><svg id="eu" role="img" aria-label="Map of England, the Netherlands and Germany with the families' starting points"></svg></div>
+<div class="mapc"><h3>America: where they settled</h3><svg id="am" role="img" aria-label="Map of the eastern United States with the families' routes to Ohio"></svg></div>
+</div>
+<div class="journey" id="journey"></div>
+<p class="note">Arrows off the edge of a map are Atlantic crossings. Dashed routes are uncertain: a port or step not yet found in a record. The Smith family were Toledo people for as far back as records go so far.</p>
+</section>
+</main>
+<script>
+{
+const GEO=__GEO__;
+// id: [name, years, facts[], father, mother, status]  status: r record, l published/likely, u unproven
+const D={
+kids:["Tony and Betty's children","",["Six children; they are living, so this public copy does not list them"],"tony","betty","r"],
+tony:["Anthony J. “Tony” Bexten","1933–2011",["Born March 28, 1933; farmed at Ottawa Lake, Michigan","Married Betty Bonnell Dec 4, 1954, Central Avenue Methodist Church, Toledo","Married Eleanor M. Eidenier in 1983","Died March 29, 2011; buried Floral Grove Cemetery, Pioneer, Ohio"],"nelson","caroline","r"],
+betty:["Betty Althea Bonnell","1934–1983",["Born Dec 4, 1934, Weston, West Virginia","Lost her father at 5; moved to Ohio with her mother","Telephone operator in Toledo before her marriage","Died Jan 28, 1983, Toledo; buried Floral Grove Cemetery, Pioneer"],"onal","genevieve","r"],
+nelson:["Nelson A. Bexten","1903–1987",["Born June 2 or 3, 1903, Michigan","Married Caroline Smith Aug 8, 1928, Lucas County, Ohio","Farmed at Ottawa Lake, lived in Toledo, then farmed near Pioneer","Died Nov 24, 1987, Bryan, Ohio; buried St. Joseph Cemetery, Sylvania"],"anthony","rosa","r"],
+caroline:["Caroline M. Smith","1910–1987",["Born April 28, 1910, Toledo area","Daughter of firefighter Herbert H. Smith","Died May 17, 1987"],"herbert","mamie","r"],
+onal:["Onal Bonnell","1906–1940",["Born Jan 6, 1906, Lewis County, West Virginia","Glassworker in Weston","Died Feb 15, 1940, Weston General Hospital, at 34; buried Machpelah Cemetery"],"johnwj","amanda","r"],
+genevieve:["Genevieve Virginia Beamer","1906–1990",["Born May 23, 1906, Newville, Braxton County, West Virginia","Widowed at 33; later lived on Ambia Street, Toledo","Later married John Rosentreter; caterer for Gladieux Corporation for 25 years, retired 1970","Died Oct 7, 1990, at home in Oregon, Ohio; buried Ottawa Hills Memorial Park"],"calvin","cora","r"],
+anthony:["Anthony Joseph Bexten","1867–1950",["Born June 16, 1867, Westphalia, Germany","Came to America alone about 1880, at 12; family story says as a stowaway","Farmed on Yankee Road, Ottawa Lake, Michigan","Three sisters still lived in Germany in 1950","Died Jan 8, 1950, at home"],"herman","","r"],
+rosa:["Rosa Graf","1864–1945",["Born May 6, 1864, New York (the 1870 census says Michigan)","Married Anthony Bexten April 11, 1899","Lived her whole life in the Ottawa Lake area; St. Joseph Altar Society","Died Aug 20, 1945, at home"],"joseph","brigitta","r"],
+herbert:["Herbert Henry Smith","1889–1949",["Born Oct 5, 1889, Toledo","World War I veteran","Toledo firefighter for 17 years, to 1937","Died June 3, 1949, Ohio Soldiers and Sailors Home, Sandusky; buried Mt. Carmel"],"frankj","carrie","r"],
+mamie:["Mary A. “Mamie” Miller","c.1891–after 1950",["Born in Ohio","Maiden name Miller, from her children's records","Raised nine children in Toledo","Her parents are not yet found"],"","","r"],
+johnwj:["John William Jasper Bonnell","1866–1947",["Born June 9, 1866, Philippi, West Virginia","Married Amanda May 1896, Lewis County","Died July 23, 1947, Weston"],"floyd","elizabethg","r"],
+amanda:["Amanda Ann May","1876–1958",["Born Jan 27, 1876, Lewis County","Died Oct 31, 1958, Weston; buried Masonic Cemetery"],"johnmay","sarah","r"],
+calvin:["Calvin Byrd Beamer","1861–1924",["Born Jan 30, 1861","Married Cora Forinash May 1891, Braxton County","Retired farmer; died Feb 1, 1924, Weston"],"andrew","rebecca","r"],
+cora:["Cora Frances Forinash","1875–1961",["Born March 3, 1875","Great-granddaughter of the 1792 captive Elizabeth Waggoner","Died Jan 27, 1961"],"william","cynthia","r"],
+herman:["Herman Bexten","",["Lived in Westphalia, Germany","Named as Anthony's father on his 1950 death certificate","Never came to America, as far as records show"],"","","r"],
+joseph:["Joseph Graf","1834–1905",["Born March 16, 1834, Baden, Germany; son of George Graf","Farming in Whiteford Township, Michigan, by 1870; 80 acres","Killed Dec 11, 1905, when a Lake Shore train struck his buggy at Sylvania"],"georgeg","","r"],
+brigitta:["Brigitta Reger","1832–1914",["Born March 28, 1832, Württemberg, Germany; daughter of John Reger","Widow of a Mr. Jaeger; two Jaeger daughters, Mary and Teresia","Died Jan 25, 1914, Whiteford Township; buried St. Joseph's, Sylvania"],"johnreger","","r"],
+floyd:["Floyd Neely Bonnell","1839–1929",["Born March 20, 1839, Doddridge County","Private, Co. B, 6th West Virginia Infantry (Union), 1861–64","Died May 11, 1929, Weston, at 90"],"charles","janemartin","r"],
+elizabethg:["Elizabeth Jane Goldsborough","1833–1913",["Born Jan 13, 1833, New Market, Virginia","Widow of Isaac Pitman when she married Floyd in 1863","Died June 3, 1913, Weston"],"jamesg","","l"],
+johnmay:["John May","1852–1931",["Born Oct 2, 1852, Nicholas County","Married Sarah Johnson 1872, Braxton County","Died Jan 14, 1931, Clarksburg; buried Weston"],"johnrmay","jemimah","r"],
+sarah:["Sarah Johnson","1852–1940",["Born Oct 4, 1852, Roane County","Died March 28, 1940, Clarksburg; buried Weston"],"phelden","nancywine","r"],
+andrew:["Andrew Ballentine Beamer","1821–1904",["Born in Monroe County, Virginia","Married Rebecca Erwin 1845, Greenbrier County","Middle name from his mother's Ballantyne family"],"philipjr","elspeth","r"],
+rebecca:["Rebecca Jemima Erwin","1824–1902",["Born in Virginia"],"charleservin","catharine","l"],
+william:["William Dexter Forinash","1848–1890",["Born in Lewis County","Married his half-cousin Cynthia Hardman 1868"],"isaac","millie","l"],
+cynthia:["Cynthia Jane Hardman","1848–1934",["Born in Lewis County","Granddaughter of Elizabeth Waggoner"],"johng","malinda","l"],
+jamesg:["James Goldsborough","b. c.1808",["Of New Market; parents not yet found"],"","","u"],
+charles:["Charles Bonnell","c.1808–1898",["Married Jane Martin 1829, Harrison County","His 1872 and 1877 marriage records name his parents John and Rulana"],"johnbonnell","rulanah","r"],
+janemartin:["Jane Martin","c.1812–1865",["Daughter of William Martin (1829 marriage record)"],"","","r"],
+johnrmay:["John R. May","1819–1865",["Married Jemimah Harris 1842, Braxton County"],"","","r"],
+jemimah:["Jemimah Harris","1820–1885",[],"","","r"],
+phelden:["Phelden Johnson","",["Named on his daughter Sarah's death certificate"],"","","r"],
+nancywine:["Nancy Wine","",["Named on her daughter Sarah's death certificate"],"","","r"],
+philipjr:["Philip Beamer Jr.","1796–1866",["Monroe County, Virginia","Married Elspeth Ballantyne 1817"],"philipsr","elizabethb","l"],
+elspeth:["Elspeth Ballantyne","b. 1796",[],"","","l"],
+charleservin:["Charles Ervin","1798–1874",["Married Catharine Byrd 1823, Greenbrier County"],"","","l"],
+catharine:["Catharine S. Byrd","1802–1840",["Source of Calvin's middle name, Byrd"],"","","l"],
+isaac:["Isaac Forinash","b. 1817",["Born at Buckhannon","Married Millie Anne Plant 1841"],"jacob","catherinecrites","l"],
+millie:["Millie Anne Plant","1822–1880",[],"","","l"],
+johng:["John G. Hardman","1817–1897",["Son of the 1792 captive Elizabeth Waggoner","Married Malinda Forinash 1838"],"johndexter","elizabethw","l"],
+malinda:["Malinda Forinash","1822–1884",["Half-sister of Isaac Forinash"],"jacob","hannah","l"],
+johnbonnell:["John Bonnell","1761–1823",["Born in New Jersey; died at Salem, Harrison County","Said to have served in the 2nd New York Artillery; not yet proven"],"","","l"],
+rulanah:["Rulanah Fitz Randolph","1773–1865",["Born March 13, 1773, New Jersey","Died at Sedalia, Doddridge County"],"samuel","margaretfr","l"],
+philipsr:["Philip Beamer Sr.","1763–1838",["Left Reading, Pennsylvania, for Tennessee; settled near Hillsdale, Monroe County, about 1799","Parents unproven; possibly the Pennsylvania Böhmers"],"johannadam","","l"],
+elizabethb:["Elizabeth","d. 1840",["Wife of Philip Beamer Sr.; maiden name possibly Mohr"],"","","u"],
+jacob:["Jacob Forinash","1796–1838",["Ancestor twice, through two marriages"],"charlesf","","l"],
+catherinecrites:["Catherine Crites","d. 1821",[],"","","l"],
+hannah:["Hannah Peterson","1803–1876",[],"","","l"],
+johndexter:["Rev. John Dexter Hardman","1770–1864",["Millwright and Methodist preacher","Helped found Mt. Gilead Church, Lewis County"],"peterman","charlotte","l"],
+elizabethw:["Elizabeth Waggoner","1779–1854",["Captured at 12 in the May 1792 Shawnee raid on Hacker's Creek","Escaped to Detroit; home after the 1795 peace","Married John Dexter Hardman 1798; 13 children"],"johnw","margaretb","l"],
+samuel:["Samuel Fitz Randolph","1738–1825",["Born Piscataway, New Jersey","Revolutionary ensign and captain; SAR patriot P-158994","A founder of New Salem (Salem), West Virginia"],"jonathan","","r"],
+margaretfr:["Margaret Fitz Randolph","1739–1832",["Samuel's first cousin"],"david","","l"],
+johannadam:["Johann Adam Böhmer","1719–1771",["Link to Philip Beamer not proven"],"","","u"],
+charlesf:["Charles Forinash Sr.","c.1750–c.1805",["Claimed 400 acres on the Buckhannon River in 1772"],"","","l"],
+peterman:["Peterman Hardman","",["Said to have tried to help the Waggoners in the 1792 raid"],"","","l"],
+charlotte:["Charlotte Hardman","",["Maiden name possibly Lazier"],"","","u"],
+johnw:["John Waggoner","1751–1841",["Born White Marsh, Pennsylvania","Revolutionary private, Siege of Yorktown; SAR patriot P-338764"],"wilhelm","agnesa","r"],
+margaretb:["Margaret Bonnett","c.1759–1792",["Killed in the 1792 raid"],"samuelbonnett","","l"],
+jonathan:["Jonathan Fitz Randolph","1692–1783",["Piscataway, New Jersey"],"thomasfr","","l"],
+david:["David Fitz Randolph","1690–1773",["Piscataway, New Jersey"],"thomasfr","","l"],
+thomasfr:["Thomas Fitz Randolph","1659–1745",["Born Barnstable, Massachusetts","Tony and Betty's children descend from him twice"],"edward","elizblossom","l"],
+edward:["Edward Fitz Randolph","1607–c.1685",["Baptized July 5, 1607, Sutton-in-Ashfield, England","Came to Massachusetts in 1630","Married Elizabeth Blossom 1637, Scituate"],"edwardsr","franceshowes","l"],
+elizblossom:["Elizabeth Blossom","c.1620–1713",["Born in Leiden, Holland, to a Pilgrim family"],"thomasb","annee","l"],
+thomasb:["Thomas Blossom","c.1580–1633",["Pilgrim of the Leiden congregation","Reached Plymouth in 1629; died in the 1633 epidemic"],"","","l"],
+annee:["Anne Elsdon","",["Married Thomas Blossom 1605, Cambridge"],"","","l"],
+edwardsr:["Edward Fitz Randolph Sr.","c.1565",["Sutton-in-Ashfield, Nottinghamshire"],"","","l"],
+franceshowes:["Frances Howes","d. 1631",["Died at Kneesall, Nottinghamshire"],"","","l"],
+wilhelm:["Wilhelm Waggoner","c.1706–c.1755",["Married at Ober-Seemen, Hesse","Arrived Philadelphia Oct 25, 1748","Killed in a raid on the South Branch"],"","","l"],
+agnesa:["Agnesa Fleischer","",[],"","","l"],
+frankj:["Frank J. Smith","1865–1931",["Born Feb 19, 1865, Monroe, Michigan","Married Carrie Langenderfer in 1888; lived in Toledo","Woodworkers' union; Woodmen of the World","Died March 18, 1931, St. Vincent's Hospital, Toledo; buried Mt. Carmel"],"wendell","barbara","r"],
+carrie:["Caroline “Carrie” Langenderfer","c.1867–after 1931",["Born in Ohio","Mother of Frank, Olive, Herbert, Earl and Mildred","Her parents are not yet proven"],"","","r"],
+wendell:["Wendell (Wendelin) Smith","c.1830–1889",["Originally Schmidt","Named as Frank's father on his 1931 death certificate"],"","","r"],
+barbara:["Barbara Ankenbrandt","c.1831–1906",["Named as Frank's mother on his 1931 death certificate"],"","","r"],
+georgeg:["George Graf","",["Named as Joseph's father on his 1905 death certificate","Lived in Germany"],"","","r"],
+johnreger:["John Reger","",["Named as Brigitta's father on her 1914 death certificate","Lived in Germany"],"","","r"],
+samuelbonnett:["Samuel Bonnett","c.1732–1789",["Killed by a falling tree"],"jacques","marie","l"],
+jacques:["Jacques (John) Bonnet","b. c.1702",["French Protestant from Baden","Arrived Philadelphia Aug 27, 1733, ship Elizabeth"],"","","l"],
+marie:["Marie Desreux","",[],"","","l"]
+};
+const SIDE={};(function walk(id,s){if(!id||!D[id])return;SIDE[id]=s;walk(D[id][3],s);walk(D[id][4],s)})("tony","F");(function walk(id,s){if(!id||!D[id])return;SIDE[id]=s;walk(D[id][3],s);walk(D[id][4],s)})("betty","M");SIDE.kids="J";
+const col=id=>SIDE[id]==="F"?"var(--mint)":SIDE[id]==="M"?"var(--peri)":"var(--ink)";
+const stat={r:"From records",l:"From published genealogies and trees",u:"Not yet proven"};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let cur="kids";
+const kidsOf=id=>Object.keys(D).filter(k=>D[k][3]===id||D[k][4]===id);
+function showPerson(id){
+ if(!D[id])id="kids";cur=id;
+ const [n,y,f,,,s]=D[id];
+ const kids=kidsOf(id);const sibs=D[id][3]?kidsOf(D[id][3]).filter(k=>k!==id&&D[k][4]===D[id][4]):[];
+ document.getElementById("focus").innerHTML=`<h2>${esc(n)}</h2><p class="meta">${SIDE[id]==="J"?"":esc(y||"Dates not yet found")+" · "}<span class="tag"><span class="dot" style="background:${col(id)}"></span>${SIDE[id]==="F"?"Dad's side":SIDE[id]==="M"?"Mom's side":"Tony and Betty's children"}</span> · <span class="tag ${s==="u"?"unp":""}">${stat[s]}</span></p>${f.length?`<ul class="facts">${f.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}${sibs.length?`<div class="kids">Siblings: ${sibs.map(k=>`<button type="button" data-id="${k}">${esc(D[k][0])}</button>`).join(", ")}</div>`:""}${kids.length?`<div class="kids">Parent of ${kids.map(k=>`<button type="button" data-id="${k}">${esc(D[k][0])}</button>`).join(", ")}</div>`:""}`;
+ const slots=[[id]];for(let g=1;g<4;g++){slots[g]=[];for(const p of slots[g-1]){slots[g].push(p&&D[p]?D[p][3]||null:null,p&&D[p]?D[p][4]||null:null)}}
+ let h="";slots.forEach((row,g)=>{const span=8/row.length;row.forEach((p,i)=>{const st=`grid-column:${g+1};grid-row:${i*span+1}/span ${span}`;if(p&&D[p]){const u=D[p][5]==="u";h+=`<button type="button" class="p ${g===0?"sel":""}" style="${st}" data-id="${p}"><b><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}</b><span class="${u?"unp":""}">${esc(D[p][1]||"—")}${u?" · unproven":""}</span></button>`}else{h+=`<div class="p none" style="${st}"><span>Not yet found</span></div>`}})});
+ document.getElementById("ped").innerHTML=h;
+}
+document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);document.getElementById("focus").scrollIntoView({behavior:"smooth",block:"nearest"})}});
+document.getElementById("home").addEventListener("click",()=>showPerson("kids"));
+const byName={};Object.keys(D).forEach(k=>byName[D[k][0]+(D[k][1]?" ("+D[k][1]+")":"")]=k);
+document.getElementById("names").innerHTML=Object.keys(byName).sort().map(n=>`<option value="${esc(n)}"></option>`).join("");
+document.getElementById("find").addEventListener("change",e=>{const k=byName[e.target.value];if(k){showPerson(k);e.target.value=""}});
+showPerson("kids");
+
+// ---------- map ----------
+const LINES=[
+{id:"pilgrim",name:"Blossom and Fitz Randolph",side:"Mom's side",c:"#8EA6FF",
+ eu:[["cambridge","leiden"],["leiden","@"],["sutton","@"]],
+ am:[["@","plymouth"],["@","barnstable"],["barnstable","piscataway"],["piscataway","salem"],["salem","weston"],["weston","toledo"]],
+ steps:[["1609","Thomas and Anne Blossom leave Cambridge for Leiden, Holland"],["1629","The Blossoms reach Plymouth Colony"],["1630","Edward Fitz Randolph of Sutton-in-Ashfield sails to Massachusetts"],["1637","Edward marries Elizabeth Blossom at Scituate; later Barnstable"],["c.1669","The Fitz Randolphs move to Piscataway, New Jersey"],["c.1790s","Samuel and Margaret Fitz Randolph help found Salem, western Virginia"],["1800s","Their Bonnell descendants settle around Weston"],["c.1950","Betty Bonnell moves to Toledo with her mother"]]},
+{id:"huguenot",name:"Bonnet and Waggoner",side:"Mom's side",c:"#C59BF0",
+ eu:[["baden","rotterdam"],["oberseemen","rotterdam"],["rotterdam","@"]],
+ am:[["@","philadelphia"],["philadelphia","southbranch"],["southbranch","hackers"],["hackers","detroit","d"],["hackers","weston"]],
+ steps:[["1733","The Bonnets, French Protestants from Baden, reach Philadelphia on the Elizabeth"],["1748","Wilhelm Waggoner of Ober-Seemen, Hesse, reaches Philadelphia"],["1750s","Both families farm the South Branch of the Potomac; Wilhelm is killed in a raid"],["1780s","John and Margaret Waggoner settle on Hacker's Creek"],["1792–95","Elizabeth Waggoner is captured, taken west, and escapes to Detroit"],["1798–1891","Her Hardman and Forinash descendants stay in Lewis and Braxton counties"]]},
+{id:"beamer",name:"Beamer",side:"Mom's side",c:"#6EC6E8",
+ eu:[],
+ am:[["reading","hillsdale"],["hillsdale","newville"],["newville","weston"]],
+ steps:[["c.1799","Philip Beamer leaves Reading, Pennsylvania, for Tennessee; settles near Hillsdale, Monroe County, instead"],["1800s","Andrew Ballentine Beamer grows up in Monroe County"],["1891","Calvin Beamer marries Cora Forinash in Braxton County"],["1906","Genevieve Beamer born at Newville; later Weston"]]},
+{id:"graf",name:"Graf",side:"Dad's side",c:"#F08A7E",
+ eu:[["baden","@","d"]],
+ am:[["@","newyork","d"],["newyork","ottawalake"]],
+ steps:[["by 1859","Brigitta Reger of Württemberg is in Michigan with her first husband, Mr. Jaeger"],["c.1862","She marries Joseph Graf of Baden"],["1864","Rosa Graf born, in New York or Michigan"],["by 1870","The Grafs farm in Whiteford Township, Michigan"],["1905","Joseph is killed when a train strikes his buggy at Sylvania"]]},
+{id:"bexten",name:"Bexten",side:"Dad's side",c:"#3CC79A",
+ eu:[["westphalia","bremen","d"],["bremen","@","d"]],
+ am:[["@","newyork","d"],["newyork","ottawalake","d"],["ottawalake","pioneer"]],
+ steps:[["1880","Anthony Bexten, about 12, leaves Westphalia alone, by family tradition as a stowaway"],["1899","He marries Rosa Graf at Ottawa Lake, Michigan"],["1928","Nelson Bexten marries Caroline Smith of Toledo"],["1954","Tony Bexten marries Betty Bonnell in Toledo; later Pioneer, Ohio"]]}
+];
+const LBL={eu:{cambridge:["Cambridge",8,14,"start"],sutton:["Sutton-in-Ashfield",8,4,"start"],leiden:["Leiden",8,-6,"start"],rotterdam:["Rotterdam",8,14,"start"],oberseemen:["Ober-Seemen",-8,-6,"end"],baden:["Baden",8,4,"start"],westphalia:["Westphalia",8,-6,"start"],bremen:["Bremen",8,4,"start"]},
+am:{plymouth:["Plymouth",-8,-8,"end"],barnstable:["Barnstable",-8,18,"end"],piscataway:["Piscataway",-8,14,"end"],newyork:["New York",8,-6,"start"],philadelphia:["Philadelphia",8,16,"start"],reading:["Reading",-8,-6,"end"],southbranch:["South Branch",8,4,"start"],salem:["Salem",-8,-6,"end"],weston:["Weston, Hacker's Creek",-8,12,"end"],hackers:["",0,0,"start"],hillsdale:["Hillsdale",8,4,"start"],newville:["Newville",8,14,"start"],detroit:["Detroit",8,4,"start"],ottawalake:["Ottawa Lake",8,-8,"start"],toledo:["Toledo",8,14,"start"],pioneer:["Pioneer",0,22,"middle"]}};
+let active="all";
+function pt(m,k,other){const g=GEO[m];if(k!=="@")return g.places[k];const o=g.places[other];return m==="eu"?[0,o[1]+20]:[g.w,o[1]-10]}
+function curve(a,b){const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1];return `M${a[0]},${a[1]} Q${mx-dy*0.15},${my+dx*0.15} ${b[0]},${b[1]}`}
+function drawMap(m){
+ const g=GEO[m],svg=document.getElementById(m);
+ svg.setAttribute("viewBox",`0 0 ${g.w} ${g.h}`);
+ const lines=LINES.filter(L=>active==="all"||L.id===active);
+ const used=new Set();let r="";
+ lines.forEach(L=>L[m].forEach(([a,b,d])=>{const A=pt(m,a,b),B=pt(m,b,a);if(a!=="@")used.add(a);if(b!=="@")used.add(b);const len=Math.hypot(B[0]-A[0],B[1]-A[1])*1.2|0;r+=`<path class="route" d="${curve(A,B)}" fill="none" stroke="${L.c}" stroke-width="2.5" stroke-linecap="round" ${d?'stroke-dasharray="6 6"':`style="--len:${len}"`} marker-end="url(#ar-${m}-${L.id})"/>`}));
+ const defs=LINES.map(L=>`<marker id="ar-${m}-${L.id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${L.c}"/></marker>`).join("");
+ let pts="";used.forEach(k=>{const p=g.places[k],l=LBL[m][k];pts+=`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#E6E8EB" stroke="#07080A" stroke-width="2"/>`+(l[0]?`<text x="${p[0]+l[1]}" y="${p[1]+l[2]}" text-anchor="${l[3]}" fill="#E6E8EB" font-size="13" font-family="Nunito Sans,sans-serif" paint-order="stroke" stroke="#07080A" stroke-width="4">${esc(l[0])}</text>`:"")});
+ svg.innerHTML=`<defs>${defs}</defs><rect width="${g.w}" height="${g.h}" fill="#0b0d11"/><path d="${g.land}" fill="var(--land)"/><path d="${g.borders}" fill="none" stroke="#2c323c" stroke-width="0.8"/>${r}${pts}`;
+}
+function drawJourney(){
+ const lines=LINES.filter(L=>active==="all"||L.id===active);
+ document.getElementById("journey").innerHTML=lines.map(L=>`<div class="card"><h3><span class="dot" style="background:${L.c}"></span>${esc(L.name)} <span class="tag">${L.side}</span></h3><ol>${L.steps.map(s=>`<li><span class="yr">${esc(s[0])}</span><span>${esc(s[1])}</span></li>`).join("")}</ol></div>`).join("");
+}
+function renderChips(){
+ document.getElementById("chips").innerHTML=[`<button type="button" class="chip" data-line="all" aria-pressed="${active==="all"}">All lines</button>`].concat(LINES.map(L=>`<button type="button" class="chip" data-line="${L.id}" aria-pressed="${active===L.id}" style="color:${L.c}"><span style="color:var(--ink)">${esc(L.name)}</span></button>`)).join("");
+}
+document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest("[data-line]");if(!b)return;active=b.dataset.line;renderChips();drawMap("eu");drawMap("am");drawJourney()});
+renderChips();drawMap("eu");drawMap("am");drawJourney();
+
+// ---------- views ----------
+function route(){const v=location.hash==="#map"?"map":"tree";document.getElementById("view-tree").hidden=v!=="tree";document.getElementById("view-map").hidden=v!=="map";document.getElementById("nav-tree").toggleAttribute("aria-current",v==="tree");document.getElementById("nav-map").toggleAttribute("aria-current",v==="map");if(v==="tree")document.getElementById("nav-tree").setAttribute("aria-current","page");else document.getElementById("nav-map").setAttribute("aria-current","page")}
+window.addEventListener("hashchange",route);route();
+}
+</script>
+</body>
+</html>
