@@ -86,7 +86,10 @@ nav a{white-space:nowrap;flex:none}
 .prose th{color:var(--mute);font-weight:600;background:var(--panel)}
 .prose figure{margin:16px 0}
 .toc{max-width:760px;margin:0 auto 14px;position:sticky;top:calc(env(safe-area-inset-top) + 14px);z-index:15;padding:6px 0 10px;background:var(--bg)}
-.toc.stuck{box-shadow:0 calc(-1 * (env(safe-area-inset-top) + 20px)) 0 var(--bg)}
+.toc::before{content:"";position:absolute;left:-24px;right:-24px;bottom:100%;height:calc(env(safe-area-inset-top) + 24px);background:var(--bg);display:none;pointer-events:none}
+.toc.stuck::before{display:block}
+.toc{box-shadow:0 0 0 0 var(--bg)}
+.toc.stuck{box-shadow:-24px 0 0 var(--bg),24px 0 0 var(--bg)}
 .toc::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:14px;background:linear-gradient(var(--bg),rgba(7,8,10,0));pointer-events:none}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .jump{position:relative;display:block}
