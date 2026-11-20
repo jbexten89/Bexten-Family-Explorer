@@ -2,9 +2,11 @@
 const CHN=id=>({betty:"Betty A. “Althea” Bonnell"})[id]||D[id][0];
 const short=(n,max)=>{if(n.indexOf("“Althea”")>0)return n;n=n.replace(/\s*[“"][^”"]*[”"]\s*/g," ").replace(/^Rev\. /,"").trim();if(n.length<=max)return n;const w=n.split(" ");let s=w[0]+" "+w[w.length-1];if(s.length>max)s=s.slice(0,max-1)+"…";return s};
 const fill=id=>SIDE[id]==="F"?"var(--mint)":"var(--peri)";
+let FANF="kids",FANHIST=[];
+const fanHas=id=>id&&D[id]&&((D[id][3]&&D[D[id][3]])||(D[id][4]&&D[D[id][4]]));
 function drawFan(){
  const cx=560,cy=560,R=[0,110,190,270,360,455,560];
- let rows=[[null,null]];rows[0]=["tony","betty"];
+ const F=FANF;let rows=[[null,null]];rows[0]=F==="kids"?["tony","betty"]:[D[F][3]||null,D[F][4]||null];
  for(let g=1;g<5;g++){rows[g]=[];rows[g-1].forEach(p=>{rows[g].push(p&&D[p]?D[p][3]||null:null,p&&D[p]?D[p][4]||null:null)})}
  const P=(r,a)=>[(cx+r*Math.cos(a)).toFixed(1),(cy-r*Math.sin(a)).toFixed(1)];
  let s="";
@@ -19,20 +21,25 @@ function drawFan(){
   if(g<2){const nm=short(CHN(id),g===0?24:20),deg=90-am*180/Math.PI;t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${g===0?16:14}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(nm)}</tspan><tspan x="0" dy="1.3em" font-weight="400" fill="var(--mute)" font-size="12.5">${esc(D[id][1]||"")}</tspan></text></g>`}
   else{let deg=-am*180/Math.PI;if(am>Math.PI/2)deg+=180;const fs=g===2?13:g===3?11.5:10.5,mx=g===2?17:g===3?16:17;
    t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${fs}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(short(CHN(id),mx))}</tspan><tspan x="0" dy="1.2em" font-weight="400" fill="var(--mute)" font-size="${fs-1}">${esc(D[id][1]||"")}</tspan></text></g>`}
-  s+=`<g class="seg" data-id="${id}" role="button" tabindex="0" aria-label="${esc(D[id][0])}"><title>${esc(D[id][0])} ${esc(D[id][1])}${u?" (not yet proven)":""}</title><path d="${d}" fill="${fill(id)}" fill-opacity="${u?0.08:0.2}" stroke="${u?"var(--amber)":"var(--bg)"}" stroke-width="${u?1.5:2}"/>${t}</g>`;
+  const more=fanHas(id);s+=`<g class="seg${more?" more":""}" data-id="${id}" role="button" tabindex="0" aria-label="${esc(D[id][0])}${more?": show their ancestors":""}"><title>${esc(D[id][0])} ${esc(D[id][1])}${u?" (not yet proven)":""}</title><path d="${d}" fill="${fill(id)}" fill-opacity="${u?0.08:0.2}" stroke="${u?"var(--amber)":"var(--bg)"}" stroke-width="${u?1.5:2}"/>${t}</g>`;
  })});
  const [a,b]=P(R[1],Math.PI),[c,e]=P(R[1],0);
- s+=`<path d="M${a},${b} A${R[1]},${R[1]} 0 0 1 ${c},${e} Z" fill="var(--panel2)" stroke="var(--line)"/><text x="${cx}" y="${cy-62}" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">Tony and Althea's children</text><text x="${cx}" y="${cy-30}" text-anchor="middle" font-size="13.5" fill="var(--mute)">Six children, living</text>`;
- s+=`<text x="40" y="${cy+30}" font-size="14" fill="var(--mint)" font-weight="700">Dad's side</text><text x="${2*cx-40}" y="${cy+30}" text-anchor="end" font-size="14" fill="var(--peri)" font-weight="700">Mom's side</text>`;
+ const cn=F==="kids"?"Tony and Althea's children":short(CHN(F),22),cs=F==="kids"?"Six children, living":(D[F][1]||"");
+ s+=`<g class="fanc"${F==="kids"?"":` data-open="${F}" role="button" tabindex="0" aria-label="Open ${esc(D[F][0])} in the tree"`}><path d="M${a},${b} A${R[1]},${R[1]} 0 0 1 ${c},${e} Z" fill="var(--panel2)" stroke="${F==="kids"?"var(--line)":"var(--accent)"}"/><text x="${cx}" y="${cy-62}" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">${esc(cn)}</text><text x="${cx}" y="${cy-36}" text-anchor="middle" font-size="13.5" fill="var(--mute)">${esc(cs)}</text>${F==="kids"?"":`<text x="${cx}" y="${cy-14}" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">Open in tree ›</text>`}</g>`;
+ s+=`<text x="40" y="${cy+30}" font-size="14" fill="${F==="kids"?"var(--mint)":"var(--mute)"}" font-weight="700">${F==="kids"?"Dad's side":"Father's side"}</text><text x="${2*cx-40}" y="${cy+30}" text-anchor="end" font-size="14" fill="${F==="kids"?"var(--peri)":"var(--mute)"}" font-weight="700">${F==="kids"?"Mom's side":"Mother's side"}</text>`;
  const svg=document.getElementById("fan");svg.setAttribute("viewBox",`0 0 ${2*cx} ${cy+44}`);svg.innerHTML=s;
+ const nav=document.getElementById("fannav");if(nav){if(F==="kids"){nav.hidden=true}else{nav.hidden=false;const back=FANHIST.length?FANHIST[FANHIST.length-1]:"kids";nav.innerHTML=`<button type="button" class="btn" data-fan="back">‹ ${esc(back==="kids"?"Back to the children":"Back to "+short(CHN(back),24))}</button><button type="button" class="btn" data-fan="home">Start over</button><span>Centered on <b>${esc(CHN(F))}</b></span>`}}
 }
+function fanFocus(id,push){if(push!==false)FANHIST.push(FANF);FANF=id;drawFan();if(typeof centerFan==="function")centerFan()}
 const CHAINS=[["thomasb","The Pilgrim line"],["edwardsr","Fitz Randolph of Nottinghamshire"],["jacques","The Huguenot Bonnets"],["wilhelm","The Waggoners of Hesse"],["charlesf","Forinash of the Buckhannon"],["philipsr","The Beamers"],["herman","The Bexten line"],["georgeg","The Grafs of Baden"],["johnreger","Reger of Württemberg"],["wendell","The Smiths (Schmidt) of Monroe"]];
 function pathTo(target){const q=[["kids"]],seen=new Set();while(q.length){const p=q.shift(),h=p[p.length-1];if(h===target)return p;if(seen.has(h))continue;seen.add(h);const d=D[h];if(!d)continue;[d[3],d[4]].forEach(x=>{if(x&&D[x])q.push(p.concat(x))})}return null}
 function drawChains(){
  document.getElementById("chains").innerHTML=CHAINS.map(([t,title])=>{const p=pathTo(t);if(!p)return"";const list=p.slice(1).reverse();return `<div class="card"><h3><span class="dot" style="background:${col(t)}"></span>${esc(title)}</h3><ol>${list.map(k=>`<li${D[k][5]==="u"?' class="unp"':""}>${esc(CHN(k))}<span class="yr">${esc(D[k][1])}</span></li>`).join("")}<li class="end">Tony and Althea's children</li></ol></div>`}).join("");
 }
-document.getElementById("fan").addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});
-document.getElementById("fan").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}});
+function fanAct(t){const o=t.closest("[data-open]");if(o){showPerson(o.dataset.open);location.hash="#tree";return true}const g=t.closest("[data-id]");if(!g)return false;const id=g.dataset.id;if(fanHas(id))fanFocus(id);else{showPerson(id);location.hash="#tree"}return true}
+document.getElementById("fan").addEventListener("click",e=>fanAct(e.target));
+document.getElementById("fan").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&fanAct(e.target))e.preventDefault()});
+document.getElementById("fannav").addEventListener("click",e=>{const b=e.target.closest("[data-fan]");if(!b)return;if(b.dataset.fan==="home"){FANHIST=[];fanFocus("kids",false)}else{fanFocus(FANHIST.pop()||"kids",false)}});
 drawFan();drawChains();
 const ZS=[1,1.6,2.4,3.4];let zi=0;const fw=document.getElementById("fanwrap");
 function setZoom(i){const old=ZS[zi];const cx=(fw.scrollLeft+fw.clientWidth/2)/fw.scrollWidth,cy=(fw.scrollTop+fw.clientHeight/2)/fw.scrollHeight;zi=Math.max(0,Math.min(ZS.length-1,i));document.getElementById("fan").style.setProperty("--z",ZS[zi]);
