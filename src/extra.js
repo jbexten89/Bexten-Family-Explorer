@@ -73,6 +73,7 @@ const TODO=[
   ["sar","<b>Optional: join the Sons of the American Revolution</b> through Samuel Fitz Randolph (SAR #P-158994) or John Waggoner (#P-338764). Ask Claude for an application starter first."]]]
 ];
 const TKEY="bexten-todo-v1";let done={};try{done=JSON.parse(localStorage.getItem(TKEY))||{}}catch(e){done={}}
+if(!done._sent1){["natz","nysa","wvu"].forEach(k=>{done[k]=done[k]||Date.now()});done._sent1=1;try{localStorage.setItem(TKEY,JSON.stringify(done))}catch(e){}}
 function drawTodo(){
  const all=TODO.flatMap(s=>s[2]),n=all.filter(t=>done[t[0]]).length;
  document.getElementById("todo-prog").innerHTML=`<b>${n}</b> of ${all.length} done`;
