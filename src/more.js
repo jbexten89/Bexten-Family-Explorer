@@ -193,5 +193,6 @@ function initGraveMap(){
  document.querySelectorAll("[data-gfit]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.gfit;gmap.fitBounds(k==="oh"?oh:k==="wv"?GRAVES.filter(g=>g.ll[0]<40).map(g=>g.ll):pts,{padding:[30,30]});document.querySelectorAll("[data-gfit]").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
 }
 drawGraves();
-window.addEventListener("hashchange",()=>setTimeout(initGraveMap,60));setTimeout(initGraveMap,100);
+function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
+window.addEventListener("hashchange",setMapSub);setMapSub();
 window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});

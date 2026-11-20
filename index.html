@@ -229,6 +229,11 @@ html,body{height:100%;overflow:hidden}
 @keyframes flash{0%,30%{border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,139,255,.35)}100%{border-color:var(--line);box-shadow:none}}
 .gmap .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.82) contrast(.92) saturate(.6)}
 .gmap .leaflet-bar a{background:#171a20;color:var(--ink);border-color:var(--line)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);max-width:420px}
+.seg a{display:flex;align-items:center;justify-content:center;min-height:40px;border-radius:10px;color:var(--mute);text-decoration:none;font:700 15px "Nunito Sans",sans-serif}
+.seg a[aria-selected=true]{background:var(--panel2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+#gv .sect{margin-top:4px}
+@media print{.seg{display:none}#gv,#mig{display:block!important}}
 </style>
 </head>
 <body>
@@ -263,6 +268,8 @@ html,body{height:100%;overflow:hidden}
 </div>
 </section>
 <section class="view" id="view-map" aria-label="Migration map" hidden>
+<div class="seg" role="tablist" aria-label="Map views"><a href="#map" role="tab" id="seg-mig">Journeys</a><a href="#map/graves" role="tab" id="seg-gv">Graves</a></div>
+<div id="mig">
 <div class="chips" id="chips" role="group" aria-label="Family lines"></div>
 <div class="maps">
 <div class="mapc"><h3>Europe: where they left from</h3><svg id="eu" role="img" aria-label="Map of England, the Netherlands and Germany with the families' starting points"></svg></div>
@@ -270,11 +277,14 @@ html,body{height:100%;overflow:hidden}
 </div>
 <div class="journey" id="journey"></div>
 <p class="note">Arrows off the edge of a map are Atlantic crossings. Dashed routes are uncertain: a port or step not yet found in a record. The Smith family were Toledo people for as far back as records go so far.</p>
-<h2 class="sect" id="graves">Where they're buried</h2>
+</div>
+<div id="gv" hidden>
+<h2 class="sect">Where they're buried</h2>
 <p class="note">Seven cemeteries hold ancestors found so far: four around Toledo and Pioneer, three in central West Virginia. Tap a name to open that person, or Directions to drive there.</p>
 <div class="gbar"><button type="button" class="chip" data-gfit="oh" aria-pressed="true">Ohio</button><button type="button" class="chip" data-gfit="wv">West Virginia</button><button type="button" class="chip" data-gfit="all">All</button><a class="chip trip" id="trip" target="_blank" rel="noopener">Ohio day trip route</a></div>
 <div id="gmap" class="gmap" role="region" aria-label="Map of family burial places"></div>
 <div class="graves" id="graves-list"></div>
+</div>
 </section>
 <section class="view" id="view-story" aria-label="The Bexten Family Story" hidden>
 <div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label></div>
@@ -937,7 +947,8 @@ function initGraveMap(){
  document.querySelectorAll("[data-gfit]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.gfit;gmap.fitBounds(k==="oh"?oh:k==="wv"?GRAVES.filter(g=>g.ll[0]<40).map(g=>g.ll):pts,{padding:[30,30]});document.querySelectorAll("[data-gfit]").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
 }
 drawGraves();
-window.addEventListener("hashchange",()=>setTimeout(initGraveMap,60));setTimeout(initGraveMap,100);
+function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
+window.addEventListener("hashchange",setMapSub);setMapSub();
 window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});
 
 // ---------- views ----------
