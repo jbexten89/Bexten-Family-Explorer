@@ -109,3 +109,49 @@ header h1{white-space:nowrap}
 html,body{height:100%;overflow:hidden}
 #app{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
 @media print{html,body{height:auto;overflow:visible}#app{position:static;overflow:visible}}
+.rel{margin:2px 0 6px;font-size:15px;color:var(--mute)}
+.rel b{color:var(--accent);font-weight:700}
+.rel .twice{color:var(--amber,#E3A04F)}
+.chain{margin:0 0 12px}
+.chain summary,.srcs summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:15px;padding:6px 0;list-style:none;display:flex;align-items:center;gap:8px}
+.chain summary::-webkit-details-marker,.srcs summary::-webkit-details-marker{display:none}
+.chain summary::before,.srcs summary::before{content:"";width:7px;height:7px;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(-45deg);transition:transform .15s}
+.chain[open] summary::before,.srcs[open] summary::before{transform:rotate(45deg)}
+.chain ol{list-style:none;margin:6px 0 0;padding:0 0 0 14px;border-left:2px solid var(--line)}
+.chain li{padding:5px 0;font-size:15px;display:flex;justify-content:space-between;gap:10px}
+.chain li span{color:var(--mute);font-size:13px;white-space:nowrap}
+.chain li button{all:unset;cursor:pointer;color:var(--accent)}
+.chain li.me{font-weight:700}
+.chain li.end{color:var(--mute);font-style:italic}
+.chain .or{margin:8px 0 4px;color:var(--mute);font-size:13px}
+.buried{display:flex;gap:10px;align-items:center;margin:12px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--ink);text-decoration:none;font-size:15px}
+.buried svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--accent);stroke-width:1.9}
+.srcs{margin-top:10px;border-top:1px solid var(--line);padding-top:6px}
+.srcs summary span{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:0 8px;font-size:12px;color:var(--mute)}
+.srcs ul{list-style:none;margin:4px 0 0;padding:0}
+.srcs li{padding:8px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.4;display:flex;flex-direction:column;gap:3px}
+.srcs li:first-child{border-top:0}
+.srcs li a{color:var(--accent);text-decoration:none}
+.st{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.st-tree,.st-family{color:#E3A04F}
+.srcs .note{font-size:13px;margin:6px 0 0}
+.sect{font-size:22px;margin:34px 0 4px;scroll-margin-top:calc(env(safe-area-inset-top) + 16px)}
+.gbar{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.gbar .trip{text-decoration:none;color:var(--accent)}
+.gmap{height:340px;border-radius:14px;border:1px solid var(--line);background:#0b0d11;overflow:hidden;z-index:0}
+.gmap .leaflet-popup-content-wrapper,.gmap .leaflet-popup-tip{background:#171a20;color:var(--ink)}
+.gmap .leaflet-popup-content a{color:var(--accent)}
+.gmap .leaflet-control-attribution{background:rgba(7,8,10,.7);color:#8a929e}
+.gmap .leaflet-control-attribution a{color:#aab}
+.graves{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px}
+.grave h3{margin:0;font-size:17px}
+.grave .town{margin:2px 0 10px;color:var(--mute);font-size:14px}
+.grave .who{display:flex;flex-direction:column;gap:2px}
+.grave .who button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:6px 0;font-size:15px;color:var(--ink)}
+.grave .who small{color:var(--mute);margin-left:auto;font-size:13px}
+.grave .dir{display:inline-flex;margin-top:10px;padding:8px 14px;border-radius:999px;background:var(--accent);color:#04101f;font-weight:700;text-decoration:none;font-size:14px}
+@media screen and (max-width:760px){.gmap{height:300px}.gbar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:12px -16px;padding:0 16px}.gbar .chip{flex:none;min-height:36px;padding:0 14px;font-size:14px}}
+@media print{.gmap,.gbar,.dir{display:none}}
+.grave .who small{white-space:nowrap}
+.grave.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%,30%{border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,139,255,.35)}100%{border-color:var(--line);box-shadow:none}}

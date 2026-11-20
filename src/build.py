@@ -31,7 +31,7 @@ old=re.search(r'// ---------- views ----------\nfunction route\(\)\{.*?\n',t).gr
 new='''const VIEWS=["tree","map","story","report","charts","todo"];
 function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.includes(h[0])?h[0]:"tree";VIEWS.forEach(k=>{document.getElementById("view-"+k).hidden=k!==v});document.querySelectorAll("nav a[data-v]").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});const tgt=h[1]&&document.getElementById(h[1]);if(tgt)tgt.scrollIntoView({block:"start"});else document.getElementById("app").scrollTo(0,0)}
 '''
-t=t.replace(old,(S/'extra.js').read_text()+'\n// ---------- views ----------\n'+new)
+t=t.replace(old,(S/'extra.js').read_text()+(S/'more.js').read_text()+'\n// ---------- views ----------\n'+new)
 t=t.replace('__GEO__',(S/'geo.json').read_text().strip())
 t=t.replace('</body>','<script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{})</script>\n</body>')
 (OUT/'index.html').write_text(t)

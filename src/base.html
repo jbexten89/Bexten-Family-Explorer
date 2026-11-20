@@ -103,6 +103,11 @@ input[type=search]{min-height:44px;font:16px "Nunito Sans",sans-serif;padding:0 
 </div>
 <div class="journey" id="journey"></div>
 <p class="note">Arrows off the edge of a map are Atlantic crossings. Dashed routes are uncertain: a port or step not yet found in a record. The Smith family were Toledo people for as far back as records go so far.</p>
+<h2 class="sect" id="graves">Where they're buried</h2>
+<p class="note">Seven cemeteries hold ancestors found so far: four around Toledo and Pioneer, three in central West Virginia. Tap a name to open that person, or Directions to drive there.</p>
+<div class="gbar"><button type="button" class="chip" data-gfit="oh" aria-pressed="true">Ohio</button><button type="button" class="chip" data-gfit="wv">West Virginia</button><button type="button" class="chip" data-gfit="all">All</button><a class="chip trip" id="trip" target="_blank" rel="noopener">Ohio day trip route</a></div>
+<div id="gmap" class="gmap" role="region" aria-label="Map of family burial places"></div>
+<div class="graves" id="graves-list"></div>
 </section>
 </main>
 </div>
@@ -210,6 +215,7 @@ function showPerson(id){
  const caps=[["Father","Mother"],["Father's father","Father's mother","Mother's father","Mother's mother"]];
  let m="";[["Parents",1],["Grandparents",2],["Great-grandparents",3]].forEach(([t,g])=>{if(slots[g].every(x=>!x||!D[x]))return;m+=`<h3>${t}</h3><div class="pgrid g${g}">${slots[g].map((p,i)=>card(p,caps[g-1]?caps[g-1][i]:"")).join("")}</div>`});
  document.getElementById("pedm").innerHTML=m||`<p class="note">No parents recorded yet for this person.</p>`;
+ if(typeof afterPerson==="function")afterPerson(id);
 }
 document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);document.getElementById("app").scrollTo({top:0,behavior:"smooth"})}});
 document.getElementById("home").addEventListener("click",()=>{showPerson("kids");document.getElementById("app").scrollTo({top:0,behavior:"smooth"})});
