@@ -21,14 +21,14 @@ function drawFan(){
   s+=`<g class="seg" data-id="${id}" role="button" tabindex="0" aria-label="${esc(D[id][0])}"><title>${esc(D[id][0])} ${esc(D[id][1])}${u?" (not yet proven)":""}</title><path d="${d}" fill="${fill(id)}" fill-opacity="${u?0.08:0.2}" stroke="${u?"var(--amber)":"var(--bg)"}" stroke-width="${u?1.5:2}"/>${t}</g>`;
  })});
  const [a,b]=P(R[1],Math.PI),[c,e]=P(R[1],0);
- s+=`<path d="M${a},${b} A${R[1]},${R[1]} 0 0 1 ${c},${e} Z" fill="var(--panel2)" stroke="var(--line)"/><text x="${cx}" y="${cy-62}" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">Tony and Betty's children</text><text x="${cx}" y="${cy-30}" text-anchor="middle" font-size="13.5" fill="var(--mute)">Six children, living</text>`;
+ s+=`<path d="M${a},${b} A${R[1]},${R[1]} 0 0 1 ${c},${e} Z" fill="var(--panel2)" stroke="var(--line)"/><text x="${cx}" y="${cy-62}" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">Tony and Althea's children</text><text x="${cx}" y="${cy-30}" text-anchor="middle" font-size="13.5" fill="var(--mute)">Six children, living</text>`;
  s+=`<text x="40" y="${cy+30}" font-size="14" fill="var(--mint)" font-weight="700">Dad's side</text><text x="${2*cx-40}" y="${cy+30}" text-anchor="end" font-size="14" fill="var(--peri)" font-weight="700">Mom's side</text>`;
  const svg=document.getElementById("fan");svg.setAttribute("viewBox",`0 0 ${2*cx} ${cy+44}`);svg.innerHTML=s;
 }
 const CHAINS=[["thomasb","The Pilgrim line"],["edwardsr","Fitz Randolph of Nottinghamshire"],["jacques","The Huguenot Bonnets"],["wilhelm","The Waggoners of Hesse"],["charlesf","Forinash of the Buckhannon"],["philipsr","The Beamers"],["herman","The Bexten line"],["georgeg","The Grafs of Baden"],["johnreger","Reger of Württemberg"],["wendell","The Smiths (Schmidt) of Monroe"]];
 function pathTo(target){const q=[["kids"]],seen=new Set();while(q.length){const p=q.shift(),h=p[p.length-1];if(h===target)return p;if(seen.has(h))continue;seen.add(h);const d=D[h];if(!d)continue;[d[3],d[4]].forEach(x=>{if(x&&D[x])q.push(p.concat(x))})}return null}
 function drawChains(){
- document.getElementById("chains").innerHTML=CHAINS.map(([t,title])=>{const p=pathTo(t);if(!p)return"";const list=p.slice(1).reverse();return `<div class="card"><h3><span class="dot" style="background:${col(t)}"></span>${esc(title)}</h3><ol>${list.map(k=>`<li${D[k][5]==="u"?' class="unp"':""}>${esc(D[k][0])}<span class="yr">${esc(D[k][1])}</span></li>`).join("")}<li class="end">Tony and Betty's children</li></ol></div>`}).join("");
+ document.getElementById("chains").innerHTML=CHAINS.map(([t,title])=>{const p=pathTo(t);if(!p)return"";const list=p.slice(1).reverse();return `<div class="card"><h3><span class="dot" style="background:${col(t)}"></span>${esc(title)}</h3><ol>${list.map(k=>`<li${D[k][5]==="u"?' class="unp"':""}>${esc(D[k][0])}<span class="yr">${esc(D[k][1])}</span></li>`).join("")}<li class="end">Tony and Althea's children</li></ol></div>`}).join("");
 }
 document.getElementById("fan").addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});
 document.getElementById("fan").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}});
