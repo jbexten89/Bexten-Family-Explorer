@@ -234,6 +234,8 @@ html,body{height:100%;overflow:hidden}
 .seg a[aria-selected=true]{background:var(--panel2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
 #gv .sect{margin-top:4px}
 @media print{.seg{display:none}#gv,#mig{display:block!important}}
+html.sa #app{bottom:auto;height:var(--sh)}
+@media screen and (max-width:760px){html.sa nav{bottom:auto;top:var(--sh);transform:translateY(-100%)}}
 </style>
 </head>
 <body>
@@ -958,6 +960,7 @@ function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.include
 window.addEventListener("hashchange",route);route();
 }
 </script>
+<script>(function(){var h=document.documentElement,mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function f(){if(!(navigator.standalone||mm("(display-mode: standalone)")))return;var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);if(H>innerHeight+1){h.classList.add("sa");h.style.setProperty("--sh",H+"px")}else{h.classList.remove("sa")}}f();addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)})})()</script>
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{})</script>
 </body>
 </html>
