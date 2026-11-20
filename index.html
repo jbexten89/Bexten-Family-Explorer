@@ -501,11 +501,11 @@ function showPerson(id){
  let h="";slots.forEach((row,g)=>{const span=8/row.length;row.forEach((p,i)=>{const st=`grid-column:${g+1};grid-row:${i*span+1}/span ${span}`;if(p&&D[p]){const u=D[p][5]==="u";h+=`<button type="button" class="p ${g===0?"sel":""}" style="${st}" data-id="${p}"><b><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}</b><span class="${u?"unp":""}">${esc(D[p][1]||"—")}${u?" · unproven":""}</span></button>`}else{h+=`<div class="p none" style="${st}"><span>Not yet found</span></div>`}})});
  document.getElementById("ped").innerHTML=h;
 }
-document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);document.getElementById("focus").scrollIntoView({behavior:"smooth",block:"nearest"})}});
-document.getElementById("home").addEventListener("click",()=>showPerson("kids"));
+document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);window.scrollTo({top:0,behavior:"smooth"})}});
+document.getElementById("home").addEventListener("click",()=>{showPerson("kids");window.scrollTo({top:0,behavior:"smooth"})});
 const byName={};Object.keys(D).forEach(k=>byName[D[k][0]+(D[k][1]?" ("+D[k][1]+")":"")]=k);
 document.getElementById("names").innerHTML=Object.keys(byName).sort().map(n=>`<option value="${esc(n)}"></option>`).join("");
-document.getElementById("find").addEventListener("change",e=>{const k=byName[e.target.value];if(k){showPerson(k);e.target.value=""}});
+document.getElementById("find").addEventListener("change",e=>{const k=byName[e.target.value];if(k){showPerson(k);e.target.value="";e.target.blur();window.scrollTo({top:0,behavior:"smooth"})}});
 showPerson("kids");
 
 // ---------- map ----------
