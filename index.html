@@ -246,6 +246,34 @@ html,body,#app{touch-action:manipulation}
 .rtile svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .rtile b{font-size:14px;line-height:1.3;font-weight:700}
 .rtile span{font-size:12px;color:var(--mute);margin-top:auto}
+.sibs{margin-top:14px}
+.sibs h4{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.sibs ul,.ccard ul{list-style:none;margin:0;padding:0}
+.sibs li,.ccard li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--line);font-size:15px}
+.sibs li:first-child,.ccard li:first-child{border-top:0}
+.sibs li b{font-weight:600}
+.sibs li span,.ccard li span{color:var(--mute);font-size:13px;text-align:right}
+.sibs .note,.ccard .note{font-size:13.5px;margin:6px 0 0}
+.sibs .cz{margin:8px 0 0;font-size:14px;color:var(--accent)}
+.cousins{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.cgh{grid-column:1/-1;margin:14px 0 0;font-size:17px;color:var(--accent)}
+.cwho{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;margin-bottom:8px;flex-wrap:wrap}
+.cwho small{color:var(--mute);font-weight:400;font-size:13px}
+.tl{list-style:none;margin:8px 0 0;padding:0 0 0 18px;border-left:2px solid var(--line);max-width:760px}
+.tl .cent{margin:22px 0 8px -18px;padding-left:18px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.tl .cent:first-child{margin-top:4px}
+.tl .ev{position:relative;display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:8px 0;font-size:15.5px;line-height:1.4}
+.tl .ev::before{content:"";position:absolute;left:-24px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--panel2);border:2px solid var(--line)}
+.tl .fam::before{background:var(--accent);border-color:var(--bg)}
+.tl .yr{color:var(--mute);font-variant-numeric:tabular-nums;font-size:14px;padding-top:1px}
+.tl .ev button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:baseline;color:var(--ink)}
+.tl .ev button .dot{flex:none;transform:translateY(-1px)}
+.tl .world .wt{color:var(--mute);font-style:italic}
+.tlbar{margin-top:0}
+@media print{#tl-wrap{display:none}}
+.cwho{display:block}
+.cwho .dot{display:inline-block;margin-right:8px;vertical-align:middle}
+.cwho small{display:block;margin-top:2px}
 </style>
 </head>
 <body>
@@ -299,6 +327,8 @@ html,body,#app{touch-action:manipulation}
 </div>
 </section>
 <section class="view" id="view-story" aria-label="The Bexten Family Story" hidden>
+<div class="seg" role="tablist" aria-label="Story views"><a href="#story" role="tab" id="seg-story">Story</a><a href="#story/timeline" role="tab" id="seg-tl">Timeline</a></div>
+<div id="story-wrap">
 <div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label></div>
 <article class="prose" id="story-body">
 <h1>The Bexten Family Story</h1>
@@ -393,6 +423,11 @@ html,body,#app{touch-action:manipulation}
 <p><strong>Historical background:</strong> e-WV: The West Virginia Encyclopedia (<a href="https://wvencyclopedia.org/entries/733" target="_blank" rel="noopener">Treaty of Greenville</a>, <a href="https://www.wvencyclopedia.org/entries/2171" target="_blank" rel="noopener">Battle of Fallen Timbers</a>, <a href="https://www.wvencyclopedia.org/entries/1409" target="_blank" rel="noopener">Louie Glass Company</a>); <a href="https://en.wikipedia.org/wiki/6th_West_Virginia_Infantry_Regiment" target="_blank" rel="noopener">6th West Virginia Infantry Regiment</a> and <a href="https://emergingcivilwar.com/2021/11/30/a-most-terrible-scene-a-collision-on-the-bo-and-one-regiments-deadliest-day/" target="_blank" rel="noopener">Emerging Civil War</a>; <a href="https://www.appalachianhistory.net/2007/01/hills-are-alive-with-sound-of.html" target="_blank" rel="noopener">Appalachian History on Weston glass</a>; GG Archives on <a href="https://www.ggarchives.com/OceanTravel/Stowaways/index.html" target="_blank" rel="noopener">steamship stowaways</a>; the <a href="https://mha.mun.ca/mha/mha-site/mlc/studies/stowaways.php" target="_blank" rel="noopener">Maritime History Archive</a>.</p>
 <p>Compiled November 2026.</p>
 </article>
+</div>
+<div id="tl-wrap" hidden>
+<div class="gbar tlbar"><button type="button" class="chip" data-tlf="all" aria-pressed="true">Everything</button><button type="button" class="chip" data-tlf="F">Dad's side</button><button type="button" class="chip" data-tlf="M">Mom's side</button><button type="button" class="chip" data-tlf="fam">Family only</button></div>
+<ol class="tl" id="tl"></ol>
+</div>
 </section>
 <section class="view" id="view-report" aria-label="Research report" hidden>
 <div class="toc"><label class="jump"><span class="sr">Jump to a section</span><select id="report-toc"></select></label></div>
@@ -504,6 +539,9 @@ html,body,#app{touch-action:manipulation}
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
 <h2 style="margin:28px 0 0;font-size:22px">Lines of descent</h2>
 <div class="chains" id="chains"></div>
+<h2 style="margin:34px 0 4px;font-size:22px" id="cousins">Where the cousins come from</h2>
+<p class="note" style="margin:0 0 12px">Brothers and sisters of each ancestor. Their descendants in your generation are your cousins: the further back the ancestor, the more distant the cousin. Living cousins are not named here.</p>
+<div class="cousins" id="cousins-list"></div>
 </section>
 <section class="view" id="view-todo" aria-label="To-do list" hidden>
 <div class="todo">
@@ -941,6 +979,7 @@ function afterPerson(id){
   meta.insertAdjacentHTML("afterend",h)}
  const gr=BURIED[id];
  if(gr)box.insertAdjacentHTML("beforeend",`<a class="buried" href="#map/g-${gr.id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Buried at <b>${esc(gr.name)}</b>, ${esc(gr.town)}</span></a>`);
+ box.insertAdjacentHTML("beforeend",sibsHTML(id));
  const s=SRC[id];
  const tiles=(s||[]).filter(x=>x[3]&&x[2]);
  if(tiles.length){const host=u=>u.includes("familysearch")?"FamilySearch":u.includes("michigan.access")?"Michiganology":u.includes("findagrave")?"Find a Grave":u.includes("archive.org")?"Internet Archive":u.includes("revwarapps")?"Southern Campaigns pensions":u.includes("wvu.edu")||u.includes("wvhistoryonview")?"WV History OnView":u.includes("genealogytrails")?"Genealogy Trails":"Web";
@@ -969,6 +1008,121 @@ drawGraves();
 function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
 window.addEventListener("hashchange",setMapSub);setMapSub();
 window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});
+
+// ---------- brothers and sisters (cousins) ----------
+const SIBS={
+ tony:{list:[["Joanne Lucille (later Johnson)","1934–2020"],["Carl, called Carly","died as a baby, 1936"],["A brother","born about 1939"],["Patricia Ann (later Delcamp)","1942–2024"]]},
+ betty:{list:[["Robert Eugene Bonnell","1927–2007"],["Wallace L. Bonnell","1928–1983"],["Charles Eddie Bonnell","1931–1933"]]},
+ nelson:{list:[["Joseph Herman Bexten","1900–1989"],["Mary Theresia (Mrs. Arnold C. Miller)","1905–1992"],["Lawrence Arnold Bexten","1909–1999"]]},
+ caroline:{list:[["Gertrude, “Aunt DoDo” (later Lentz)",""],["Lucille (later Boutwell)",""],["Kathryn (later Brozozwicz)",""],["Mildred, “Aunt PeeWee” (later Frelin)",""],["Sylvester Smith",""],["Roland Smith",""],["Frederick “Fritz” Smith",""],["Al H. “Whitey” Smith","1930–2017"]],note:"Herbert's 1949 obituary counts ten children in all."},
+ onal:{list:[],note:"One of nine children of John and Amanda Bonnell, with three older half-siblings from John's first marriage, to Tabitha Jeffries. Their names are not yet listed."},
+ herbert:{list:[["Frank Smith","of Toledo"],["Olive (Mrs. Carl Rise)","later St. Petersburg, Florida"],["Earl Smith","of Maumee"],["Mildred (Mrs. Leonard Ackerman)","of Toledo"]]},
+ frankj:{list:[["Kate (Mrs. Collins)","of Detroit"],["Mrs. John Ranse","of Toledo"],["Mrs. John Conrad","of Toledo"],["Barbara (later Cullen)",""]],note:"Sisters named in Frank's 1931 obituary and records."},
+ anthony:{list:[],note:"Three sisters, still living in Germany when he died in 1950. Their names are not known."},
+ rosa:{list:[["Maria Jaeger","half-sister, born about 1859"],["Teresia (Tracy) Jaeger","half-sister, about 1861–1881"]],note:"Brigitta's daughters by her first husband. Both married into the Hecker family."},
+ elizabethw:{list:[["Mary Waggoner","taken captive with her in 1792; home after 1795"],["Peter Waggoner","taken at about 6; found in 1812 living with the Shawnee"]],note:"Several other brothers and sisters were killed in the 1792 raid."},
+ samuelbonnett:{list:[["Margaret Bonnet","b. 1725"],["Johann Adam Bonnet","b. 1726/27"],["Susanna Magdalena Bonnet","b. 1729"],["Christina Bonnet","b. 1731"],["John Martin Bonnet","b. 1733"],["Lewis Bonnett Sr.","b. 1737; married Anna Elizabeth Waggoner"]],note:"Two little sisters died on the 1733 voyage."},
+ johnw:{list:[["Anna Elizabeth Waggoner","half-sister; married Lewis Bonnett Sr."]]}
+};
+const CORD=["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh"];
+const genOf=id=>{const p=allPaths(id)[0];return p?p.length-1:0};
+const cousinLine=g=>g===1?"Their children are first cousins of Tony and Althea's children.":g===2?"Their grandchildren are second cousins of Tony and Althea's children.":`Their descendants in the same generation as Tony and Althea's children are ${CORD[g]||ordn(g)} cousins.`;
+function sibsHTML(id){const s=SIBS[id];if(!s)return"";return `<div class="sibs"><h4>Brothers and sisters</h4>${s.list.length?`<ul>${s.list.map(([n,y])=>`<li><b>${esc(n)}</b>${y?`<span>${esc(y)}</span>`:""}</li>`).join("")}</ul>`:""}${s.note?`<p class="note">${esc(s.note)}</p>`:""}<p class="cz">${cousinLine(genOf(id))}</p></div>`}
+function drawCousins(){
+ const ids=Object.keys(SIBS).sort((a,b)=>genOf(a)-genOf(b));let h="",last=0;
+ ids.forEach(id=>{const g=genOf(id);if(g!==last){h+=`<h3 class="cgh">${(CORD[g]||ordn(g)).replace(/^./,c=>c.toUpperCase())} cousins</h3>`;last=g}
+  const s=SIBS[id];h+=`<div class="card ccard"><button type="button" class="cwho" data-person="${id}"><span class="dot" style="background:${col(id)}"></span>${esc(CHN(id))}'s brothers and sisters<small>${esc(D[id][1])}</small></button>${s.list.length?`<ul>${s.list.map(([n,y])=>`<li>${esc(n)}${y?` <span>${esc(y)}</span>`:""}</li>`).join("")}</ul>`:""}${s.note?`<p class="note">${esc(s.note)}</p>`:""}</div>`});
+ document.getElementById("cousins-list").innerHTML=h;
+}
+document.getElementById("cousins-list").addEventListener("click",e=>{const b=e.target.closest("[data-person]");if(b){showPerson(b.dataset.person);location.hash="#tree"}});
+drawCousins();
+
+// ---------- timeline ----------
+// [year label, sort year, text, person id or "" for world history]
+const TL=[
+ ["1605",1605,"Thomas Blossom marries Anne Elsdon at St. Clement's, Cambridge","thomasb"],
+ ["1607",1607,"Edward Fitz Randolph baptized at Sutton-in-Ashfield, Nottinghamshire","edward"],
+ ["1607",1607.1,"Jamestown, the first lasting English colony, is founded in Virginia",""],
+ ["1609",1609,"The Blossoms are with the Separatist congregation in Leiden, Holland","thomasb"],
+ ["1620",1620,"The Mayflower lands at Plymouth",""],
+ ["c.1620",1620.5,"Elizabeth Blossom is born in Leiden","elizblossom"],
+ ["1629",1629,"Thomas Blossom reaches Plymouth Colony","thomasb"],
+ ["1630",1630,"Edward Fitz Randolph comes to Massachusetts with the Winthrop Fleet","edward"],
+ ["1633",1633,"Thomas Blossom dies in the Plymouth epidemic","thomasb"],
+ ["1637",1637,"Edward Fitz Randolph marries Elizabeth Blossom at Scituate","edward"],
+ ["1659",1659,"Thomas Fitz Randolph is born at Barnstable","thomasfr"],
+ ["1692",1692,"The Salem witch trials in Massachusetts",""],
+ ["1733",1733,"Jacques and Marie Bonnet land at Philadelphia on the Elizabeth; two daughters died on the voyage","jacques"],
+ ["1738",1738,"Samuel Fitz Randolph is born at Piscataway, New Jersey","samuel"],
+ ["1748",1748,"Wilhelm Waggoner lands at Philadelphia on the Patience and Margaret","wilhelm"],
+ ["1751",1751,"John Waggoner is born at White Marsh, Pennsylvania","johnw"],
+ ["c.1755",1755,"Wilhelm Waggoner is killed in a raid on the South Branch of the Potomac","wilhelm"],
+ ["1761",1761,"Samuel and Margaret Fitz Randolph, first cousins, marry","samuel"],
+ ["1772",1772,"Charles Forinash claims 400 acres on the Buckhannon River","charlesf"],
+ ["1775",1775,"The Revolutionary War begins",""],
+ ["1776",1776,"The Declaration of Independence",""],
+ ["1781",1781,"John Waggoner is at the Siege of Yorktown","johnw"],
+ ["1787",1787,"The U.S. Constitution is written",""],
+ ["1792",1792,"Shawnee raid on Hacker's Creek: Margaret Waggoner killed, Elizabeth, 12, taken captive","elizabethw"],
+ ["1795",1795,"Treaty of Greenville ends the frontier war; Elizabeth is home again","elizabethw"],
+ ["1798",1798,"Elizabeth Waggoner marries John Dexter Hardman","elizabethw"],
+ ["c.1799",1799,"Philip Beamer Sr. settles near Hillsdale, Monroe County, Virginia","philipsr"],
+ ["1812",1812,"War of 1812; Peter Waggoner is found living with the Shawnee",""],
+ ["1825",1825,"Samuel Fitz Randolph, founder of New Salem, dies","samuel"],
+ ["1829",1829,"Charles Bonnell marries Jane Martin in Harrison County","charles"],
+ ["1832",1832,"John Waggoner applies for his Revolutionary War pension","johnw"],
+ ["1834",1834,"Joseph Graf is born in Baden","joseph"],
+ ["1845",1845,"Andrew Ballentine Beamer marries Rebecca Erwin","andrew"],
+ ["1848",1848,"Revolutions across the German states send many Germans to America",""],
+ ["c.1859",1859,"Brigitta Reger is in Michigan","brigitta"],
+ ["1861",1861,"The Civil War begins; Floyd Bonnell enlists in the 6th West Virginia Infantry","floyd"],
+ ["1863",1863,"West Virginia becomes a state",""],
+ ["1863",1863.1,"Floyd Bonnell marries Elizabeth Goldsborough Pitman","floyd"],
+ ["1864",1864,"Rosa Graf is born","rosa"],
+ ["1865",1865,"The Civil War ends",""],
+ ["1867",1867,"Anthony Bexten is born in Westphalia","anthony"],
+ ["1868",1868,"William Forinash marries Cynthia Hardman","william"],
+ ["1880",1880,"Anthony Bexten, about 12, crosses to America alone","anthony"],
+ ["1888",1888,"Frank J. Smith marries Carrie Langenderfer","frankj"],
+ ["1889",1889,"Herbert Smith is born in Toledo","herbert"],
+ ["1891",1891,"Calvin Beamer marries Cora Forinash","calvin"],
+ ["1896",1896,"John W. Bonnell marries Amanda May","johnwj"],
+ ["1899",1899,"Anthony Bexten marries Rosa Graf","anthony"],
+ ["1903",1903,"Nelson Bexten is born","nelson"],
+ ["1903",1903.1,"The Wright brothers fly at Kitty Hawk",""],
+ ["1905",1905,"Joseph Graf is killed when a train hits his buggy at Sylvania","joseph"],
+ ["1906",1906,"Onal Bonnell and Genevieve Beamer are born","onal"],
+ ["1910",1910,"Caroline Smith is born","caroline"],
+ ["1917",1917,"The U.S. enters World War I; Herbert Smith serves","herbert"],
+ ["1918",1918,"The influenza pandemic",""],
+ ["1928",1928,"Nelson Bexten marries Caroline Smith","nelson"],
+ ["1929",1929,"The stock market crash begins the Great Depression",""],
+ ["1933",1933,"Tony Bexten is born","tony"],
+ ["1934",1934,"Althea Bonnell is born in Weston","betty"],
+ ["1940",1940,"Onal Bonnell dies at 34","onal"],
+ ["1941",1941,"The U.S. enters World War II",""],
+ ["1945",1945,"Rosa Bexten and Carrie Smith die; World War II ends","rosa"],
+ ["1950",1950,"Anthony Bexten dies at Ottawa Lake","anthony"],
+ ["1954",1954,"Tony Bexten marries Althea Bonnell in Toledo","tony"],
+ ["1969",1969,"Apollo 11 lands on the Moon",""],
+ ["1983",1983,"Althea dies","betty"],
+ ["1987",1987,"Nelson and Caroline Bexten die","nelson"],
+ ["1990",1990,"Genevieve dies","genevieve"],
+ ["2011",2011,"Tony dies","tony"]
+];
+let tlf="all";
+function drawTL(){
+ const rows=TL.filter(([, ,t,id])=>tlf==="all"?true:tlf==="fam"?!!id:id&&(SIDE[id]===tlf||(id==="tony"&&tlf==="F")||(id==="betty"&&tlf==="M")));
+ let h="",cent=0;
+ rows.sort((a,b)=>a[1]-b[1]).forEach(([y,s,t,id])=>{const c=Math.floor(s/100);if(c!==cent){h+=`<li class="cent">${c+1}${c+1===21?"st":"th"} century</li>`;cent=c}
+  h+=id?`<li class="ev fam"><span class="yr">${esc(y)}</span><button type="button" data-person="${id}"><span class="dot" style="background:${col(id)}"></span><span>${esc(t)}</span></button></li>`:`<li class="ev world"><span class="yr">${esc(y)}</span><span class="wt">${esc(t)}</span></li>`});
+ document.getElementById("tl").innerHTML=h;
+}
+document.getElementById("tl").addEventListener("click",e=>{const b=e.target.closest("[data-person]");if(b){showPerson(b.dataset.person);location.hash="#tree"}});
+document.querySelector(".tlbar").addEventListener("click",e=>{const b=e.target.closest("[data-tlf]");if(!b)return;tlf=b.dataset.tlf;document.querySelectorAll("[data-tlf]").forEach(x=>x.setAttribute("aria-pressed",x===b));drawTL()});
+drawTL();
+function setStorySub(){const t=location.hash.split("/")[1]==="timeline";document.getElementById("tl-wrap").hidden=!t;document.getElementById("story-wrap").hidden=t;document.getElementById("seg-tl").setAttribute("aria-selected",t);document.getElementById("seg-story").setAttribute("aria-selected",!t)}
+window.addEventListener("hashchange",setStorySub);setStorySub();
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo"];

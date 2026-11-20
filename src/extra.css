@@ -174,3 +174,31 @@ html,body,#app{touch-action:manipulation}
 .rtile svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .rtile b{font-size:14px;line-height:1.3;font-weight:700}
 .rtile span{font-size:12px;color:var(--mute);margin-top:auto}
+.sibs{margin-top:14px}
+.sibs h4{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.sibs ul,.ccard ul{list-style:none;margin:0;padding:0}
+.sibs li,.ccard li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid var(--line);font-size:15px}
+.sibs li:first-child,.ccard li:first-child{border-top:0}
+.sibs li b{font-weight:600}
+.sibs li span,.ccard li span{color:var(--mute);font-size:13px;text-align:right}
+.sibs .note,.ccard .note{font-size:13.5px;margin:6px 0 0}
+.sibs .cz{margin:8px 0 0;font-size:14px;color:var(--accent)}
+.cousins{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.cgh{grid-column:1/-1;margin:14px 0 0;font-size:17px;color:var(--accent)}
+.cwho{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;margin-bottom:8px;flex-wrap:wrap}
+.cwho small{color:var(--mute);font-weight:400;font-size:13px}
+.tl{list-style:none;margin:8px 0 0;padding:0 0 0 18px;border-left:2px solid var(--line);max-width:760px}
+.tl .cent{margin:22px 0 8px -18px;padding-left:18px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.tl .cent:first-child{margin-top:4px}
+.tl .ev{position:relative;display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:8px 0;font-size:15.5px;line-height:1.4}
+.tl .ev::before{content:"";position:absolute;left:-24px;top:15px;width:10px;height:10px;border-radius:50%;background:var(--panel2);border:2px solid var(--line)}
+.tl .fam::before{background:var(--accent);border-color:var(--bg)}
+.tl .yr{color:var(--mute);font-variant-numeric:tabular-nums;font-size:14px;padding-top:1px}
+.tl .ev button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:baseline;color:var(--ink)}
+.tl .ev button .dot{flex:none;transform:translateY(-1px)}
+.tl .world .wt{color:var(--mute);font-style:italic}
+.tlbar{margin-top:0}
+@media print{#tl-wrap{display:none}}
+.cwho{display:block}
+.cwho .dot{display:inline-block;margin-right:8px;vertical-align:middle}
+.cwho small{display:block;margin-top:2px}

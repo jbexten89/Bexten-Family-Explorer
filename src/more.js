@@ -174,6 +174,7 @@ function afterPerson(id){
   meta.insertAdjacentHTML("afterend",h)}
  const gr=BURIED[id];
  if(gr)box.insertAdjacentHTML("beforeend",`<a class="buried" href="#map/g-${gr.id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Buried at <b>${esc(gr.name)}</b>, ${esc(gr.town)}</span></a>`);
+ box.insertAdjacentHTML("beforeend",sibsHTML(id));
  const s=SRC[id];
  const tiles=(s||[]).filter(x=>x[3]&&x[2]);
  if(tiles.length){const host=u=>u.includes("familysearch")?"FamilySearch":u.includes("michigan.access")?"Michiganology":u.includes("findagrave")?"Find a Grave":u.includes("archive.org")?"Internet Archive":u.includes("revwarapps")?"Southern Campaigns pensions":u.includes("wvu.edu")||u.includes("wvhistoryonview")?"WV History OnView":u.includes("genealogytrails")?"Genealogy Trails":"Web";

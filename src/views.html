@@ -1,9 +1,16 @@
 <section class="view" id="view-story" aria-label="The Bexten Family Story" hidden>
+<div class="seg" role="tablist" aria-label="Story views"><a href="#story" role="tab" id="seg-story">Story</a><a href="#story/timeline" role="tab" id="seg-tl">Timeline</a></div>
+<div id="story-wrap">
 <div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label></div>
 <article class="prose" id="story-body">
 <h1>The Bexten Family Story</h1>
 __STORY__
 </article>
+</div>
+<div id="tl-wrap" hidden>
+<div class="gbar tlbar"><button type="button" class="chip" data-tlf="all" aria-pressed="true">Everything</button><button type="button" class="chip" data-tlf="F">Dad's side</button><button type="button" class="chip" data-tlf="M">Mom's side</button><button type="button" class="chip" data-tlf="fam">Family only</button></div>
+<ol class="tl" id="tl"></ol>
+</div>
 </section>
 <section class="view" id="view-report" aria-label="Research report" hidden>
 <div class="toc"><label class="jump"><span class="sr">Jump to a section</span><select id="report-toc"></select></label></div>
@@ -17,6 +24,9 @@ __REPORT__
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
 <h2 style="margin:28px 0 0;font-size:22px">Lines of descent</h2>
 <div class="chains" id="chains"></div>
+<h2 style="margin:34px 0 4px;font-size:22px" id="cousins">Where the cousins come from</h2>
+<p class="note" style="margin:0 0 12px">Brothers and sisters of each ancestor. Their descendants in your generation are your cousins: the further back the ancestor, the more distant the cousin. Living cousins are not named here.</p>
+<div class="cousins" id="cousins-list"></div>
 </section>
 <section class="view" id="view-todo" aria-label="To-do list" hidden>
 <div class="todo">
