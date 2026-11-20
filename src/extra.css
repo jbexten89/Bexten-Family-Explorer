@@ -47,6 +47,7 @@ nav a{white-space:nowrap;flex:none}
 }
 @media screen and (max-width:760px){.fanwrap{overflow-x:auto;padding:8px}#fan{min-width:880px}}
 .brand{display:flex;gap:16px;align-items:flex-start}
-.appicon{width:64px;height:64px;border-radius:15px;border:1px solid var(--line);box-shadow:0 0 18px rgba(46,139,255,.25);flex:none}
-@media(max-width:760px){.appicon{width:52px;height:52px;border-radius:12px}.brand{gap:12px}}
+.appicon{width:56px;height:56px;border-radius:13px;border:1px solid var(--line);box-shadow:0 0 18px rgba(46,139,255,.25);flex:none}
+header h1{white-space:nowrap}
+@media(max-width:760px){.appicon{width:44px;height:44px;border-radius:10px}.brand{gap:12px}header h1{font-size:min(23px,5.4vw)}header .sub{font-size:14px;margin-top:4px}}
 @media print{.appicon{box-shadow:none}}
