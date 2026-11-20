@@ -140,6 +140,14 @@ nav a svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
 header h1{white-space:nowrap}
 @media(max-width:760px){.appicon{width:44px;height:44px;border-radius:10px}.brand{gap:12px}header h1{font-size:min(23px,5.4vw)}header .sub{font-size:14px;margin-top:4px}}
 @media print{.appicon{box-shadow:none}}
+.pedm{display:none}
+.pedm h3{margin:18px 0 8px;font-size:13px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.pedm .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pedm .p{min-height:0;padding:10px 12px}
+.pedm .p small{font-size:11.5px;color:var(--mute);font-weight:600}
+.pedm .p b{font-size:14.5px}
+.pedm .p span{font-size:12.5px}
+@media screen and (max-width:760px){#view-tree .scroll{display:none}.pedm{display:block}#view-tree .legend{margin-top:18px}}
 </style>
 </head>
 <body>
@@ -168,6 +176,7 @@ header h1{white-space:nowrap}
 <div class="colh"><span>Selected</span><span>Parents</span><span>Grandparents</span><span>Great-grandparents</span></div>
 <div class="ped" id="ped"></div>
 </div>
+<div class="pedm" id="pedm"></div>
 <div class="legend">
 <span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span>
 <span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span>
@@ -500,6 +509,10 @@ function showPerson(id){
  const slots=[[id]];for(let g=1;g<4;g++){slots[g]=[];for(const p of slots[g-1]){slots[g].push(p&&D[p]?D[p][3]||null:null,p&&D[p]?D[p][4]||null:null)}}
  let h="";slots.forEach((row,g)=>{const span=8/row.length;row.forEach((p,i)=>{const st=`grid-column:${g+1};grid-row:${i*span+1}/span ${span}`;if(p&&D[p]){const u=D[p][5]==="u";h+=`<button type="button" class="p ${g===0?"sel":""}" style="${st}" data-id="${p}"><b><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}</b><span class="${u?"unp":""}">${esc(D[p][1]||"—")}${u?" · unproven":""}</span></button>`}else{h+=`<div class="p none" style="${st}"><span>Not yet found</span></div>`}})});
  document.getElementById("ped").innerHTML=h;
+ const card=(p,cap)=>{if(p&&D[p]){const u=D[p][5]==="u";return `<button type="button" class="p" data-id="${p}">${cap?`<small>${cap}</small>`:""}<b><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}</b><span class="${u?"unp":""}">${esc(D[p][1]||"—")}${u?" · unproven":""}</span></button>`}return `<div class="p none">${cap?`<small>${cap}</small>`:""}<span>Not yet found</span></div>`};
+ const caps=[["Father","Mother"],["Father's father","Father's mother","Mother's father","Mother's mother"]];
+ let m="";[["Parents",1],["Grandparents",2],["Great-grandparents",3]].forEach(([t,g])=>{if(slots[g].every(x=>!x||!D[x]))return;m+=`<h3>${t}</h3><div class="pgrid g${g}">${slots[g].map((p,i)=>card(p,caps[g-1]?caps[g-1][i]:"")).join("")}</div>`});
+ document.getElementById("pedm").innerHTML=m||`<p class="note">No parents recorded yet for this person.</p>`;
 }
 document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);window.scrollTo({top:0,behavior:"smooth"})}});
 document.getElementById("home").addEventListener("click",()=>{showPerson("kids");window.scrollTo({top:0,behavior:"smooth"})});
