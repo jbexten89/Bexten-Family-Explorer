@@ -47,8 +47,8 @@ document.querySelectorAll("[data-print]").forEach(b=>b.addEventListener("click",
 // ---------- story / report tables of contents ----------
 function toc(view){const box=document.getElementById(view+"-toc"),hs=[...document.querySelectorAll(`#${view}-body h2`)];box.innerHTML=`<option value="">${view==="story"?"Jump to a chapter":"Jump to a section"}</option>`+hs.map(h=>`<option value="${view}/${h.id}">${esc(h.textContent)}</option>`).join("");box.addEventListener("change",()=>{if(box.value){location.hash="#"+box.value;box.value=""}})}
 toc("story");toc("report");
-function markStuck(){document.querySelectorAll(".toc").forEach(t=>{if(t.offsetParent===null)return;const top=parseFloat(getComputedStyle(t).top)||0;t.classList.toggle("stuck",t.getBoundingClientRect().top<=top+1&&window.scrollY>0)})}
-window.addEventListener("scroll",markStuck,{passive:true});window.addEventListener("hashchange",()=>setTimeout(markStuck,50));
+function markStuck(){document.querySelectorAll(".toc").forEach(t=>{if(t.offsetParent===null)return;const top=parseFloat(getComputedStyle(t).top)||0;t.classList.toggle("stuck",t.getBoundingClientRect().top<=top+1&&document.getElementById("app").scrollTop>0)})}
+document.getElementById("app").addEventListener("scroll",markStuck,{passive:true});window.addEventListener("hashchange",()=>setTimeout(markStuck,50));
 
 // ---------- to-do ----------
 const TODO=[

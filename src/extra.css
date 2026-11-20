@@ -106,3 +106,6 @@ header h1{white-space:nowrap}
  .chips::-webkit-scrollbar{display:none}
  .chips .chip{flex:none;min-height:36px;padding:0 14px;font-size:14px;white-space:nowrap}
 }
+html,body{height:100%;overflow:hidden}
+#app{position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain}
+@media print{html,body{height:auto;overflow:visible}#app{position:static;overflow:visible}}
