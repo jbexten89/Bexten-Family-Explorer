@@ -1,6 +1,6 @@
 // ---------- charts ----------
-const CHN=id=>({betty:"Betty A. Bonnell"})[id]||D[id][0];
-const short=(n,max)=>{n=n.replace(/\s*[“"][^”"]*[”"]\s*/g," ").replace(/^Rev\. /,"").trim();if(n.length<=max)return n;const w=n.split(" ");let s=w[0]+" "+w[w.length-1];if(s.length>max)s=s.slice(0,max-1)+"…";return s};
+const CHN=id=>({betty:"Betty A. “Althea” Bonnell"})[id]||D[id][0];
+const short=(n,max)=>{if(n.indexOf("“Althea”")>0)return n;n=n.replace(/\s*[“"][^”"]*[”"]\s*/g," ").replace(/^Rev\. /,"").trim();if(n.length<=max)return n;const w=n.split(" ");let s=w[0]+" "+w[w.length-1];if(s.length>max)s=s.slice(0,max-1)+"…";return s};
 const fill=id=>SIDE[id]==="F"?"var(--mint)":"var(--peri)";
 function drawFan(){
  const cx=560,cy=560,R=[0,110,190,270,360,455,560];
