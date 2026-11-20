@@ -77,15 +77,11 @@ input[type=search]{min-height:44px;font:16px "Nunito Sans",sans-serif;padding:0 
 </header>
 <main>
 <section class="view" id="view-tree" aria-label="Family tree">
-<div class="card focus">
-<div id="focus"></div>
-<div class="tools">
-<label for="find" class="tag">Find a person</label>
-<input type="search" id="find" list="names" placeholder="Type a name">
-<datalist id="names"></datalist>
-<button class="btn" id="home" type="button">Back to the start</button>
+<div class="findbar">
+<div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input type="search" id="find" placeholder="Find a person" autocomplete="off" aria-label="Find a person"><div class="sugg" id="sugg" role="listbox" hidden></div></div>
+<button class="iconbtn" id="home" type="button" aria-label="Back to the start" title="Back to the start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg></button>
 </div>
-</div>
+<div class="card focus"><div id="focus"></div></div>
 <div class="scroll">
 <div class="colh"><span>Selected</span><span>Parents</span><span>Grandparents</span><span>Great-grandparents</span></div>
 <div class="ped" id="ped"></div>
@@ -113,7 +109,7 @@ input[type=search]{min-height:44px;font:16px "Nunito Sans",sans-serif;padding:0 
 const GEO=__GEO__;
 // id: [name, years, facts[], father, mother, status]  status: r record, l published/likely, u unproven
 const D={
-kids:["Tony and Althea's children","",["Six children; they are living, so this public copy does not list them"],"tony","betty","r"],
+kids:["Tony and Althea's children","",["Six children, all living, so their names are left out of this public copy."],"tony","betty","r"],
 tony:["Anthony J. “Tony” Bexten","1933–2011",["Born March 28, 1933; farmed at Ottawa Lake, Michigan","Married Althea Bonnell Dec 4, 1954, Central Avenue Methodist Church, Toledo","Married Eleanor M. Eidenier in 1983","Died March 29, 2011; buried Floral Grove Cemetery, Pioneer, Ohio"],"nelson","caroline","r"],
 betty:["Althea Bonnell","1934–1983",["Born Betty Althea Bonnell; went by her middle name, Althea","Born Dec 4, 1934, Weston, West Virginia","Lost her father at 5; moved to Ohio with her mother","Telephone operator in Toledo before her marriage","Died Jan 28, 1983, Toledo; buried Floral Grove Cemetery, Pioneer"],"onal","genevieve","r"],
 nelson:["Nelson A. Bexten","1903–1987",["Born June 2 or 3, 1903, Michigan","Married Caroline Smith Aug 8, 1928, Lucas County, Ohio","Farmed at Ottawa Lake, lived in Toledo, then farmed near Pioneer","Died Nov 24, 1987, Bryan, Ohio; buried St. Joseph Cemetery, Sylvania"],"anthony","rosa","r"],
@@ -204,7 +200,7 @@ function showPerson(id){
  if(!D[id])id="kids";cur=id;
  const [n,y,f,,,s]=D[id];
  const kids=kidsOf(id);const sibs=D[id][3]?kidsOf(D[id][3]).filter(k=>k!==id&&D[k][4]===D[id][4]):[];
- document.getElementById("focus").innerHTML=`<h2>${esc(n)}</h2><p class="meta">${SIDE[id]==="J"?"":esc(y||"Dates not yet found")+" · "}<span class="tag"><span class="dot" style="background:${col(id)}"></span>${SIDE[id]==="F"?"Dad's side":SIDE[id]==="M"?"Mom's side":"Tony and Althea's children"}</span> · <span class="tag ${s==="u"?"unp":""}">${stat[s]}</span></p>${f.length?`<ul class="facts">${f.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}${sibs.length?`<div class="kids">Siblings: ${sibs.map(k=>`<button type="button" data-id="${k}">${esc(D[k][0])}</button>`).join(", ")}</div>`:""}${kids.length?`<div class="kids">Parent of ${kids.map(k=>`<button type="button" data-id="${k}">${esc(D[k][0])}</button>`).join(", ")}</div>`:""}`;
+ document.getElementById("focus").innerHTML=SIDE[id]==="J"?`<h2>${esc(n)}</h2>${f.map(x=>`<p class="lead">${esc(x)}</p>`).join("")}${kids.length?"":""}`:`<h2>${esc(n)}</h2><p class="meta">${SIDE[id]==="J"?"":esc(y||"Dates not yet found")+" · "}<span class="tag"><span class="dot" style="background:${col(id)}"></span>${SIDE[id]==="F"?"Dad's side":SIDE[id]==="M"?"Mom's side":"Tony and Althea's children"}</span> · <span class="tag ${s==="u"?"unp":""}">${stat[s]}</span></p>${f.length?`<ul class="facts">${f.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}${sibs.length?`<div class="kids">Siblings: ${sibs.map(k=>`<button type="button" data-id="${k}">${esc(D[k][0])}</button>`).join(", ")}</div>`:""}${kids.length?`<div class="kids">Parent of ${kids.map(k=>`<button type="button" data-id="${k}">${esc(D[k][0])}</button>`).join(", ")}</div>`:""}`;
  const slots=[[id]];for(let g=1;g<4;g++){slots[g]=[];for(const p of slots[g-1]){slots[g].push(p&&D[p]?D[p][3]||null:null,p&&D[p]?D[p][4]||null:null)}}
  let h="";slots.forEach((row,g)=>{const span=8/row.length;row.forEach((p,i)=>{const st=`grid-column:${g+1};grid-row:${i*span+1}/span ${span}`;if(p&&D[p]){const u=D[p][5]==="u";h+=`<button type="button" class="p ${g===0?"sel":""}" style="${st}" data-id="${p}"><b><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}</b><span class="${u?"unp":""}">${esc(D[p][1]||"—")}${u?" · unproven":""}</span></button>`}else{h+=`<div class="p none" style="${st}"><span>Not yet found</span></div>`}})});
  document.getElementById("ped").innerHTML=h;
@@ -215,9 +211,16 @@ function showPerson(id){
 }
 document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);window.scrollTo({top:0,behavior:"smooth"})}});
 document.getElementById("home").addEventListener("click",()=>{showPerson("kids");window.scrollTo({top:0,behavior:"smooth"})});
-const byName={};Object.keys(D).forEach(k=>byName[D[k][0]+(D[k][1]?" ("+D[k][1]+")":"")]=k);
-document.getElementById("names").innerHTML=Object.keys(byName).sort().map(n=>`<option value="${esc(n)}"></option>`).join("");
-document.getElementById("find").addEventListener("change",e=>{const k=byName[e.target.value];if(k){showPerson(k);e.target.value="";e.target.blur();window.scrollTo({top:0,behavior:"smooth"})}});
+const NAMES=Object.keys(D).map(k=>({k,n:D[k][0],y:D[k][1]})).sort((a,b)=>a.n.localeCompare(b.n));
+const fi=document.getElementById("find"),sg=document.getElementById("sugg");
+function pick(k){showPerson(k);fi.value="";sg.hidden=true;fi.blur();window.scrollTo({top:0,behavior:"smooth"})}
+fi.addEventListener("input",()=>{const q=fi.value.trim().toLowerCase();if(!q){sg.hidden=true;return}
+ const hits=NAMES.filter(x=>x.n.toLowerCase().split(/[\s“”"().]+/).some(w=>w.startsWith(q))||x.n.toLowerCase().includes(q)).slice(0,8);
+ sg.innerHTML=hits.length?hits.map(x=>`<button type="button" data-k="${x.k}"><span class="dot" style="background:${col(x.k)}"></span><b>${esc(x.n)}</b><span>${esc(x.y||"")}</span></button>`).join(""):`<p>No one by that name yet</p>`;sg.hidden=false});
+sg.addEventListener("mousedown",e=>e.preventDefault());
+sg.addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)pick(b.dataset.k)});
+fi.addEventListener("keydown",e=>{if(e.key==="Enter"){const b=sg.querySelector("[data-k]");if(b){e.preventDefault();pick(b.dataset.k)}}if(e.key==="Escape"){sg.hidden=true}});
+fi.addEventListener("blur",()=>setTimeout(()=>sg.hidden=true,100));
 showPerson("kids");
 
 // ---------- map ----------

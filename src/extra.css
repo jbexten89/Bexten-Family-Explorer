@@ -76,3 +76,18 @@ header h1{white-space:nowrap}
 .pedm .p b{font-size:14.5px}
 .pedm .p span{font-size:12.5px}
 @media screen and (max-width:760px){#view-tree .scroll{display:none}.pedm{display:block}#view-tree .legend{margin-top:18px}}
+.focus{grid-template-columns:minmax(0,1fr)!important}
+.focus .lead{margin:8px 0 0;color:#D3D6DA;font-size:16px}
+.findbar{display:flex;gap:10px;margin-bottom:12px;position:relative;z-index:12}
+.search{flex:1;position:relative}
+.search>svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:none;stroke:var(--mute);stroke-width:2;stroke-linecap:round;pointer-events:none}
+.search input{width:100%;min-height:46px;padding:0 14px 0 42px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:16px "Nunito Sans",sans-serif}
+.search input:focus{outline:none;border-color:var(--accent)}
+.iconbtn{width:46px;height:46px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.iconbtn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.sugg{position:absolute;left:0;right:0;top:calc(100% + 6px);background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.5);max-height:60vh;overflow:auto}
+.sugg button{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:baseline;width:100%;padding:10px;border-radius:8px;cursor:pointer}
+.sugg button:hover,.sugg button:focus{background:var(--panel)}
+.sugg b{font-weight:600;font-size:15px}.sugg span:last-child{color:var(--mute);font-size:13px;margin-left:auto;white-space:nowrap}
+.sugg p{margin:8px 10px;color:var(--mute);font-size:14px}
+@media screen and (max-width:760px){.focus h2{font-size:min(28px,6.4vw)}}
