@@ -30,3 +30,9 @@ function drawLife(){const ppl=Object.keys(D).filter(k=>k!=="kids"&&lifeYears(D[k
 drawOrigins();drawLife();
 document.getElementById("life-f").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){LIFE_F=b.dataset.f;drawLife()}});
 ["life","origins"].forEach(i=>{const el=document.getElementById(i);el.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}})});
+function setChartSub(){if(!location.hash.startsWith("#charts"))return;const k=(location.hash.split("/")[1]||"fan");const c=[...document.querySelectorAll("#view-charts .csec")].some(s=>s.dataset.c===k)?k:"fan";
+ document.querySelectorAll("#view-charts .csec").forEach(s=>s.hidden=s.dataset.c!==c);
+ document.querySelectorAll("#view-charts .cnav .chip").forEach(a=>a.setAttribute("aria-selected",a.dataset.c===c));
+ const on=document.querySelector(`#view-charts .cnav [data-c="${c}"]`);if(on&&on.scrollIntoView)on.scrollIntoView({block:"nearest",inline:"center"});
+ if(c==="fan"&&typeof centerFan==="function")setTimeout(centerFan,30)}
+window.addEventListener("hashchange",setChartSub);setChartSub();

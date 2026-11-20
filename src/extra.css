@@ -283,3 +283,9 @@ body.modal #app{overflow:hidden}
 #life{display:block;width:100%;height:auto}
 #life .lbar{cursor:pointer}#life .lbar:hover text{fill:var(--accent)}
 @media print{#life-f{display:none}}
+.cnav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 16px;max-width:520px}
+.cnav .chip{display:flex;align-items:center;justify-content:center;min-height:42px;padding:0 6px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font:700 14px "Nunito Sans",sans-serif;text-align:center}
+.cnav .chip{text-decoration:none;color:var(--mute)}
+.cnav .chip[aria-selected=true]{color:var(--ink);border-color:var(--accent);background:var(--panel2)}
+.ch2{margin:4px 0 6px;font-size:22px}
+@media print{.cnav{display:none!important}.csec[hidden]{display:block!important}}

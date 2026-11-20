@@ -355,6 +355,12 @@ body.modal #app{overflow:hidden}
 #life{display:block;width:100%;height:auto}
 #life .lbar{cursor:pointer}#life .lbar:hover text{fill:var(--accent)}
 @media print{#life-f{display:none}}
+.cnav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 16px;max-width:520px}
+.cnav .chip{display:flex;align-items:center;justify-content:center;min-height:42px;padding:0 6px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font:700 14px "Nunito Sans",sans-serif;text-align:center}
+.cnav .chip{text-decoration:none;color:var(--mute)}
+.cnav .chip[aria-selected=true]{color:var(--ink);border-color:var(--accent);background:var(--panel2)}
+.ch2{margin:4px 0 6px;font-size:22px}
+@media print{.cnav{display:none!important}.csec[hidden]{display:block!important}}
 </style>
 </head>
 <body>
@@ -630,23 +636,36 @@ body.modal #app{overflow:hidden}
 </article>
 </section>
 <section class="view" id="view-charts" aria-label="Charts" hidden>
+<div class="cnav" role="tablist" aria-label="Charts"><a href="#charts/fan" class="chip" role="tab" data-c="fan">Fan chart</a><a href="#charts/lines" class="chip" role="tab" data-c="lines">Lines</a><a href="#charts/where" class="chip" role="tab" data-c="where">Origins</a><a href="#charts/lifetimes" class="chip" role="tab" data-c="lifetimes">Lifetimes</a><a href="#charts/numbers" class="chip" role="tab" data-c="numbers">Numbers</a><a href="#charts/cousins" class="chip" role="tab" data-c="cousins">Cousins</a></div>
+<div class="csec" data-c="fan">
 <div class="bar"><p>Five generations at a time. Tap anyone to center the fan on them and see their own ancestors; tap the middle to open that person in the tree. Use + and − to zoom.</p><button class="btn" type="button" data-print>Print</button></div>
 <div class="fannav" id="fannav" hidden></div><div class="fanbox"><div class="fanwrap" id="fanwrap"><svg id="fan" role="img" aria-label="Fan chart of five generations of ancestors"></svg></div><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-z="-1" aria-label="Zoom out">−</button><button type="button" data-z="0" aria-label="Fit to screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button type="button" data-z="1" aria-label="Zoom in">+</button></div></div>
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
-<h2 style="margin:28px 0 0;font-size:22px">Lines of descent</h2>
+</div>
+<div class="csec" data-c="lines" hidden>
+<h2 class="ch2">Lines of descent</h2>
 <div class="chains" id="chains"></div>
-<h2 style="margin:34px 0 4px;font-size:22px" id="origins-h">Where we come from</h2>
+</div>
+<div class="csec" data-c="where" hidden>
+<h2 class="ch2">Where we come from</h2>
 <p class="note" style="margin:0 0 12px">Each grandparent is a quarter of the children's ancestry, split down through every known line. The shares update as more records are found.</p>
 <div id="origins"></div>
-<h2 style="margin:34px 0 4px;font-size:22px" id="lifetimes">Lifetimes</h2>
+</div>
+<div class="csec" data-c="lifetimes" hidden>
+<h2 class="ch2">Lifetimes</h2>
 <p class="note" style="margin:0 0 10px">Every ancestor with known dates, oldest first, against events of their time. Tap anyone to open them in the tree.</p>
 <div class="chips" id="life-f"><button type="button" class="chip" data-f="all" aria-pressed="true">Everyone</button><button type="button" class="chip" data-f="F" style="color:var(--mint)">Dad's side</button><button type="button" class="chip" data-f="M" style="color:var(--peri)">Mom's side</button></div>
 <div class="lifebox"><svg id="life" role="img" aria-label="Lifespan timeline of ancestors"></svg></div>
-<h2 style="margin:34px 0 12px;font-size:22px" id="stats">Family by the numbers</h2>
+</div>
+<div class="csec" data-c="numbers" hidden>
+<h2 class="ch2">Family by the numbers</h2>
 <div class="stats" id="stats-box"></div>
-<h2 style="margin:34px 0 4px;font-size:22px" id="cousins">Where the cousins come from</h2>
+</div>
+<div class="csec" data-c="cousins" hidden>
+<h2 class="ch2">Where the cousins come from</h2>
 <p class="note" style="margin:0 0 12px">Brothers and sisters of each ancestor. Their descendants in your generation are your cousins: the further back the ancestor, the more distant the cousin. Living cousins are not named here.</p>
 <div class="cousins" id="cousins-list"></div>
+</div>
 </section>
 <section class="view" id="view-todo" aria-label="To-do list" hidden>
 <div class="todo">
@@ -1386,6 +1405,12 @@ function drawLife(){const ppl=Object.keys(D).filter(k=>k!=="kids"&&lifeYears(D[k
 drawOrigins();drawLife();
 document.getElementById("life-f").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(b){LIFE_F=b.dataset.f;drawLife()}});
 ["life","origins"].forEach(i=>{const el=document.getElementById(i);el.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}})});
+function setChartSub(){if(!location.hash.startsWith("#charts"))return;const k=(location.hash.split("/")[1]||"fan");const c=[...document.querySelectorAll("#view-charts .csec")].some(s=>s.dataset.c===k)?k:"fan";
+ document.querySelectorAll("#view-charts .csec").forEach(s=>s.hidden=s.dataset.c!==c);
+ document.querySelectorAll("#view-charts .cnav .chip").forEach(a=>a.setAttribute("aria-selected",a.dataset.c===c));
+ const on=document.querySelector(`#view-charts .cnav [data-c="${c}"]`);if(on&&on.scrollIntoView)on.scrollIntoView({block:"nearest",inline:"center"});
+ if(c==="fan"&&typeof centerFan==="function")setTimeout(centerFan,30)}
+window.addEventListener("hashchange",setChartSub);setChartSub();
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo","index"];
