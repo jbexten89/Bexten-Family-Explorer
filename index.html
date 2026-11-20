@@ -234,8 +234,6 @@ html,body{height:100%;overflow:hidden}
 .seg a[aria-selected=true]{background:var(--panel2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
 #gv .sect{margin-top:4px}
 @media print{.seg{display:none}#gv,#mig{display:block!important}}
-html.sa #app{bottom:auto;height:var(--sh)}
-@media screen and (max-width:760px){html.sa nav{bottom:auto;top:var(--sh);transform:translateY(-100%)}}
 html,body,#app{touch-action:manipulation}
 .appicon{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:pointer}
 .recs{margin-top:14px}
@@ -841,23 +839,26 @@ document.getElementById("app").addEventListener("scroll",markStuck,{passive:true
 
 // ---------- to-do ----------
 const TODO=[
- ["Send the record requests","The drafts are in the chat with Claude. Add your phone number (and email where asked) before sending.",[
+ ["Send the record requests","The letters are in the Bexten Record Request Letters doc in Claude. Fill in the [brackets] before sending.",[
   ["clerk","<b>Call the Monroe County Clerk</b> at (734) 240-7020 and order a genealogy copy of Anthony Bexten and Rosa Graf's April 11, 1899 marriage record. Most likely to name Anthony's German hometown."],
   ["natz","<b>Order Anthony Bexten's naturalization search</b> from the Archives of Michigan ($20, non-refundable) at <a href=\"https://shop.michiganology.org/products/naturalization-research\" target=\"_blank\" rel=\"noopener\">shop.michiganology.org</a>. Paste the request text into the order notes."],
   ["nysa","<b>Email the New York State Archives</b> at <a href=\"mailto:archref@nysed.gov\">archref@nysed.gov</a> for John Bonnell's Revolutionary War claim (Series A0200, Box RM-1-15-A, Roll 1, page 60)."],
   ["probate","<b>Ask the Monroe County Probate Court</b> (Monroe, Michigan) for a 1905–06 estate file for Joseph Graf (also Graff or Groff) of Whiteford Township. It names the heirs and may give his hometown in Baden."],
-  ["wvu","<b>Submit the WVU History Center form</b> at <a href=\"https://westvirginia.libanswers.com/wvrhc\" target=\"_blank\" rel=\"noopener\">westvirginia.libanswers.com/wvrhc</a> asking about the \"Beamer Family\" file (A&amp;M 2537, Box 44)."]]],
- ["Next time at your computer, with Claude","Optional extras. Sign in yourself in Claude's browser panel; Claude can't type your passwords for you.",[
-  ["stromberg","<b>Look at Anthony's possible baptism</b>: Caspar Anton Bexte, born July 16, 1868, Stromberg (St. Lambertus). The church books are on FamilySearch films 8206436 and 7992106 but only open at a FamilySearch Center or affiliate library. The nearest is the Toledo Ohio FamilySearch Center, 11050 Avenue Road, Perrysburg, by appointment: call 419-392-4643 a day ahead. Check the baptism entry for any later note (confirmation, marriage, emigration or death)."],
-  ["mamie2","<b>Herbert Smith and Mamie Miller's marriage</b> (Toledo, about 1907): ask the Lucas County Probate Court for the record, which may name Mamie's parents."],
-  ["schmidt2","<b>Wendell Smith and Barbara Ankenbrandt</b>: their own death and burial records in Monroe County, Michigan, for exact dates and where in Germany they came from"],
-  ["stwendel","<b>Wendel and Mary Langenderfer</b>: check whether they really came from St. Wendel, Prussia, as an online tree says"]]],
- ["Family and extras","",[
-  ["share","<b>Share the story</b> (<a href=\"#story\">The Bexten Family Story</a>) with siblings and cousins"],
+  ["wvu","<b>Submit the WVU History Center form</b> at <a href=\"https://westvirginia.libanswers.com/wvrhc\" target=\"_blank\" rel=\"noopener\">westvirginia.libanswers.com/wvrhc</a> asking about the \"Beamer Family\" file (A&amp;M 2537, Box 44)."],
+  ["mamie2","<b>Mail the Lucas County Probate Court</b> (700 Adams St., Suite 200, Toledo) for Herbert Smith and Mamie Miller's marriage record, about 1907. It may name Mamie's parents."],
+  ["munster","<b>Email or mail the Bistumsarchiv Münster</b> (Georgskommende 19, 48143 Münster, Germany) for Caspar Anton Bexte's 1868 Stromberg baptism, using the German letter in the doc."]]],
+ ["Visits and sign-ins","Things only you can do. Claude can't type your passwords for you.",[
+  ["obit","<b>Sign back in to the Toledo library</b> in the Claude app's browser on your computer, so Claude can read Herbert Smith's 1949 obituary and settle the tenth child."],
+  ["stromberg","<b>Look at Anthony's possible baptism</b> at the Toledo Ohio FamilySearch Center, 11050 Avenue Road, Perrysburg (by appointment: 419-392-4643). Ask for FamilySearch films 8206436 or 7992106, Stromberg (St. Lambertus), and find Caspar Anton Bexte, born July 16, 1868, with any notes in the margin. Also check the death register 1868–1885 for him."]]],
+ ["Optional extras","",[
+  ["schmidt2","<b>Wendell Smith and Barbara Ankenbrandt</b>: their death records aren't online. Monroe County, Michigan, death records (about 1889 and 1906) would give exact dates and maybe their German hometown."],
+  ["stwendel","<b>Wendel and Mary Langenderfer</b>: check whether they really came from St. Wendel, Prussia, as an online tree says"],
+  ["share","<b>Share the app</b> with siblings and cousins: tap the Share button next to the house on the Tree tab for a QR code and link."],
   ["ask","<b>Ask older relatives</b> for a family Bible, letters from Germany, old photos, and any details of the stowaway story (the ship, the port, who found him)"],
   ["dna","<b>Take a DNA test</b> (AncestryDNA or MyHeritage) to look for relatives descended from Anthony's three sisters in Germany"],
   ["print","<b>Print the charts</b>: open <a href=\"#charts\">Charts</a> and use Print"],
-  ["sar","<b>Optional: join the Sons of the American Revolution</b> through Samuel Fitz Randolph (SAR #P-158994) or John Waggoner (#P-338764). Ask Claude for an application starter first."]]]];
+  ["sar","<b>Optional: join the Sons of the American Revolution</b> through Samuel Fitz Randolph (SAR #P-158994) or John Waggoner (#P-338764). Ask Claude for an application starter first."]]]
+];
 const TKEY="bexten-todo-v1";let done={};try{done=JSON.parse(localStorage.getItem(TKEY))||{}}catch(e){done={}}
 function drawTodo(){
  const all=TODO.flatMap(s=>s[2]),n=all.filter(t=>done[t[0]]).length;

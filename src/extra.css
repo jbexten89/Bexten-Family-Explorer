@@ -162,8 +162,6 @@ html,body{height:100%;overflow:hidden}
 .seg a[aria-selected=true]{background:var(--panel2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
 #gv .sect{margin-top:4px}
 @media print{.seg{display:none}#gv,#mig{display:block!important}}
-html.sa #app{bottom:auto;height:var(--sh)}
-@media screen and (max-width:760px){html.sa nav{bottom:auto;top:var(--sh);transform:translateY(-100%)}}
 html,body,#app{touch-action:manipulation}
 .appicon{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:pointer}
 .recs{margin-top:14px}
