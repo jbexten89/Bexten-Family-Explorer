@@ -676,6 +676,7 @@ document.getElementById("chips").addEventListener("click",e=>{const b=e.target.c
 renderChips();drawMap("eu");drawMap("am");drawJourney();
 
 // ---------- charts ----------
+const CHN=id=>({betty:"Betty A. Bonnell"})[id]||D[id][0];
 const short=(n,max)=>{n=n.replace(/\s*[“"][^”"]*[”"]\s*/g," ").replace(/^Rev\. /,"").trim();if(n.length<=max)return n;const w=n.split(" ");let s=w[0]+" "+w[w.length-1];if(s.length>max)s=s.slice(0,max-1)+"…";return s};
 const fill=id=>SIDE[id]==="F"?"var(--mint)":"var(--peri)";
 function drawFan(){
@@ -692,9 +693,9 @@ function drawFan(){
   const u=D[id][5]==="u";
   const rm=(r0+r1)/2,[tx,ty]=P(rm,am);
   let t;
-  if(g<2){const nm=short(D[id][0],g===0?24:20),deg=90-am*180/Math.PI;t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${g===0?16:14}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(nm)}</tspan><tspan x="0" dy="1.3em" font-weight="400" fill="var(--mute)" font-size="12.5">${esc(D[id][1]||"")}</tspan></text></g>`}
+  if(g<2){const nm=short(CHN(id),g===0?24:20),deg=90-am*180/Math.PI;t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${g===0?16:14}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(nm)}</tspan><tspan x="0" dy="1.3em" font-weight="400" fill="var(--mute)" font-size="12.5">${esc(D[id][1]||"")}</tspan></text></g>`}
   else{let deg=-am*180/Math.PI;if(am>Math.PI/2)deg+=180;const fs=g===2?13:g===3?11.5:10.5,mx=g===2?17:g===3?16:17;
-   t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${fs}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(short(D[id][0],mx))}</tspan><tspan x="0" dy="1.2em" font-weight="400" fill="var(--mute)" font-size="${fs-1}">${esc(D[id][1]||"")}</tspan></text></g>`}
+   t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${fs}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(short(CHN(id),mx))}</tspan><tspan x="0" dy="1.2em" font-weight="400" fill="var(--mute)" font-size="${fs-1}">${esc(D[id][1]||"")}</tspan></text></g>`}
   s+=`<g class="seg" data-id="${id}" role="button" tabindex="0" aria-label="${esc(D[id][0])}"><title>${esc(D[id][0])} ${esc(D[id][1])}${u?" (not yet proven)":""}</title><path d="${d}" fill="${fill(id)}" fill-opacity="${u?0.08:0.2}" stroke="${u?"var(--amber)":"var(--bg)"}" stroke-width="${u?1.5:2}"/>${t}</g>`;
  })});
  const [a,b]=P(R[1],Math.PI),[c,e]=P(R[1],0);
@@ -705,7 +706,7 @@ function drawFan(){
 const CHAINS=[["thomasb","The Pilgrim line"],["edwardsr","Fitz Randolph of Nottinghamshire"],["jacques","The Huguenot Bonnets"],["wilhelm","The Waggoners of Hesse"],["charlesf","Forinash of the Buckhannon"],["philipsr","The Beamers"],["herman","The Bexten line"],["georgeg","The Grafs of Baden"],["johnreger","Reger of Württemberg"],["wendell","The Smiths (Schmidt) of Monroe"]];
 function pathTo(target){const q=[["kids"]],seen=new Set();while(q.length){const p=q.shift(),h=p[p.length-1];if(h===target)return p;if(seen.has(h))continue;seen.add(h);const d=D[h];if(!d)continue;[d[3],d[4]].forEach(x=>{if(x&&D[x])q.push(p.concat(x))})}return null}
 function drawChains(){
- document.getElementById("chains").innerHTML=CHAINS.map(([t,title])=>{const p=pathTo(t);if(!p)return"";const list=p.slice(1).reverse();return `<div class="card"><h3><span class="dot" style="background:${col(t)}"></span>${esc(title)}</h3><ol>${list.map(k=>`<li${D[k][5]==="u"?' class="unp"':""}>${esc(D[k][0])}<span class="yr">${esc(D[k][1])}</span></li>`).join("")}<li class="end">Tony and Althea's children</li></ol></div>`}).join("");
+ document.getElementById("chains").innerHTML=CHAINS.map(([t,title])=>{const p=pathTo(t);if(!p)return"";const list=p.slice(1).reverse();return `<div class="card"><h3><span class="dot" style="background:${col(t)}"></span>${esc(title)}</h3><ol>${list.map(k=>`<li${D[k][5]==="u"?' class="unp"':""}>${esc(CHN(k))}<span class="yr">${esc(D[k][1])}</span></li>`).join("")}<li class="end">Tony and Althea's children</li></ol></div>`}).join("");
 }
 document.getElementById("fan").addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});
 document.getElementById("fan").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}});
