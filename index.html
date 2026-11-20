@@ -311,12 +311,7 @@ html,body,#app{touch-action:manipulation}
 body.modal #app{overflow:hidden}
 .toc{display:flex;gap:8px;align-items:center}
 .toc .jump{flex:1;min-width:0}
-.listen{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:600 15px "Nunito Sans",sans-serif;cursor:pointer}
-.listen svg{width:16px;height:16px;fill:var(--accent)}
-.listen.on{border-color:var(--accent)}
-.prose .reading{background:rgba(46,139,255,.12);border-radius:6px;box-shadow:0 0 0 6px rgba(46,139,255,.12)}
-@media print{.otd,.listen,.sheet,#sharebtn{display:none!important}}
-</style>
+@media print{.otd,</style>
 </head>
 <body>
 <div id="app">
@@ -383,7 +378,7 @@ body.modal #app{overflow:hidden}
 <section class="view" id="view-story" aria-label="The Bexten Family Story" hidden>
 <div class="seg" role="tablist" aria-label="Story views"><a href="#story" role="tab" id="seg-story">Story</a><a href="#story/timeline" role="tab" id="seg-tl">Timeline</a></div>
 <div id="story-wrap">
-<div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label><button type="button" class="listen" id="listen" aria-label="Listen to this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Listen</span></button></div>
+<div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label></div>
 <article class="prose" id="story-body">
 <h1>The Bexten Family Story</h1>
 <h2 id="s-two-families-one-wedding">Two families, one wedding</h2>
@@ -1241,19 +1236,6 @@ var SHARE_URL="https://jbexten89.github.io/Bexten-Family-Explorer/";
 })();
 
 // ---------- story audio ----------
-(function(){var btn=document.getElementById("listen");if(!btn)return;
- if(!("speechSynthesis" in window)){btn.hidden=true;return}
- var synth=window.speechSynthesis,queue=[],idx=0,state="idle",voice=null,cur=null;
- function pickVoice(){var v=synth.getVoices().filter(function(x){return /^en(-|_)US/i.test(x.lang)});voice=v.find(function(x){return /enhanced|premium|natural/i.test(x.name)})||v.find(function(x){return /Samantha|Ava|Allison|Google US/i.test(x.name)})||v[0]||null}
- pickVoice();if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=pickVoice;
- function setBtn(s){state=s;btn.classList.toggle("on",s!=="idle");btn.querySelector("span").textContent=s==="playing"?"Pause":s==="paused"?"Resume":"Listen";btn.querySelector("svg").innerHTML=s==="playing"?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':'<path d="M8 5v14l11-7z"/>'}
- function mark(el){if(cur)cur.classList.remove("reading");cur=el;if(el){el.classList.add("reading");var r=el.getBoundingClientRect();if(r.top<120||r.bottom>innerHeight-120)el.scrollIntoView({block:"center",behavior:"smooth"})}}
- function chapter(){var hs=[].slice.call(document.querySelectorAll("#story-body h2"));var start=hs[0];hs.forEach(function(h){if(h.getBoundingClientRect().top<200)start=h});var els=[],n=start;while(n){if(n!==start&&n.tagName==="H2")break;if(/^(H2|H3|P)$/.test(n.tagName))els.push(n);else if(n.tagName==="UL"||n.tagName==="OL"||n.tagName==="BLOCKQUOTE")[].push.apply(els,n.querySelectorAll("li,p"));n=n.nextElementSibling}return els.filter(function(e){return e.textContent.trim()})}
- function next(){if(state!=="playing")return;if(idx>=queue.length){stop();return}var el=queue[idx++];mark(el);var u=new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g," ").trim());if(voice)u.voice=voice;u.rate=0.95;u.onend=function(){if(state==="playing")next()};u.onerror=function(){if(state==="playing")next()};synth.speak(u)}
- function stop(){synth.cancel();mark(null);setBtn("idle")}
- btn.addEventListener("click",function(){if(state==="playing"){synth.pause();setBtn("paused");return}if(state==="paused"){synth.resume();setBtn("playing");return}synth.cancel();queue=chapter();idx=0;setBtn("playing");next()});
- window.addEventListener("hashchange",function(){if(state!=="idle"&&!/^#story/.test(location.hash))stop()});
-})();
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo"];

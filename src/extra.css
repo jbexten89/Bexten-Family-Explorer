@@ -239,8 +239,4 @@ html,body,#app{touch-action:manipulation}
 body.modal #app{overflow:hidden}
 .toc{display:flex;gap:8px;align-items:center}
 .toc .jump{flex:1;min-width:0}
-.listen{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:600 15px "Nunito Sans",sans-serif;cursor:pointer}
-.listen svg{width:16px;height:16px;fill:var(--accent)}
-.listen.on{border-color:var(--accent)}
-.prose .reading{background:rgba(46,139,255,.12);border-radius:6px;box-shadow:0 0 0 6px rgba(46,139,255,.12)}
-@media print{.otd,.listen,.sheet,#sharebtn{display:none!important}}
+@media print{.otd,

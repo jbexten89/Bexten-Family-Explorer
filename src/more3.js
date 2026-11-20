@@ -51,16 +51,3 @@ var SHARE_URL="https://jbexten89.github.io/Bexten-Family-Explorer/";
 })();
 
 // ---------- story audio ----------
-(function(){var btn=document.getElementById("listen");if(!btn)return;
- if(!("speechSynthesis" in window)){btn.hidden=true;return}
- var synth=window.speechSynthesis,queue=[],idx=0,state="idle",voice=null,cur=null;
- function pickVoice(){var v=synth.getVoices().filter(function(x){return /^en(-|_)US/i.test(x.lang)});voice=v.find(function(x){return /enhanced|premium|natural/i.test(x.name)})||v.find(function(x){return /Samantha|Ava|Allison|Google US/i.test(x.name)})||v[0]||null}
- pickVoice();if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=pickVoice;
- function setBtn(s){state=s;btn.classList.toggle("on",s!=="idle");btn.querySelector("span").textContent=s==="playing"?"Pause":s==="paused"?"Resume":"Listen";btn.querySelector("svg").innerHTML=s==="playing"?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':'<path d="M8 5v14l11-7z"/>'}
- function mark(el){if(cur)cur.classList.remove("reading");cur=el;if(el){el.classList.add("reading");var r=el.getBoundingClientRect();if(r.top<120||r.bottom>innerHeight-120)el.scrollIntoView({block:"center",behavior:"smooth"})}}
- function chapter(){var hs=[].slice.call(document.querySelectorAll("#story-body h2"));var start=hs[0];hs.forEach(function(h){if(h.getBoundingClientRect().top<200)start=h});var els=[],n=start;while(n){if(n!==start&&n.tagName==="H2")break;if(/^(H2|H3|P)$/.test(n.tagName))els.push(n);else if(n.tagName==="UL"||n.tagName==="OL"||n.tagName==="BLOCKQUOTE")[].push.apply(els,n.querySelectorAll("li,p"));n=n.nextElementSibling}return els.filter(function(e){return e.textContent.trim()})}
- function next(){if(state!=="playing")return;if(idx>=queue.length){stop();return}var el=queue[idx++];mark(el);var u=new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g," ").trim());if(voice)u.voice=voice;u.rate=0.95;u.onend=function(){if(state==="playing")next()};u.onerror=function(){if(state==="playing")next()};synth.speak(u)}
- function stop(){synth.cancel();mark(null);setBtn("idle")}
- btn.addEventListener("click",function(){if(state==="playing"){synth.pause();setBtn("paused");return}if(state==="paused"){synth.resume();setBtn("playing");return}synth.cancel();queue=chapter();idx=0;setBtn("playing");next()});
- window.addEventListener("hashchange",function(){if(state!=="idle"&&!/^#story/.test(location.hash))stop()});
-})();
