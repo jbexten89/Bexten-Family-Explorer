@@ -953,6 +953,11 @@ drawGraves();
 function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
 window.addEventListener("hashchange",setMapSub);setMapSub();
 window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});
+(function(){let n=0,t=0;const ic=document.querySelector(".appicon");if(!ic)return;ic.addEventListener("click",()=>{const now=Date.now();n=now-t<600?n+1:1;t=now;if(n<3)return;n=0;
+ const pr=document.createElement("div");pr.style.cssText="position:fixed;left:0;top:0;width:1px;height:1px;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;visibility:hidden";document.body.appendChild(pr);const cs=getComputedStyle(pr);
+ const nv=document.querySelector("nav").getBoundingClientRect(),ap=document.getElementById("app").getBoundingClientRect();
+ const info={standalone:navigator.standalone,dm:window.matchMedia&&matchMedia("(display-mode: standalone)").matches,innerH:innerHeight,outerH:outerHeight,screenH:screen.height,screenW:screen.width,vvH:window.visualViewport&&Math.round(visualViewport.height),docH:document.documentElement.clientHeight,safeTop:cs.paddingTop,safeBottom:cs.paddingBottom,navTop:Math.round(nv.top),navBottom:Math.round(nv.bottom),navH:Math.round(nv.height),appH:Math.round(ap.height),cls:document.documentElement.className,sh:document.documentElement.style.getPropertyValue("--sh")};pr.remove();
+ const box=document.createElement("pre");box.style.cssText="position:fixed;left:10px;right:10px;top:60px;z-index:99;background:#111317;color:#E6E8EB;border:1px solid #2E8BFF;border-radius:12px;padding:12px;font:13px/1.5 ui-monospace,monospace;white-space:pre-wrap";box.textContent=JSON.stringify(info,null,1)+"\n(tap to close)";box.onclick=()=>box.remove();document.body.appendChild(box)})})();
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo"];
