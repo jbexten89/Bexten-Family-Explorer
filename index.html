@@ -967,7 +967,7 @@ function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.include
 window.addEventListener("hashchange",route);route();
 }
 </script>
-<script>(function(){var h=document.documentElement,mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function f(){if(!(navigator.standalone||mm("(display-mode: standalone)")))return;var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);if(H>innerHeight+1){h.classList.add("sa");h.style.setProperty("--sh",H+"px")}else{h.classList.remove("sa")}}f();addEventListener("resize",f);addEventListener("orientationchange",function(){setTimeout(f,300)})})()</script>
+<script>(function(){var h=document.documentElement,mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function f(){if(!(navigator.standalone||mm("(display-mode: standalone)")))return;var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);h.classList.add("sa");h.style.setProperty("--sh",Math.max(H,innerHeight)+"px")}f();addEventListener("resize",f);addEventListener("load",f);setTimeout(f,500);setTimeout(f,2000);addEventListener("orientationchange",function(){setTimeout(f,300)})})()</script>
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{})</script>
 </body>
 </html>
