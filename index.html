@@ -134,7 +134,7 @@ nav a svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
  a{color:#111}
  .prose h2{break-after:avoid}
 }
-@media screen and (max-width:760px){.fanwrap{overflow-x:auto;padding:8px}#fan{min-width:880px}}
+
 .brand{display:flex;gap:16px;align-items:flex-start}
 .appicon{width:56px;height:56px;border-radius:13px;border:1px solid var(--line);box-shadow:0 0 18px rgba(46,139,255,.25);flex:none}
 header h1{white-space:nowrap}
@@ -163,6 +163,15 @@ header h1{white-space:nowrap}
 .sugg b{font-weight:600;font-size:15px}.sugg span:last-child{color:var(--mute);font-size:13px;margin-left:auto;white-space:nowrap}
 .sugg p{margin:8px 10px;color:var(--mute);font-size:14px}
 @media screen and (max-width:760px){.focus h2{font-size:min(28px,6.4vw)}}
+.fanbox{position:relative}
+.fanwrap{overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#fan{width:calc(var(--z,1) * 100%);max-width:none}
+.zoom{position:absolute;top:10px;right:10px;display:flex;gap:6px}
+.zoom button{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:rgba(23,26,32,.92);color:var(--ink);font:600 22px/1 "Nunito Sans",sans-serif;display:grid;place-items:center;cursor:pointer}
+.zoom button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.zoom button:disabled{opacity:.4}
+@media screen and (max-width:760px){#view-charts .bar .btn{display:none}.fanwrap{max-height:70vh;padding:4px}}
+@media print{.zoom{display:none}#fan{width:100%}}
 </style>
 </head>
 <body>
@@ -405,8 +414,8 @@ header h1{white-space:nowrap}
 </article>
 </section>
 <section class="view" id="view-charts" aria-label="Charts" hidden>
-<div class="bar"><p>Five generations behind Tony and Althea's children. Click anyone to open them in the tree.</p><button class="btn" type="button" data-print>Print</button></div>
-<div class="fanwrap"><svg id="fan" role="img" aria-label="Fan chart of five generations of ancestors"></svg></div>
+<div class="bar"><p>Five generations behind Tony and Althea's children. Tap anyone to open them in the tree; use + and − to zoom.</p><button class="btn" type="button" data-print>Print</button></div>
+<div class="fanbox"><div class="fanwrap" id="fanwrap"><svg id="fan" role="img" aria-label="Fan chart of five generations of ancestors"></svg></div><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-z="-1" aria-label="Zoom out">−</button><button type="button" data-z="0" aria-label="Fit to screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button type="button" data-z="1" aria-label="Zoom in">+</button></div></div>
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
 <h2 style="margin:28px 0 0;font-size:22px">Lines of descent</h2>
 <div class="chains" id="chains"></div>
@@ -622,6 +631,15 @@ function drawChains(){
 document.getElementById("fan").addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});
 document.getElementById("fan").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}});
 drawFan();drawChains();
+const ZS=[1,1.6,2.4,3.4];let zi=0;const fw=document.getElementById("fanwrap");
+function setZoom(i){const old=ZS[zi];const cx=(fw.scrollLeft+fw.clientWidth/2)/fw.scrollWidth,cy=(fw.scrollTop+fw.clientHeight/2)/fw.scrollHeight;zi=Math.max(0,Math.min(ZS.length-1,i));document.getElementById("fan").style.setProperty("--z",ZS[zi]);
+ requestAnimationFrame(()=>{if(old===1){fw.scrollLeft=(fw.scrollWidth-fw.clientWidth)/2;fw.scrollTop=fw.scrollHeight}else{fw.scrollLeft=cx*fw.scrollWidth-fw.clientWidth/2;fw.scrollTop=cy*fw.scrollHeight-fw.clientHeight/2}});
+ document.querySelector('.zoom [data-z="-1"]').disabled=zi===0;document.querySelector('.zoom [data-z="1"]').disabled=zi===ZS.length-1}
+document.querySelector(".zoom").addEventListener("click",e=>{const b=e.target.closest("[data-z]");if(!b)return;const d=+b.dataset.z;setZoom(d===0?0:zi+d)});
+zi=(window.matchMedia&&matchMedia("(max-width:760px)").matches)?1:0;document.getElementById("fan").style.setProperty("--z",ZS[zi]);
+function centerFan(){if(document.getElementById("view-charts").hidden)return;requestAnimationFrame(()=>{fw.scrollLeft=(fw.scrollWidth-fw.clientWidth)/2;fw.scrollTop=fw.scrollHeight})}
+window.addEventListener("hashchange",()=>setTimeout(centerFan,30));setTimeout(centerFan,60);
+document.querySelector('.zoom [data-z="-1"]').disabled=zi===0;
 document.querySelectorAll("[data-print]").forEach(b=>b.addEventListener("click",()=>window.print()));
 
 // ---------- story / report tables of contents ----------
