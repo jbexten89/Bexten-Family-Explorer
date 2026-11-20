@@ -166,3 +166,11 @@ html.sa #app{bottom:auto;height:var(--sh)}
 @media screen and (max-width:760px){html.sa nav{bottom:auto;top:var(--sh);transform:translateY(-100%)}}
 html,body,#app{touch-action:manipulation}
 .appicon{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:pointer}
+.recs{margin-top:14px}
+.recs h4{margin:0 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.rtiles{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -4px;padding:2px 4px 4px}
+.rtiles::-webkit-scrollbar{display:none}
+.rtile{flex:none;width:150px;display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);text-decoration:none;color:var(--ink)}
+.rtile svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rtile b{font-size:14px;line-height:1.3;font-weight:700}
+.rtile span{font-size:12px;color:var(--mute);margin-top:auto}

@@ -238,6 +238,14 @@ html.sa #app{bottom:auto;height:var(--sh)}
 @media screen and (max-width:760px){html.sa nav{bottom:auto;top:var(--sh);transform:translateY(-100%)}}
 html,body,#app{touch-action:manipulation}
 .appicon{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;cursor:pointer}
+.recs{margin-top:14px}
+.recs h4{margin:0 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.rtiles{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -4px;padding:2px 4px 4px}
+.rtiles::-webkit-scrollbar{display:none}
+.rtile{flex:none;width:150px;display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);text-decoration:none;color:var(--ink)}
+.rtile svg{width:24px;height:24px;fill:none;stroke:var(--accent);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.rtile b{font-size:14px;line-height:1.3;font-weight:700}
+.rtile span{font-size:12px;color:var(--mute);margin-top:auto}
 </style>
 </head>
 <body>
@@ -761,50 +769,50 @@ drawTodo();
 // ---------- relationship, sources and burials ----------
 const FS="https://www.familysearch.org/ark:/61903/1:1:",FT="https://www.familysearch.org/tree/person/details/",DCR="https://doddridgecountyroots.com/bk6html/";
 const L={
- fgTony:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/199974407/anthony-joseph-bexten"],
- fgBetty:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/199973502/betty-althea-bexten"],
- fgNelson:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/155169424/nelson_a-bexten"],
- fgAnthony:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/155168093/anthony_h_joseph-bexten"],
- fgRosa:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/155168127/rosa_a-bexten"],
+ fgTony:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/199974407/anthony-joseph-bexten","Grave photos"],
+ fgBetty:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/199973502/betty-althea-bexten","Grave photos"],
+ fgNelson:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/155169424/nelson_a-bexten","Grave photos"],
+ fgAnthony:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/155168093/anthony_h_joseph-bexten","Grave photos"],
+ fgRosa:["grave","Find a Grave memorial","https://www.findagrave.com/memorial/155168127/rosa_a-bexten","Grave photos"],
  wed:["news","Toledo Blade: marriage license and wedding announcement, Dec 1954"],
  eleanor:["news","Eleanor M. Bexten obituary, 2020 (Thompson-Geesey Funeral Homes)","https://www.thethompsonfuneralhome.com/obituaries/eleanor-bexten"],
- c1940b:["census","1940 census, Weston, West Virginia (Bonnell household)",FS+"K7CG-JP1"],
+ c1940b:["census","1940 census, Weston, West Virginia (Bonnell household)",FS+"K7CG-JP1","1940 census page"],
  genObit:["news","Toledo Blade: Genevieve Bonnell Rosentreter obituary, Oct 8, 1990, p. 12"],
- mar1928:["church","Nelson Bexten and Caroline Smith marriage index, 1928, Lucas County",FS+"2Q4Q-DN3"],
- dcAnthony:["cert","Anthony Bexten's Ohio death certificate, 1950 (Nelson was the informant)",FS+"X62J-86G"],
+ mar1928:["church","Nelson Bexten and Caroline Smith marriage index, 1928, Lucas County",FS+"2Q4Q-DN3","Marriage index, 1928"],
+ dcAnthony:["cert","Anthony Bexten's Ohio death certificate, 1950 (Nelson was the informant)",FS+"X62J-86G","Death certificate, 1950"],
  obAnthony:["news","Toledo Blade: Anthony Bexten obituary, Jan 9, 1950, p. 19, and death notices"],
- c1900b:["census","1900 census, Whiteford Township, Michigan (Bexten household)",FS+"MS9F-316"],
- c1910b:["census","1910 census, Whiteford, Michigan",FS+"MLYC-CKZ"],
- c1920b:["census","1920 census, Whiteford Township (Westphalia named as birthplace)",FS+"MZQV-L8L"],
+ c1900b:["census","1900 census, Whiteford Township, Michigan (Bexten household)",FS+"MS9F-316","1900 census page"],
+ c1910b:["census","1910 census, Whiteford, Michigan",FS+"MLYC-CKZ","1910 census page"],
+ c1920b:["census","1920 census, Whiteford Township (Westphalia named as birthplace)",FS+"MZQV-L8L","1920 census page"],
  stowaway:["family","Family story told by Tony Bexten"],
- dcRosa:["cert","Rosa Bexten's Michigan death certificate, 1945",FS+"KFQF-1X2"],
+ dcRosa:["cert","Rosa Bexten's Michigan death certificate, 1945",FS+"KFQF-1X2","Death certificate, 1945"],
  obRosa:["news","Toledo Blade: Rosa Bexten obituary, Aug 21, 1945, p. 9"],
  stjoe:["church","St. Joseph Church, Sylvania: family register (FamilySearch film 004342389)","https://www.familysearch.org/en/search/catalog/koha:1046109"],
  cards:["census","Monroe County, Michigan genealogy card file: 1870 and 1880 census cards for the Grafs"],
- dcHerbert:["cert","Herbert H. Smith's Ohio death certificate, 1949",FS+"X6RH-ZN1"],
+ dcHerbert:["cert","Herbert H. Smith's Ohio death certificate, 1949",FS+"X6RH-ZN1","Death certificate, 1949"],
  obHerbert:["news","Toledo Blade: Herbert H. Smith obituary, June 4, 1949, p. 6"],
- c1900s:["census","1900 census, Toledo (Frank Smith household)",FS+"MMDN-K1D"],
- c1950m:["census","1950 census, Toledo (Mary A. Smith)",FS+"6JKT-C6RG"],
+ c1900s:["census","1900 census, Toledo (Frank Smith household)",FS+"MMDN-K1D","1900 census page"],
+ c1950m:["census","1950 census, Toledo (Mary A. Smith)",FS+"6JKT-C6RG","1950 census page"],
  kidsRec:["cert","Her children's marriage and Social Security records (maiden name Miller)"],
- dcFrank:["cert","Frank J. Smith's Ohio death certificate, 1931",FS+"XD1F-5F9"],
+ dcFrank:["cert","Frank J. Smith's Ohio death certificate, 1931",FS+"XD1F-5F9","Death certificate, 1931"],
  obFrank:["news","Toledo Blade: “Illness Is Fatal to Frank Smith,” March 18, 1931, p. 24"],
  dcCarrie:["cert","Carrie Smith's Ohio death certificate, 1945"],
  fsShared:["tree","FamilySearch shared tree (volunteer-built, not yet checked)"],
- dcJoseph:["cert","Joseph Graff's Michigan death certificate, 1905 (Michiganology)","https://michigan.access.preservica.com/uncategorized/IO_6a5df06a-6507-4978-9773-50ac7272afb0/"],
+ dcJoseph:["cert","Joseph Graff's Michigan death certificate, 1905 (Michiganology)","https://michigan.access.preservica.com/uncategorized/IO_6a5df06a-6507-4978-9773-50ac7272afb0/","Death certificate, 1905"],
  obJoseph:["news","Toledo Blade: “Joseph Graff Met His Death,” Dec 11, 1905, p. 4"],
- c1900g:["census","1900 census, Whiteford Township (Joseph Graf)",FS+"MS9F-31Z"],
- dcBrig:["cert","Bridgette Graff's Michigan death certificate, 1914 (Michiganology)","https://michigan.access.preservica.com/uncategorized/IO_b0e9f3a2-038b-4443-91b5-e82425d05594/"],
+ c1900g:["census","1900 census, Whiteford Township (Joseph Graf)",FS+"MS9F-31Z","1900 census page"],
+ dcBrig:["cert","Bridgette Graff's Michigan death certificate, 1914 (Michiganology)","https://michigan.access.preservica.com/uncategorized/IO_b0e9f3a2-038b-4443-91b5-e82425d05594/","Death certificate, 1914"],
  wvdc:p=>["cert",p+"'s West Virginia death certificate"],
  mar:(t)=>["church",t],
  drFloyd:["book","Doddridge County Roots: Floyd Neely Bonnell",DCR+"f19455.html"],
  drJB:["book","Doddridge County Roots: John Bonnell and Rulanah Fitz Randolph",DCR+"f20157.html"],
  drSam:["book","Doddridge County Roots: Samuel Fitz Randolph",DCR+"f19355.html"],
  drEJG:["book","Doddridge County Roots: Elizabeth Jane Goldsborough",DCR+"f48087.html"],
- efr:["book","Descendants of Edward Fitz Randolph (1929)","https://archive.org/stream/descendantsofedw00chri/descendantsofedw00chri_djvu.txt"],
+ efr:["book","Descendants of Edward Fitz Randolph (1929)","https://archive.org/stream/descendantsofedw00chri/descendantsofedw00chri_djvu.txt","Family genealogy (1929 book)"],
  werEdw:["tree","WeRelate: Edward Fitz Randolph","https://www.werelate.org/wiki/Person:Edward_Fitz_Randolph_(7)"],
  anderson:["book","Robert Charles Anderson's sketch of Thomas Blossom (Great Migration study)","https://www.robinrichmond.com/familymedia/rr/ftm/NEHGS%20Bio.htm"],
  wtBlossom:["tree","WikiTree: Blossom family","https://www.wikitree.com/genealogy/Blossom-Family-Tree-5"],
- monroe:["book","History of Monroe County, W.Va. (1916): Beamer sketch","http://genealogytrails.com/wva/monroe/bios_b.html"],
+ monroe:["book","History of Monroe County, W.Va. (1916): Beamer sketch","http://genealogytrails.com/wva/monroe/bios_b.html","County history (1916)"],
  fsBohmer:["tree","FamilySearch shared tree: Johann Adam Böhmer",FT+"G9C6-KWQ"],
  fsJacob:["tree","FamilySearch shared tree: Jacob Forinash",FT+"KZ9T-MCK"],
  fsBetty:["tree","FamilySearch shared tree: Betty Althea Bonnell",FT+"G464-KK8"],
@@ -813,12 +821,14 @@ const L={
  wtEW:["tree","WikiTree: Elizabeth (Waggoner) Hardman","https://www.wikitree.com/wiki/Waggoner-1229"],
  wtPH:["tree","WikiTree: Peterman Hardman","https://www.wikitree.com/wiki/Hardman-876"],
  sarJW:["mil","SAR patriot record: John Waggoner (P-338764)","https://sarpatriots.sar.org/patriot/display/338764"],
- pension:["mil","John Waggoner's Revolutionary War pension file, S7824","https://revwarapps.org/s7824.pdf"],
+ pension:["mil","John Waggoner's Revolutionary War pension file, S7824","https://revwarapps.org/s7824.pdf","Pension file, 1832"],
  werMW:["tree","WeRelate: Margaret Waggoner","https://www.werelate.org/wiki/Person:Margaret_Waggoner_(10)"],
- onview:["book","West Virginia History OnView: the Waggoner home on Jesse's Run","https://wvhistoryonview.org/catalog/030546"],
+ onview:["book","West Virginia History OnView: the Waggoner home on Jesse's Run","https://wvhistoryonview.org/catalog/030546","Photo: Waggoner home, Jesse's Run"],
  werWW:["tree","WeRelate: Wilhelm Waggoner","https://www.werelate.org/wiki/Person:Wilhelm_Waggoner_%281%29"],
  rwWW:["tree","RootsWeb: Descendants of Wilhelm Waggoner","http://freepages.rootsweb.com/~mdmalone/genealogy/Surname%20Pages/waggoner.htm"],
  sarSFR:["mil","SAR patriot record: Samuel Fitz Randolph (P-158994)","https://sarpatriots.sar.org/patriot/display/158994"],
+ onMach:["photo","WV History OnView: Macpelah Cemetery, Weston, 1910 photo","https://onview.lib.wvu.edu/catalog/037468","Photo: Machpelah Cemetery, 1910"],
+ sdb:["book","History of Seventh Day Baptists in West Virginia (1905), with a photo of Samuel and Margaret's graves at Salem","https://archive.org/details/historyofseventh00rand","Photo of their graves (1905 book)"],
  trees:["tree","Published family histories and online trees"]
 };
 const W=L.wvdc,M=L.mar;
@@ -836,7 +846,7 @@ const SRC={
  amanda:[W("Amanda Bonnell"),["cert","Lewis County birth record, 1876"],M("Lewis County marriage record, 1896")],
  calvin:[W("Calvin B. Beamer"),M("Braxton County marriage record, 1891"),["cert","Genevieve's Braxton County birth record, 1906"]],
  cora:[M("Braxton County marriage record, 1891"),["cert","Genevieve's Braxton County birth record, 1906"],L.trees],
- onal:[W("Onal Bonnell"),L.c1940b],
+ onal:[W("Onal Bonnell"),L.c1940b,L.onMach],
  herman:[L.dcAnthony,L.c1920b],
  joseph:[L.dcJoseph,L.obJoseph,L.c1900g,L.cards],
  brigitta:[L.dcBrig,L.cards,L.stjoe],
@@ -872,13 +882,13 @@ const SRC={
  hannah:[L.fsJacob],
  johndexter:[L.wtEW,L.wtPH,L.trees],
  elizabethw:[L.pension,L.wtEW,L.fsEW,L.onview],
- samuel:[L.sarSFR,L.drSam,L.efr],
- margaretfr:[L.drSam,L.efr],
+ samuel:[L.sarSFR,L.drSam,L.efr,L.sdb],
+ margaretfr:[L.drSam,L.efr,L.sdb],
  johannadam:[L.fsBohmer],
  charlesf:[L.trees],
  peterman:[L.wtPH,L.wtEW],
  charlotte:[L.wtPH],
- johnw:[L.sarJW,L.pension,L.werMW],
+ johnw:[L.sarJW,L.pension,L.werMW,L.onview],
  margaretb:[L.werMW,L.pension],
  jonathan:[L.efr],
  david:[L.efr],
@@ -904,7 +914,7 @@ const SRC={
  marie:[L.trees]
 };
 
-const STYPE={cert:"Record",census:"Census",news:"Newspaper",grave:"Grave",church:"Church or court",book:"Published",tree:"Online tree",mil:"Military",family:"Family story"};
+const STYPE={photo:"Photo",cert:"Record",census:"Census",news:"Newspaper",grave:"Grave",church:"Church or court",book:"Published",tree:"Online tree",mil:"Military",family:"Family story"};
 
 const GRAVES=[
  {id:"floral",name:"Floral Grove Cemetery",town:"Pioneer, Ohio",ll:[41.6651,-84.5461],who:["tony","betty"]},
@@ -932,6 +942,10 @@ function afterPerson(id){
  const gr=BURIED[id];
  if(gr)box.insertAdjacentHTML("beforeend",`<a class="buried" href="#map/g-${gr.id}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Buried at <b>${esc(gr.name)}</b>, ${esc(gr.town)}</span></a>`);
  const s=SRC[id];
+ const tiles=(s||[]).filter(x=>x[3]&&x[2]);
+ if(tiles.length){const host=u=>u.includes("familysearch")?"FamilySearch":u.includes("michigan.access")?"Michiganology":u.includes("findagrave")?"Find a Grave":u.includes("archive.org")?"Internet Archive":u.includes("revwarapps")?"Southern Campaigns pensions":u.includes("wvu.edu")||u.includes("wvhistoryonview")?"WV History OnView":u.includes("genealogytrails")?"Genealogy Trails":"Web";
+  const ico={cert:'<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h4"/>',census:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16"/>',grave:'<path d="M7 21V9a5 5 0 0 1 10 0v12"/><path d="M5 21h14M10 12h4M12 10v5"/>',photo:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/>',book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/>'};
+  box.insertAdjacentHTML("beforeend",`<div class="recs"><h4>See the records</h4><div class="rtiles">${tiles.map(([t,lab,u,tl])=>`<a class="rtile" href="${u}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[t]||ico.cert}</svg><b>${esc(tl)}</b><span>${host(u)} ↗</span></a>`).join("")}</div></div>`)}
  if(s&&s.length)box.insertAdjacentHTML("beforeend",`<details class="srcs"><summary>Sources <span>${s.length}</span></summary><ul>${s.map(([t,lab,u])=>`<li><span class="st st-${t}">${STYPE[t]}</span>${u?`<a href="${u}" target="_blank" rel="noopener">${esc(lab)}</a>`:`<span>${esc(lab)}</span>`}</li>`).join("")}</ul><p class="note">Linked FamilySearch records need a free account. Newspaper articles are in the Toledo Blade archive at the Toledo-Lucas County Public Library.</p></details>`);
 }
 function drawGraves(){
