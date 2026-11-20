@@ -274,6 +274,50 @@ html,body,#app{touch-action:manipulation}
 .cwho{display:block}
 .cwho .dot{display:inline-block;margin-right:8px;vertical-align:middle}
 .cwho small{display:block;margin-top:2px}
+.otd{margin:0 0 12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.otd h3{margin:0 0 4px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.otd button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:baseline;padding:7px 0;font-size:15px;line-height:1.35;border-top:1px solid var(--line);width:100%}
+.otd button:first-of-type{border-top:0}
+.otd button .dot{flex:none;transform:translateY(-1px)}
+.otd button b{font-weight:600}
+.otd small{display:block;color:var(--mute);font-size:13px;margin-top:1px}
+.stats .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:12px}
+.stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.stat .n{font-size:28px;font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.1}
+.stat .l{font-size:14px;color:var(--ink);margin-top:4px}
+.stat .s{font-size:12.5px;color:var(--mute);margin-top:3px;line-height:1.35}
+.stats{display:block}
+.statcard{margin-bottom:12px}
+.statcard h3{margin:0 0 4px;font-size:17px}
+.statcard .note{margin:0 0 10px;font-size:13px}
+.statcard .bar{display:grid;grid-template-columns:150px 1fr 28px;gap:10px;align-items:center;padding:4px 0;font-size:14.5px}
+.statcard .bar i{display:block;height:10px;border-radius:5px;background:var(--accent);opacity:.85}
+.statcard .bar b,.statcard .nm b{font-weight:600;text-align:right;color:var(--mute)}
+.statcard .nm{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line);font-size:15px}
+.statcard .nm:nth-of-type(1){border-top:0}
+@media screen and (max-width:760px){.statcard .bar{grid-template-columns:118px 1fr 24px;font-size:13.5px}.stats .tiles{grid-template-columns:1fr 1fr}}
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.sheet[hidden]{display:none}
+.sheet-card{position:relative;width:100%;max-width:480px;max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:20px 20px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom))}
+@media (min-width:761px){.sheet{align-items:center}.sheet-card{border-radius:20px}}
+.sheet-card h2{margin:0 0 6px;font-size:22px}
+.sheet-card h3{margin:18px 0 6px;font-size:16px}
+.sheet-card p{margin:0 0 10px;color:var(--mute)}
+.sheet-card ol{margin:0;padding-left:20px;line-height:1.5}
+.sheet-card ol li{margin:4px 0}
+.sheet-x{position:absolute;top:10px;right:12px;width:40px;height:40px;border:0;background:none;color:var(--mute);font-size:28px;cursor:pointer}
+.qrbox{background:#fff;border-radius:14px;padding:14px;width:220px;margin:6px auto 14px}
+.qrbox .qr{display:block;width:100%;height:auto}
+.sheet-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#04101f}
+body.modal #app{overflow:hidden}
+.toc{display:flex;gap:8px;align-items:center}
+.toc .jump{flex:1;min-width:0}
+.listen{flex:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:600 15px "Nunito Sans",sans-serif;cursor:pointer}
+.listen svg{width:16px;height:16px;fill:var(--accent)}
+.listen.on{border-color:var(--accent)}
+.prose .reading{background:rgba(46,139,255,.12);border-radius:6px;box-shadow:0 0 0 6px rgba(46,139,255,.12)}
+@media print{.otd,.listen,.sheet,#sharebtn{display:none!important}}
 </style>
 </head>
 <body>
@@ -292,8 +336,10 @@ html,body,#app{touch-action:manipulation}
 <section class="view" id="view-tree" aria-label="Family tree">
 <div class="findbar">
 <div class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input type="search" id="find" placeholder="Find a person" autocomplete="off" aria-label="Find a person"><div class="sugg" id="sugg" role="listbox" hidden></div></div>
+<button class="iconbtn" id="sharebtn" type="button" aria-label="Share with family" title="Share with family"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4"/><path d="M8 8l4-4 4 4"/><path d="M6 12v8h12v-8"/></svg></button>
 <button class="iconbtn" id="home" type="button" aria-label="Back to the start" title="Back to the start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg></button>
 </div>
+<div class="otd" id="otd" hidden></div>
 <div class="card focus"><div id="focus"></div></div>
 <div class="scroll">
 <div class="colh"><span>Selected</span><span>Parents</span><span>Grandparents</span><span>Great-grandparents</span></div>
@@ -326,10 +372,20 @@ html,body,#app{touch-action:manipulation}
 <div class="graves" id="graves-list"></div>
 </div>
 </section>
+<div class="sheet" id="share" hidden role="dialog" aria-modal="true" aria-labelledby="share-h"><div class="sheet-card">
+<button class="sheet-x" type="button" data-close aria-label="Close">×</button>
+<h2 id="share-h">Share with family</h2>
+<p>Scan with a phone camera to open the Bexten Family Explorer.</p>
+<div class="qrbox"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges" class="qr" role="img" aria-label="QR code for the app"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#07080a" d="M2 2.5h7m3 0h1m1 0h4m1 0h3m2 0h2m2 0h7m-33 1h1m5 0h1m1 0h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h1m2 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h7m3 0h1m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h2m1 0h7m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m3 0h2m1 0h5m1 0h1m1 0h3m2 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-24 1h2m2 0h3m1 0h1m1 0h1m1 0h3m-24 1h1m1 0h1m1 0h1m1 0h1m4 0h1m1 0h1m2 0h2m3 0h1m1 0h1m4 0h1m2 0h1m-32 1h1m1 0h4m2 0h3m2 0h6m1 0h1m3 0h4m3 0h2m-33 1h1m1 0h3m1 0h4m4 0h1m3 0h1m5 0h1m2 0h1m2 0h3m-32 1h4m2 0h1m1 0h3m1 0h2m1 0h4m1 0h1m1 0h1m4 0h1m-27 1h2m1 0h4m1 0h1m1 0h1m1 0h3m1 0h4m1 0h1m1 0h2m2 0h1m1 0h2m-32 1h3m1 0h1m1 0h2m1 0h1m1 0h8m4 0h3m3 0h1m1 0h1m-33 1h7m1 0h4m1 0h1m1 0h2m4 0h1m3 0h1m1 0h2m2 0h2m-33 1h3m1 0h2m3 0h2m5 0h3m1 0h2m1 0h2m1 0h1m1 0h2m1 0h1m-31 1h1m1 0h1m1 0h2m1 0h2m1 0h1m2 0h4m1 0h4m2 0h2m-27 1h4m1 0h1m1 0h2m1 0h1m3 0h1m5 0h1m1 0h1m1 0h4m3 0h2m-30 1h1m2 0h1m4 0h1m1 0h1m3 0h1m3 0h1m3 0h1m4 0h3m-31 1h2m1 0h1m1 0h1m3 0h4m1 0h1m3 0h6m1 0h2m2 0h1m-32 1h1m1 0h1m1 0h3m1 0h1m2 0h5m4 0h2m2 0h3m2 0h1m1 0h2m-32 1h5m3 0h1m5 0h1m1 0h1m4 0h3m1 0h1m3 0h3m-33 1h1m4 0h6m2 0h1m3 0h2m1 0h1m1 0h1m4 0h6m-32 1h5m1 0h1m3 0h2m1 0h2m1 0h1m3 0h1m1 0h5m4 0h1m-33 1h1m5 0h2m2 0h1m2 0h1m2 0h3m1 0h9m1 0h1m1 0h1m-25 1h5m3 0h2m2 0h5m3 0h2m2 0h1m-33 1h7m2 0h1m1 0h4m3 0h1m1 0h5m1 0h1m1 0h1m1 0h3m-33 1h1m5 0h1m2 0h1m3 0h3m1 0h2m1 0h2m2 0h1m3 0h1m2 0h1m-32 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h3m1 0h2m1 0h1m2 0h6m-30 1h1m1 0h3m1 0h1m2 0h1m1 0h2m2 0h2m1 0h1m1 0h1m2 0h2m3 0h1m3 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m1 0h5m4 0h1m1 0h1m3 0h1m3 0h1m-33 1h1m5 0h1m3 0h2m4 0h2m1 0h8m1 0h1m2 0h1m-32 1h7m1 0h2m4 0h4m2 0h3m1 0h3m1 0h1m2 0h2"/></svg></div>
+<div class="sheet-btns"><button type="button" class="btn primary" id="share-go">Send the link</button><button type="button" class="btn" id="share-copy">Copy link</button></div>
+<h3>Put it on your home screen</h3>
+<ol><li><b>iPhone:</b> open the link in Safari, tap the Share button, then <b>Add to Home Screen</b>.</li><li><b>Android:</b> open the link in Chrome, tap the ⋮ menu, then <b>Add to Home screen</b> or <b>Install app</b>.</li></ol>
+<p class="note">Living relatives are left out of this public copy.</p>
+</div></div>
 <section class="view" id="view-story" aria-label="The Bexten Family Story" hidden>
 <div class="seg" role="tablist" aria-label="Story views"><a href="#story" role="tab" id="seg-story">Story</a><a href="#story/timeline" role="tab" id="seg-tl">Timeline</a></div>
 <div id="story-wrap">
-<div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label></div>
+<div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label><button type="button" class="listen" id="listen" aria-label="Listen to this chapter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span>Listen</span></button></div>
 <article class="prose" id="story-body">
 <h1>The Bexten Family Story</h1>
 <h2 id="s-two-families-one-wedding">Two families, one wedding</h2>
@@ -378,6 +434,7 @@ html,body,#app{touch-action:manipulation}
 <p>Brigitta lived another eight years. She died at Whiteford on January 25, 1914, at 81, and was buried at St. Joseph's in Sylvania. The person who reported her death was Mrs. William Berry of Ottawa Lake, born Rosa Hecker, most likely Brigitta's granddaughter through one of the Jaeger girls. Exactly where in Baden and Württemberg Joseph and Brigitta came from, and when they crossed the ocean, are still unknown.</p>
 <h2 id="s-1880-the-stowaway">1880: The stowaway</h2>
 <p><strong>Anthony Joseph Bexten</strong> was born on June 16, 1867, in Westphalia, a Catholic farming region of northwestern Germany. His father was <strong>Herman Bexten</strong>. He had at least three sisters.</p>
+<p>His hometown may finally have turned up. The baptism books of St. Lambertus, the Catholic church in the small town of Stromberg near Oelde, record <strong>Caspar Anton Bexte</strong>, born July 16, 1868, son of <strong>Hermann Bexte</strong> and <strong>Catharina Rüdingloh</strong>, who had married in 1860. The 1900 census gives Anthony's birth as July 1868, and the couple's other children included four daughters, Elisabeth, Johanna, Anna Antonia and Anna Sophia, and twin sons, Bernard and August. It is a strong match, but not yet proof: the original church book, with any later notes beside the entry, would settle it.</p>
 <p>In 1880, when he was about twelve, Anthony came to America by himself. Tony Bexten, his grandson, used to tell how his grandfather "stole away on a ship and was found halfway across the ocean." The records fit the story. No passenger list has been found for him, no parent or brother ever appears in an American record, and when he died in 1950 his three sisters were still living in Germany. A boy who left that young, that alone, may never have spoken much about the family he left behind: when his son Nelson filled out his death certificate, he could name Anthony's father but wrote "Don't know" for his mother.</p>
 <blockquote><p><strong>Crossing in 1880.</strong> Anthony left Germany at the start of the largest wave of German emigration to America, which peaked in the early 1880s. Most German emigrants then sailed by steamship from Bremen or Hamburg, a crossing of roughly two weeks, packed by the hundreds into steerage below decks. Arrivals at New York landed at Castle Garden, the immigrant depot at the tip of Manhattan; Ellis Island did not open until 1892. A stowaway's lot was harder. Boys who hid in the coal bunkers or among the crew's bedding were usually found within a few days and put to work, often helping the stokers shovel coal, to pay for their passage. Stowaways found before the ship left coastal waters were often put ashore with the harbor pilot. Once a ship was far out at sea there was no turning back, and on arrival stowaways were handed over to the immigration authorities. That fits the family story: Anthony was "found halfway across the ocean."</p></blockquote>
 <p>Anthony found his way to Whiteford Township, the farm country around Ottawa Lake, Michigan, and was a naturalized citizen by 1900. On April 11, 1899, he married <strong>Rosa Graf</strong>, the farmer's daughter from the next place over. In the 1900 census the newlyweds appear on the same page as Rosa's parents.</p>
@@ -394,9 +451,10 @@ html,body,#app{touch-action:manipulation}
 <p>Nelson and Caroline died within months of each other in 1987: Caroline on May 17 and Nelson on November 24, at Bryan, Ohio. Nelson is buried in St. Joseph's Cemetery, Sylvania, with his parents.</p>
 <h2 id="s-weston-to-toledo">Weston to Toledo</h2>
 <p><strong>Onal Bonnell</strong>, son of John W. J. Bonnell and Amanda May, was born in Lewis County on January 6, 1906. He married <strong>Genevieve Virginia Beamer</strong>, Calvin and Cora's daughter, born May 23, 1906, at Newville in Braxton County. They settled in Weston, where Onal worked as a glassworker, and had four children: <strong>Robert Eugene</strong> (1927–2007), <strong>Wallace</strong> (1928–1983), <strong>Charles Eddie</strong>, who died in 1933 at about two, and <strong>Betty Althea</strong>, born December 4, 1934, who always went by Althea.</p>
+<p>Both came from big families. Onal was the fifth of nine children born to John and Amanda Bonnell, after Dorsey, Myrtle, Dorothy Iva and Mamie, and before Ruth, Carl and the twins John Franklin and Joseph Cure; he also had three older half-siblings, Earnest, Jesse and Retta. Genevieve was the youngest of Calvin and Cora's children, after Blanche, Raymond, Bertha and Vada, and had two older half-sisters, Lora and Bessie, from Calvin's first marriage to Elizabeth Gillespie.</p>
 <blockquote><p><strong>Glass town.</strong> When Onal went to work, Weston was one of the glassmaking centers of West Virginia. More than twenty glass companies opened there after 1903, making window glass, lamp chimneys, milk bottles and fine tableware. The best known was founded by Louie Wohinc, an Austrian immigrant who had started working in a glass factory at age nine. In the 1920s and 1930s his Weston factories turned out about 144,000 pieces of glass a day, all by hand. By the 1930s West Virginia had about 13,000 glassworkers, most of them union members. Which Weston factory Onal worked in is not yet known.</p></blockquote>
 <p>On February 15, 1940, Onal died at Weston General Hospital. He was 34. A few weeks later the census taker found Genevieve, 33, a widow, heading the household in Weston with Robert, 13, Wallace, 11, and Althea, 5. He is buried in Machpelah Cemetery in Weston, near his Civil War grandfather.</p>
-<p>Genevieve eventually took the family north to the Toledo area. By 1951 Althea was in Williams County, Ohio, and by 1954 she and her mother were living on Ambia Street in Toledo, where Althea worked as a telephone operator. Genevieve was still "Mrs. Genevieve Bonnell" when her daughter married, but she later married <strong>John Rosentreter</strong>. She worked for 25 years as a caterer for the Gladieux Corporation, retiring in 1970. She outlived John and three of her four children, and died at home on Navarre Avenue in Oregon, Ohio, on October 7, 1990, at 84. She is buried in Ottawa Hills Memorial Park.</p>
+<p>Genevieve eventually took the family north to the Toledo area. By 1951 Althea was in Williams County, Ohio, and by 1954 she and her mother were living on Ambia Street in Toledo, where Althea worked as a telephone operator. Genevieve was still "Mrs. Genevieve Bonnell" when her daughter married, but on June 15, 1957, at Angola, Indiana, she married <strong>John Rosentreter</strong>. She worked for 25 years as a caterer for the Gladieux Corporation, retiring in 1970. She outlived John and three of her four children, and died at home on Navarre Avenue in Oregon, Ohio, on October 7, 1990, at 84. She is buried in Ottawa Hills Memorial Park.</p>
 <h2 id="s-tony-and-althea">Tony and Althea</h2>
 <p><strong>Anthony Joseph "Tony" Bexten</strong>, Nelson and Caroline's eldest, was born on March 28, 1933, and was farming at Ottawa Lake when he met Althea Bonnell. Their marriage license appeared in the Toledo Blade in late 1954: "Anthony J. Bexten, 21, farmer, Ottawa Lake, Mich., and Betty A. Bonnell, 19, telephone operator, 918 Ambia St."</p>
 <p>They were married on the evening of December 4, 1954, Althea's 20th birthday, at Central Avenue Methodist Church in Toledo. The Blade's wedding notice said the bride wore a gown of Chantilly lace and nylon tulle over satin.</p>
@@ -405,7 +463,7 @@ html,body,#app{touch-action:manipulation}
 <h2 id="s-still-to-discover">Still to discover</h2>
 <p>Some questions are still open. If you have letters, a family Bible, photographs, or a story you heard growing up, they may hold the answers.</p>
 <ul>
-<li><strong>Where in Westphalia was Anthony Bexten born?</strong> The baptism books of Liesborn and Ennigerloh, two Catholic parishes with old Bexten farms, have been checked for 1867 and 1868 without finding him. His naturalization papers or his 1899 marriage record may name the town.</li>
+<li><strong>Where in Westphalia was Anthony Bexten born?</strong> The baptism books of Liesborn and Ennigerloh, two Catholic parishes with old Bexten farms, have been checked for 1867 and 1868 without finding him. His naturalization papers or his 1899 marriage record may name the town. The best lead now is Stromberg, where a Caspar Anton Bexte, son of Hermann, was baptized in July 1868.</li>
 <li><strong>Who were Anthony's sisters and mother?</strong> Their descendants may still live in Germany.</li>
 <li><strong>Where in Baden and Württemberg were Joseph Graf and Brigitta Reger from?</strong> A Monroe County probate file for Joseph's 1905 estate may help.</li>
 <li><strong>Who were Mamie Miller's parents?</strong> And did Carrie's parents, Wendel and Mary Langenderfer, come from St. Wendel, Prussia, as one online tree says?</li>
@@ -539,6 +597,8 @@ html,body,#app{touch-action:manipulation}
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
 <h2 style="margin:28px 0 0;font-size:22px">Lines of descent</h2>
 <div class="chains" id="chains"></div>
+<h2 style="margin:34px 0 12px;font-size:22px" id="stats">Family by the numbers</h2>
+<div class="stats" id="stats-box"></div>
 <h2 style="margin:34px 0 4px;font-size:22px" id="cousins">Where the cousins come from</h2>
 <p class="note" style="margin:0 0 12px">Brothers and sisters of each ancestor. Their descendants in your generation are your cousins: the further back the ancestor, the more distant the cousin. Living cousins are not named here.</p>
 <div class="cousins" id="cousins-list"></div>
@@ -657,6 +717,7 @@ function showPerson(id){
  const caps=[["Father","Mother"],["Father's father","Father's mother","Mother's father","Mother's mother"]];
  let m="";[["Parents",1],["Grandparents",2],["Great-grandparents",3]].forEach(([t,g])=>{if(slots[g].every(x=>!x||!D[x]))return;m+=`<h3>${t}</h3><div class="pgrid g${g}">${slots[g].map((p,i)=>card(p,caps[g-1]?caps[g-1][i]:"")).join("")}</div>`});
  document.getElementById("pedm").innerHTML=m||`<p class="note">No parents recorded yet for this person.</p>`;
+ if(typeof otdShow==="function")otdShow(id);
  if(typeof afterPerson==="function")afterPerson(id);
 }
 document.getElementById("view-tree").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);document.getElementById("app").scrollTo({top:0,behavior:"smooth"})}});
@@ -1126,6 +1187,72 @@ document.querySelector(".tlbar").addEventListener("click",e=>{const b=e.target.c
 drawTL();
 function setStorySub(){const t=location.hash.split("/")[1]==="timeline";document.getElementById("tl-wrap").hidden=!t;document.getElementById("story-wrap").hidden=t;document.getElementById("seg-tl").setAttribute("aria-selected",t);document.getElementById("seg-story").setAttribute("aria-selected",!t)}
 window.addEventListener("hashchange",setStorySub);setStorySub();
+
+// ---------- on this day ----------
+var MON={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+var OTD_EVENTS=(function(){var out=[],re=/\b(Born|Married|Died|Killed)\b([^;]*?)\b(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\.? (\d{1,2})(?: or \d{1,2})?, (\d{4})/g;
+ Object.keys(D).forEach(function(id){if(id==="kids")return;D[id][2].forEach(function(f){var m;re.lastIndex=0;while((m=re.exec(f))){var kind=m[1]==="Born"?"born":m[1]==="Married"?"married":"died";var who=m[2].replace(/^\s+|\s+$/g,"");out.push({id:id,kind:kind,mo:MON[m[3].slice(0,3).toLowerCase()],d:+m[4],y:+m[5],extra:kind==="married"?who.replace(/^to /,""):""})}})});
+ var seen={};return out.filter(function(e){var k=e.kind+e.mo+"-"+e.d+"-"+e.y+(e.kind==="married"?"":e.id);if(seen[k])return false;seen[k]=1;return true})})();
+function otdLine(e,now){var n=D[e.id][0],ago=now.getFullYear()-e.y;var what=e.kind==="born"?esc(n)+" was born":e.kind==="died"?esc(n)+" died":esc(n)+" married"+(e.extra?" "+esc(e.extra):"");return `<button type="button" data-id="${e.id}"><span class="dot" style="background:${col(e.id)}"></span><span><b>${e.y}</b> · ${what}<small>${ago} years ago</small></span></button>`}
+function otdShow(id){var box=document.getElementById("otd");if(!box||!OTD_EVENTS)return;if(id!=="kids"){box.hidden=true;return}
+ var now=new Date(),mo=now.getMonth(),d=now.getDate();
+ var today=OTD_EVENTS.filter(function(e){return e.mo===mo&&e.d===d});
+ var h="";
+ if(today.length){h=`<h3>On this day</h3>`+today.map(function(e){return otdLine(e,now)}).join("")}
+ else{var y=now.getFullYear(),up=OTD_EVENTS.map(function(e){var t=new Date(y,e.mo,e.d);if(t<new Date(y,mo,d))t=new Date(y+1,e.mo,e.d);return {e:e,t:t}}).filter(function(x){return (x.t-now)/864e5<=45}).sort(function(a,b){return a.t-b.t}).slice(0,3);
+  if(!up.length){box.hidden=true;return}
+  h=`<h3>Coming up</h3>`+up.map(function(x){return otdLine(x.e,now).replace("<small>",`<small>${x.t.toLocaleDateString("en-US",{month:"short",day:"numeric"})} · `)}).join("")}
+ box.innerHTML=h;box.hidden=false}
+document.getElementById("otd").addEventListener("click",function(e){var b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);document.getElementById("app").scrollTo({top:0,behavior:"smooth"})}});
+otdShow("kids");
+
+// ---------- family stats ----------
+function drawStats(){
+ var ids=Object.keys(D).filter(function(k){return k!=="kids"});
+ var gens=ids.map(genOf),maxG=Math.max.apply(null,gens);
+ var proven=ids.filter(function(k){return D[k][5]==="r"}).length;
+ var lives=[];ids.forEach(function(k){var m=(D[k][1]||"").match(/^c?\.?(\d{4})\D+c?\.?(\d{4})$/);if(m)lives.push({id:k,b:+m[1],dd:+m[2],age:+m[2]-+m[1]})});
+ var avg=Math.round(lives.reduce(function(s,x){return s+x.age},0)/lives.length);
+ var oldest=lives.slice().sort(function(a,b){return b.age-a.age})[0];
+ var earliest=ids.map(function(k){var m=(D[k][1]||"").match(/(\d{4})/);return m?{id:k,y:+m[1]}:null}).filter(Boolean).sort(function(a,b){return a.y-b.y})[0];
+ var REG=[["Germany",/Germany|Westphalia|Baden|Württemberg|Prussia|Hesse/],["Holland",/Leiden|Holland/],["England",/England|Nottingham|Cambridge|Sutton/],["Massachusetts",/Barnstable|Massachusetts/],["New Jersey",/New Jersey|Piscataway/],["Pennsylvania",/Pennsylvania|Reading|White Marsh/],["New York",/New York/],["Virginia & West Virginia",/Virginia|County|Buckhannon|Weston|Philippi|New Market/],["Ohio",/Ohio|Toledo|Raab/],["Michigan",/Michigan|Monroe, Michigan/]];
+ var places={};ids.forEach(function(k){var f=D[k][2].find(function(x){return /^Born\b/.test(x)});if(!f)return;for(var i=0;i<REG.length;i++){if(REG[i][1].test(f)){places[REG[i][0]]=(places[REG[i][0]]||0)+1;return}}});
+ var pl=Object.keys(places).map(function(k){return [k,places[k]]}).sort(function(a,b){return b[1]-a[1]}),pmax=pl.length?pl[0][1]:1;
+ var names={};ids.forEach(function(k){var n=D[k][0].replace(/^Rev\.\s+/,"").replace(/[“"][^”"]*[”"]\s*/g,"").split(" ")[0];if(n.length>1)names[n]=(names[n]||0)+1});
+ var top=Object.keys(names).map(function(k){return [k,names[k]]}).filter(function(x){return x[1]>1}).sort(function(a,b){return b[1]-a[1]||a[0].localeCompare(b[0])}).slice(0,6);
+ var tile=function(n,l,s){return `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div>${s?`<div class="s">${s}</div>`:""}</div>`};
+ document.getElementById("stats-box").innerHTML=`<div class="tiles">${tile(ids.length,"ancestors named")}${tile(maxG,"generations back","to the Pilgrims, about 1580")}${tile(Math.round(proven/ids.length*100)+"%","backed by records","the rest from published genealogies and trees")}${tile(avg,"average lifespan, years",lives.length+" ancestors with both dates")}${tile(oldest.age,"longest life, years",esc(D[oldest.id][0])+", "+oldest.b+"–"+oldest.dd)}${tile(earliest.y<1600?"c."+earliest.y:earliest.y,"earliest birth",esc(D[earliest.id][0]))}</div>
+ <div class="card statcard"><h3>Where they were born</h3><p class="note">For the ${pl.reduce(function(s,x){return s+x[1]},0)} ancestors whose birthplace is recorded</p>${pl.map(function(x){return `<div class="bar"><span>${x[0]}</span><i style="width:${Math.max(6,x[1]/pmax*100)}%"></i><b>${x[1]}</b></div>`}).join("")}</div>
+ <div class="card statcard"><h3>Most common first names</h3>${top.map(function(x){return `<div class="nm"><span>${esc(x[0])}</span><b>${x[1]}</b></div>`}).join("")}</div>`;
+}
+drawStats();
+
+// ---------- share ----------
+var SHARE_URL="https://jbexten89.github.io/Bexten-Family-Explorer/";
+(function(){var sh=document.getElementById("share");
+ function open(){sh.hidden=false;document.body.classList.add("modal")}
+ function close(){sh.hidden=true;document.body.classList.remove("modal")}
+ document.getElementById("sharebtn").addEventListener("click",open);
+ sh.addEventListener("click",function(e){if(e.target===sh||e.target.closest("[data-close]"))close()});
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!sh.hidden)close()});
+ document.getElementById("share-go").addEventListener("click",function(){if(navigator.share){navigator.share({title:"The Bexten Family Explorer",text:"Our family tree, maps and story",url:SHARE_URL}).catch(function(){})}else{location.href="mailto:?subject="+encodeURIComponent("The Bexten Family Explorer")+"&body="+encodeURIComponent(SHARE_URL)}});
+ document.getElementById("share-copy").addEventListener("click",function(){var b=this;(navigator.clipboard?navigator.clipboard.writeText(SHARE_URL):Promise.reject()).then(function(){b.textContent="Copied"},function(){b.textContent=SHARE_URL});setTimeout(function(){b.textContent="Copy link"},2500)});
+})();
+
+// ---------- story audio ----------
+(function(){var btn=document.getElementById("listen");if(!btn)return;
+ if(!("speechSynthesis" in window)){btn.hidden=true;return}
+ var synth=window.speechSynthesis,queue=[],idx=0,state="idle",voice=null,cur=null;
+ function pickVoice(){var v=synth.getVoices().filter(function(x){return /^en(-|_)US/i.test(x.lang)});voice=v.find(function(x){return /enhanced|premium|natural/i.test(x.name)})||v.find(function(x){return /Samantha|Ava|Allison|Google US/i.test(x.name)})||v[0]||null}
+ pickVoice();if(synth.onvoiceschanged!==undefined)synth.onvoiceschanged=pickVoice;
+ function setBtn(s){state=s;btn.classList.toggle("on",s!=="idle");btn.querySelector("span").textContent=s==="playing"?"Pause":s==="paused"?"Resume":"Listen";btn.querySelector("svg").innerHTML=s==="playing"?'<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>':'<path d="M8 5v14l11-7z"/>'}
+ function mark(el){if(cur)cur.classList.remove("reading");cur=el;if(el){el.classList.add("reading");var r=el.getBoundingClientRect();if(r.top<120||r.bottom>innerHeight-120)el.scrollIntoView({block:"center",behavior:"smooth"})}}
+ function chapter(){var hs=[].slice.call(document.querySelectorAll("#story-body h2"));var start=hs[0];hs.forEach(function(h){if(h.getBoundingClientRect().top<200)start=h});var els=[],n=start;while(n){if(n!==start&&n.tagName==="H2")break;if(/^(H2|H3|P)$/.test(n.tagName))els.push(n);else if(n.tagName==="UL"||n.tagName==="OL"||n.tagName==="BLOCKQUOTE")[].push.apply(els,n.querySelectorAll("li,p"));n=n.nextElementSibling}return els.filter(function(e){return e.textContent.trim()})}
+ function next(){if(state!=="playing")return;if(idx>=queue.length){stop();return}var el=queue[idx++];mark(el);var u=new SpeechSynthesisUtterance(el.textContent.replace(/\s+/g," ").trim());if(voice)u.voice=voice;u.rate=0.95;u.onend=function(){if(state==="playing")next()};u.onerror=function(){if(state==="playing")next()};synth.speak(u)}
+ function stop(){synth.cancel();mark(null);setBtn("idle")}
+ btn.addEventListener("click",function(){if(state==="playing"){synth.pause();setBtn("paused");return}if(state==="paused"){synth.resume();setBtn("playing");return}synth.cancel();queue=chapter();idx=0;setBtn("playing");next()});
+ window.addEventListener("hashchange",function(){if(state!=="idle"&&!/^#story/.test(location.hash))stop()});
+})();
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo"];
