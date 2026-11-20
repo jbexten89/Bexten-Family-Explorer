@@ -266,3 +266,20 @@ body.modal #app{overflow:hidden}
 #fan .seg.more{cursor:zoom-in}
 #fan .fanc[data-open]{cursor:pointer}
 @media print{.fannav{display:none}}
+
+.obar{display:flex;height:26px;border-radius:8px;overflow:hidden;margin:0 0 12px;background:var(--panel)}
+.obar span{display:block;height:100%}
+.olist{display:grid;gap:8px}
+.orow{display:grid;grid-template-columns:14px 1fr auto;gap:10px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.osw{width:12px;height:12px;border-radius:3px;margin-top:4px}
+.orow b{display:block;font-weight:700}.orow i{display:block;font-style:normal;color:var(--mute);font-size:13px}
+.opc{font-weight:700;font-variant-numeric:tabular-nums}
+.oh3{font-size:17px;margin:20px 0 8px}
+.arrive{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--line)}
+.arrive li{margin:0 0 4px}
+.arrive button{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;background:none;border:0;color:var(--ink);font:400 15px/1.4 "Nunito Sans",sans-serif;padding:6px 0;cursor:pointer}
+.ay{font-weight:700;min-width:62px;flex:none}
+.lifebox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 4px}
+#life{display:block;width:100%;height:auto}
+#life .lbar{cursor:pointer}#life .lbar:hover text{fill:var(--accent)}
+@media print{#life-f{display:none}}
