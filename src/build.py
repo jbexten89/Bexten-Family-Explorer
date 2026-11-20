@@ -26,6 +26,6 @@ function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.include
 '''
 t=t.replace(old,(S/'extra.js').read_text()+'\n// ---------- views ----------\n'+new)
 t=t.replace('__GEO__',(S/'geo.json').read_text().strip())
-t=t.replace('</body>','<script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{})</script>\n</body>')
+t=t.replace('</body>','<script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{})</script>\n</body>')
 (OUT/'index.html').write_text(t)
 print(len(t))
