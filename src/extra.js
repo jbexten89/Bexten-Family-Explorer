@@ -36,7 +36,7 @@ drawFan();drawChains();
 document.querySelectorAll("[data-print]").forEach(b=>b.addEventListener("click",()=>window.print()));
 
 // ---------- story / report tables of contents ----------
-function toc(view){const box=document.getElementById(view+"-toc"),hs=[...document.querySelectorAll(`#${view}-body h2`)];box.innerHTML=hs.map(h=>`<a href="#${view}/${h.id}">${esc(h.textContent)}</a>`).join("")}
+function toc(view){const box=document.getElementById(view+"-toc"),hs=[...document.querySelectorAll(`#${view}-body h2`)];box.innerHTML=`<option value="">${view==="story"?"Jump to a chapter":"Jump to a section"}</option>`+hs.map(h=>`<option value="${view}/${h.id}">${esc(h.textContent)}</option>`).join("");box.addEventListener("change",()=>{if(box.value){location.hash="#"+box.value;box.value=""}})}
 toc("story");toc("report");
 
 // ---------- to-do ----------
