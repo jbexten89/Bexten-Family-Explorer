@@ -357,3 +357,9 @@ html.slimhdr .helplink{display:none}
 @media print{.helplink{display:none}}
 html:not(.slimhdr) .brand{padding-right:46px}
 @media(max-width:760px){html:not(.slimhdr) header h1{font-size:min(23px,4.7vw)}}
+@media screen{
+ .prose > h1:first-child{display:none}
+ .prose h2{font-size:21px;margin:26px 0 6px}
+ .prose > h1:first-child + h2,.prose > h2:first-child{margin-top:4px}
+ .prose h3{font-size:17px;margin:20px 0 4px}
+}
