@@ -1363,7 +1363,10 @@ function initGraveMap(){
 drawGraves();
 function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
 window.addEventListener("hashchange",setMapSub);setMapSub();
-window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});
+function centerGrave(){const h=location.hash.split("/")[1];if(!(h&&h.startsWith("g-")))return;const c=document.getElementById(h);if(!c)return;c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash");
+ const go=()=>{const app=document.getElementById("app"),r=c.getBoundingClientRect(),hd=document.querySelector("header"),top=hd?hd.getBoundingClientRect().bottom:0,nav=document.querySelector("nav"),bot=nav?nav.getBoundingClientRect().top:innerHeight;
+  const mid=top+(bot-top)/2;app.scrollTo({top:app.scrollTop+r.top+r.height/2-mid,behavior:"auto"})};setTimeout(go,80);setTimeout(go,350)}
+window.addEventListener("hashchange",centerGrave);setTimeout(centerGrave,300);
 
 // ---------- directions: Apple or Google ----------
 function mapsPref(){try{return localStorage.getItem("bexten-maps")||""}catch(e){return""}}
