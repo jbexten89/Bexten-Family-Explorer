@@ -363,3 +363,11 @@ html:not(.slimhdr) .brand{padding-right:46px}
  .prose > h1:first-child + h2,.prose > h2:first-child{margin-top:4px}
  .prose h3{font-size:17px;margin:20px 0 4px}
 }
+
+.otdc summary{display:flex;align-items:baseline;gap:10px;cursor:pointer;list-style:none;min-height:24px}
+.otdc summary::-webkit-details-marker{display:none}
+.otdc summary::after{content:"›";margin-left:auto;color:var(--accent);font-size:20px;transition:transform .2s}
+.otdc[open] summary::after{transform:rotate(90deg)}
+.otdl{color:var(--accent);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;flex:none}
+.otds{color:var(--ink);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.otdc[open] summary{margin-bottom:6px}
