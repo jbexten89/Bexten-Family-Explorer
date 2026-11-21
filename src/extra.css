@@ -330,7 +330,7 @@ body.modal #app{overflow:hidden}
 @media print{.crumbs{display:none}}
 
 .h1slim,.pagename{display:none}
-html.slimhdr header{position:sticky;top:0;z-index:30;background:#07080A;padding-top:calc(env(safe-area-inset-top) + 8px);padding-bottom:8px;border-bottom:1px solid var(--line);max-width:none}
+html.slimhdr header{position:sticky;top:0;z-index:30;background:#07080A;padding-top:calc(env(safe-area-inset-top) + 28px);padding-bottom:8px;border-bottom:1px solid var(--line);max-width:none}
 html.slimhdr .brand{gap:10px;align-items:center}
 html.slimhdr .appicon{width:32px;height:32px;border-radius:8px;box-shadow:none}
 html.slimhdr header h1{font-size:13px;font-weight:600;color:var(--mute);line-height:1.2}
