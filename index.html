@@ -1739,9 +1739,14 @@ function crCapture(){const v=crView(),vis=document.getElementById("view-"+v),app
 function crApply(o){const v=crView(o.hash),vis=document.getElementById("view-"+v);
  if(v==="charts"){if(FANF!==o.fan){FANF=o.fan;FANHIST=o.fanHist.slice();drawFan()}if(typeof LIFE_F!=="undefined"&&LIFE_F!==o.life){LIFE_F=o.life;drawLife()}const bb=document.getElementById("bowbox");if(bb)bb.scrollLeft=o.bow}
  if(vis){const ds=vis.querySelectorAll("details");o.open.forEach(i=>{if(ds[i])ds[i].open=true})}
- const app=document.getElementById("app");app.scrollTop=o.scroll;setTimeout(()=>{app.scrollTop=o.scroll},60)}
-function crBack(){const o=CR.origin;if(!o)return;CR.restoring=true;CR.origin=null;CR.trail=[];
- if(location.hash===o.hash){crApply(o);CR.restoring=false}else{location.hash=o.hash;setTimeout(()=>{crApply(o);CR.restoring=false},40)}}
+ const app=document.getElementById("app");app.scrollTop=o.scroll}
+let CR_PEND=null;
+function crBack(){const o=CR.origin;if(!o)return;CR.origin=null;CR.trail=[];
+ if(location.hash===o.hash){crApply(o);return}
+ CR.restoring=true;CR_PEND=o;location.hash=o.hash;
+ setTimeout(()=>{if(CR_PEND===o){CR_PEND=null;CR.restoring=false;crApply(o)}},600)}
+window.addEventListener("hashchange",()=>{const o=CR_PEND;if(!o||location.hash!==o.hash)return;CR_PEND=null;
+ (window.requestAnimationFrame||setTimeout)(()=>{crApply(o);setTimeout(()=>{crApply(o);CR.restoring=false},250)})});
 const _showPerson0=showPerson;
 showPerson=function(id){
  if(crView()!=="tree"&&id!=="kids"&&D[id]){CR.origin=crCapture();CR.trail=[id]}
@@ -1777,7 +1782,7 @@ function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.include
 window.addEventListener("hashchange",route);route();
 }
 </script>
-<script>(function(){var mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function sa(){return navigator.standalone||mm("(display-mode: standalone)")}function short(){var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);return H-innerHeight>4}function flip(el){if(!el)return;var a=document.getElementById("app"),st=a?a.scrollTop:0;el.style.display="none";void el.offsetHeight;el.style.display="";if(a)a.scrollTop=st}function mark(){document.documentElement.classList.toggle("shortvp",sa()&&short())}mark();addEventListener("resize",mark);function heal(){mark();if(!sa()||!short())return;flip(document.getElementById("app"));setTimeout(function(){if(short())flip(document.body)},60)}addEventListener("load",function(){setTimeout(heal,50);setTimeout(heal,600)});addEventListener("pageshow",function(){setTimeout(heal,50)});document.addEventListener("visibilitychange",function(){if(!document.hidden)setTimeout(heal,100)});addEventListener("orientationchange",function(){setTimeout(heal,400)});addEventListener("focusout",function(){setTimeout(heal,150)})})()</script>
+<script>(function(){var mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function sa(){return navigator.standalone||mm("(display-mode: standalone)")}function short(){var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);return H-innerHeight>4}function flip(el){if(!el)return;var a=document.getElementById("app"),st=a?a.scrollTop:0;el.style.display="none";void el.offsetHeight;el.style.display="";if(a)a.scrollTop=st}function mark(){document.documentElement.classList.toggle("shortvp",sa()&&short())}mark();addEventListener("resize",mark);function heal(){mark();return;if(!sa()||!short())return;flip(document.getElementById("app"));setTimeout(function(){if(short())flip(document.body)},60)}addEventListener("load",function(){setTimeout(heal,50);setTimeout(heal,600)});addEventListener("pageshow",function(){setTimeout(heal,50)});document.addEventListener("visibilitychange",function(){if(!document.hidden)setTimeout(heal,100)});addEventListener("orientationchange",function(){setTimeout(heal,400)});addEventListener("focusout",function(){setTimeout(heal,150)})})()</script>
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{})</script>
 </body>
 </html>

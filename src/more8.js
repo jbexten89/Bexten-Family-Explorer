@@ -15,9 +15,14 @@ function crCapture(){const v=crView(),vis=document.getElementById("view-"+v),app
 function crApply(o){const v=crView(o.hash),vis=document.getElementById("view-"+v);
  if(v==="charts"){if(FANF!==o.fan){FANF=o.fan;FANHIST=o.fanHist.slice();drawFan()}if(typeof LIFE_F!=="undefined"&&LIFE_F!==o.life){LIFE_F=o.life;drawLife()}const bb=document.getElementById("bowbox");if(bb)bb.scrollLeft=o.bow}
  if(vis){const ds=vis.querySelectorAll("details");o.open.forEach(i=>{if(ds[i])ds[i].open=true})}
- const app=document.getElementById("app");app.scrollTop=o.scroll;setTimeout(()=>{app.scrollTop=o.scroll},60)}
-function crBack(){const o=CR.origin;if(!o)return;CR.restoring=true;CR.origin=null;CR.trail=[];
- if(location.hash===o.hash){crApply(o);CR.restoring=false}else{location.hash=o.hash;setTimeout(()=>{crApply(o);CR.restoring=false},40)}}
+ const app=document.getElementById("app");app.scrollTop=o.scroll}
+let CR_PEND=null;
+function crBack(){const o=CR.origin;if(!o)return;CR.origin=null;CR.trail=[];
+ if(location.hash===o.hash){crApply(o);return}
+ CR.restoring=true;CR_PEND=o;location.hash=o.hash;
+ setTimeout(()=>{if(CR_PEND===o){CR_PEND=null;CR.restoring=false;crApply(o)}},600)}
+window.addEventListener("hashchange",()=>{const o=CR_PEND;if(!o||location.hash!==o.hash)return;CR_PEND=null;
+ (window.requestAnimationFrame||setTimeout)(()=>{crApply(o);setTimeout(()=>{crApply(o);CR.restoring=false},250)})});
 const _showPerson0=showPerson;
 showPerson=function(id){
  if(crView()!=="tree"&&id!=="kids"&&D[id]){CR.origin=crCapture();CR.trail=[id]}
