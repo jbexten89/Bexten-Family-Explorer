@@ -446,6 +446,16 @@ html:not(.slimhdr) .brand{padding-right:46px}
 
 html.shortvp nav{padding-bottom:6px;background:#07080A}
 html.shortvp main{padding-bottom:84px}
+
+.mapsapp{margin:-4px 0 12px;color:var(--mute);font-size:14px}
+.mapsapp select{margin-left:6px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:600 14px "Nunito Sans",sans-serif}
+.mapchoose{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.mcbox{width:100%;max-width:480px;background:var(--panel);border:1px solid var(--line);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));display:grid;gap:10px}
+.mcbox h3{margin:0 0 4px;font-size:17px}
+.mcbox .btn{min-height:48px;font-size:16px;justify-content:center}
+.mcrem{display:flex;gap:8px;align-items:center;color:var(--mute);font-size:14px;margin:2px 0}
+.mccancel{background:none;border:0;color:var(--accent);font:700 15px "Nunito Sans",sans-serif;padding:10px;cursor:pointer}
+html.shortvp .mcbox{padding-bottom:20px}
 </style>
 </head>
 <body>
@@ -497,6 +507,7 @@ html.shortvp main{padding-bottom:84px}
 <div id="gv" hidden>
 <h2 class="sect">Where they're buried</h2>
 <p class="note">Seven cemeteries hold ancestors found so far: four around Toledo and Pioneer, three in central West Virginia. Tap a name to open that person, or Directions to drive there.</p>
+<p class="mapsapp"><label>Directions open in <select id="mapsapp"><option value="">Ask each time</option><option value="apple">Apple Maps</option><option value="google">Google Maps</option></select></label></p>
 <div class="gbar"><button type="button" class="chip" data-gfit="oh" aria-pressed="true">Ohio</button><button type="button" class="chip" data-gfit="wv">West Virginia</button><button type="button" class="chip" data-gfit="all">All</button><a class="chip trip" id="trip" target="_blank" rel="noopener">Ohio day trip route</a></div>
 <div id="gmap" class="gmap" role="region" aria-label="Map of family burial places"></div>
 <div class="graves" id="graves-list"></div>
@@ -830,7 +841,7 @@ html.shortvp main{padding-bottom:84px}
 <details><summary>Map tab</summary>
 <ul>
 <li><b>Journeys.</b> Two maps, Europe (where the families left from) and America (where they settled), with the routes each family line took. Tap a line's button to show only that family. Arrows off the edge of a map are Atlantic crossings; dashed routes are uncertain.</li>
-<li><b>Graves.</b> A street map of the seven cemeteries that hold family: four around Toledo and Pioneer, three in central West Virginia. Use Ohio, West Virginia or All to zoom, and the Ohio day trip button for a driving route. Each cemetery lists who is buried there, with Directions.</li>
+<li><b>Graves.</b> A street map of the seven cemeteries that hold family: four around Toledo and Pioneer, three in central West Virginia. Use Ohio, West Virginia or All to zoom, and the Ohio day trip button for a driving route. Each cemetery lists who is buried there, with Directions. The first time you tap Directions you choose Apple Maps or Google Maps; change it any time with “Directions open in” at the top of the Graves page.</li>
 </ul></details>
 
 <details><summary>Story tab</summary>
@@ -1307,6 +1318,7 @@ const GRAVES=[
 ];
 const BURIED={};GRAVES.forEach(g=>g.who.forEach(p=>BURIED[p]=g));
 const OHIO_TRIP="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination="+GRAVES[3].ll.join(",")+"&waypoints="+encodeURIComponent([GRAVES[0],GRAVES[1],GRAVES[2]].map(g=>g.ll.join(",")).join("|"));
+const gmapUrl=g=>`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${g.ll.join(",")}`;
 const amap=g=>`https://maps.apple.com/?daddr=${g.ll.join(",")}&q=${encodeURIComponent(g.name+", "+g.town)}`;
 
 function allPaths(t){const out=[];(function go(p){const h=p[p.length-1];if(h===t){out.push(p);return}const d=D[h];if(!d||p.length>16)return;[d[3],d[4]].forEach(x=>{if(x&&D[x])go(p.concat(x))})})(["kids"]);return out}
@@ -1331,7 +1343,7 @@ function afterPerson(id){
 }
 function drawGraves(){
  const el=document.getElementById("graves-list");if(!el)return;
- el.innerHTML=GRAVES.map(g=>`<div class="card grave" id="g-${g.id}"><h3>${esc(g.name)}</h3><p class="town">${esc(g.town)}${g.note?` · ${esc(g.note)}`:""}</p><div class="who">${g.who.map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div><a class="dir" href="${amap(g)}" target="_blank" rel="noopener">Directions</a></div>`).join("")
+ el.innerHTML=GRAVES.map(g=>`<div class="card grave" id="g-${g.id}"><h3>${esc(g.name)}</h3><p class="town">${esc(g.town)}${g.note?` · ${esc(g.note)}`:""}</p><div class="who">${g.who.map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div><a class="dir" data-dir="${g.id}" href="${amap(g)}" target="_blank" rel="noopener">Directions</a></div>`).join("")
  +`<div class="card grave"><h3>Weston, West Virginia</h3><p class="town">Cemetery not yet identified</p><div class="who">${["johnmay","sarah"].map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div></div>`;
  document.getElementById("trip").href=OHIO_TRIP;
 }
@@ -1342,7 +1354,7 @@ function initGraveMap(){
  if(!window.L){if(!document.getElementById("lf-js")){const c=document.createElement("link");c.rel="stylesheet";c.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(c);const s=document.createElement("script");s.id="lf-js";s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.onload=initGraveMap;s.onerror=()=>{document.getElementById("gmap").innerHTML='<p class="note" style="padding:16px">The map needs an internet connection.</p>'};document.head.appendChild(s)}return}
  gmap=window.L.map("gmap",{scrollWheelZoom:false,attributionControl:true});
  window.L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(gmap);
- const pts=[];GRAVES.forEach(g=>{pts.push(g.ll);const c=col(g.who[0]);window.L.circleMarker(g.ll,{radius:8,color:"#07080A",weight:2,fillColor:c,fillOpacity:1}).addTo(gmap).bindPopup(`<b>${esc(g.name)}</b><br>${esc(g.town)}<br>${g.who.map(p=>esc(D[p][0])).join("<br>")}<br><a href="${amap(g)}" target="_blank" rel="noopener">Directions</a>`)});
+ const pts=[];GRAVES.forEach(g=>{pts.push(g.ll);const c=col(g.who[0]);window.L.circleMarker(g.ll,{radius:8,color:"#07080A",weight:2,fillColor:c,fillOpacity:1}).addTo(gmap).bindPopup(`<b>${esc(g.name)}</b><br>${esc(g.town)}<br>${g.who.map(p=>esc(D[p][0])).join("<br>")}<br><a data-dir="${g.id}" href="${amap(g)}" target="_blank" rel="noopener">Directions</a>`)});
  const oh=GRAVES.filter(g=>g.ll[0]>41).map(g=>g.ll);gmap.fitBounds(oh,{padding:[30,30]});
  document.querySelectorAll("[data-gfit]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.gfit;gmap.fitBounds(k==="oh"?oh:k==="wv"?GRAVES.filter(g=>g.ll[0]<40).map(g=>g.ll):pts,{padding:[30,30]});document.querySelectorAll("[data-gfit]").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
 }
@@ -1350,6 +1362,16 @@ drawGraves();
 function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
 window.addEventListener("hashchange",setMapSub);setMapSub();
 window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});
+
+// ---------- directions: Apple or Google ----------
+function mapsPref(){try{return localStorage.getItem("bexten-maps")||""}catch(e){return""}}
+function setMapsPref(v){try{v?localStorage.setItem("bexten-maps",v):localStorage.removeItem("bexten-maps")}catch(e){}const sel=document.getElementById("mapsapp");if(sel)sel.value=v||""}
+function openDir(g,app){window.open(app==="google"?gmapUrl(g):amap(g),"_blank","noopener")}
+function chooseMaps(g){const old=document.getElementById("mapchoose");if(old)old.remove();
+ document.body.insertAdjacentHTML("beforeend",`<div class="mapchoose" id="mapchoose" role="dialog" aria-modal="true" aria-label="Open directions in"><div class="mcbox"><h3>Directions to ${esc(g.name)}</h3><button type="button" class="btn" data-app="apple">Apple Maps</button><button type="button" class="btn" data-app="google">Google Maps</button><label class="mcrem"><input type="checkbox" id="mcrem" checked> Always use this app</label><button type="button" class="mccancel" data-app="">Cancel</button></div></div>`);
+ const el=document.getElementById("mapchoose");el.addEventListener("click",e=>{const b=e.target.closest("[data-app]");if(!b&&e.target!==el)return;const app=b?b.dataset.app:"";if(app){if(document.getElementById("mcrem").checked)setMapsPref(app);openDir(g,app)}el.remove()})}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-dir]");if(!a)return;const g=GRAVES.find(x=>x.id===a.dataset.dir);if(!g)return;e.preventDefault();const p=mapsPref();if(p)openDir(g,p);else chooseMaps(g)});
+(function(){const sel=document.getElementById("mapsapp");if(!sel)return;sel.value=mapsPref();sel.addEventListener("change",()=>setMapsPref(sel.value))})();
 
 // ---------- brothers and sisters (cousins) ----------
 const SIBS={

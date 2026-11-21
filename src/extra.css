@@ -374,3 +374,13 @@ html:not(.slimhdr) .brand{padding-right:46px}
 
 html.shortvp nav{padding-bottom:6px;background:#07080A}
 html.shortvp main{padding-bottom:84px}
+
+.mapsapp{margin:-4px 0 12px;color:var(--mute);font-size:14px}
+.mapsapp select{margin-left:6px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:600 14px "Nunito Sans",sans-serif}
+.mapchoose{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+.mcbox{width:100%;max-width:480px;background:var(--panel);border:1px solid var(--line);border-radius:20px 20px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));display:grid;gap:10px}
+.mcbox h3{margin:0 0 4px;font-size:17px}
+.mcbox .btn{min-height:48px;font-size:16px;justify-content:center}
+.mcrem{display:flex;gap:8px;align-items:center;color:var(--mute);font-size:14px;margin:2px 0}
+.mccancel{background:none;border:0;color:var(--accent);font:700 15px "Nunito Sans",sans-serif;padding:10px;cursor:pointer}
+html.shortvp .mcbox{padding-bottom:20px}

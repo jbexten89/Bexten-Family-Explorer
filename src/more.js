@@ -160,6 +160,7 @@ const GRAVES=[
 ];
 const BURIED={};GRAVES.forEach(g=>g.who.forEach(p=>BURIED[p]=g));
 const OHIO_TRIP="https://www.google.com/maps/dir/?api=1&travelmode=driving&destination="+GRAVES[3].ll.join(",")+"&waypoints="+encodeURIComponent([GRAVES[0],GRAVES[1],GRAVES[2]].map(g=>g.ll.join(",")).join("|"));
+const gmapUrl=g=>`https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=${g.ll.join(",")}`;
 const amap=g=>`https://maps.apple.com/?daddr=${g.ll.join(",")}&q=${encodeURIComponent(g.name+", "+g.town)}`;
 
 function allPaths(t){const out=[];(function go(p){const h=p[p.length-1];if(h===t){out.push(p);return}const d=D[h];if(!d||p.length>16)return;[d[3],d[4]].forEach(x=>{if(x&&D[x])go(p.concat(x))})})(["kids"]);return out}
@@ -184,7 +185,7 @@ function afterPerson(id){
 }
 function drawGraves(){
  const el=document.getElementById("graves-list");if(!el)return;
- el.innerHTML=GRAVES.map(g=>`<div class="card grave" id="g-${g.id}"><h3>${esc(g.name)}</h3><p class="town">${esc(g.town)}${g.note?` · ${esc(g.note)}`:""}</p><div class="who">${g.who.map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div><a class="dir" href="${amap(g)}" target="_blank" rel="noopener">Directions</a></div>`).join("")
+ el.innerHTML=GRAVES.map(g=>`<div class="card grave" id="g-${g.id}"><h3>${esc(g.name)}</h3><p class="town">${esc(g.town)}${g.note?` · ${esc(g.note)}`:""}</p><div class="who">${g.who.map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div><a class="dir" data-dir="${g.id}" href="${amap(g)}" target="_blank" rel="noopener">Directions</a></div>`).join("")
  +`<div class="card grave"><h3>Weston, West Virginia</h3><p class="town">Cemetery not yet identified</p><div class="who">${["johnmay","sarah"].map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div></div>`;
  document.getElementById("trip").href=OHIO_TRIP;
 }
@@ -195,7 +196,7 @@ function initGraveMap(){
  if(!window.L){if(!document.getElementById("lf-js")){const c=document.createElement("link");c.rel="stylesheet";c.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";document.head.appendChild(c);const s=document.createElement("script");s.id="lf-js";s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";s.onload=initGraveMap;s.onerror=()=>{document.getElementById("gmap").innerHTML='<p class="note" style="padding:16px">The map needs an internet connection.</p>'};document.head.appendChild(s)}return}
  gmap=window.L.map("gmap",{scrollWheelZoom:false,attributionControl:true});
  window.L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(gmap);
- const pts=[];GRAVES.forEach(g=>{pts.push(g.ll);const c=col(g.who[0]);window.L.circleMarker(g.ll,{radius:8,color:"#07080A",weight:2,fillColor:c,fillOpacity:1}).addTo(gmap).bindPopup(`<b>${esc(g.name)}</b><br>${esc(g.town)}<br>${g.who.map(p=>esc(D[p][0])).join("<br>")}<br><a href="${amap(g)}" target="_blank" rel="noopener">Directions</a>`)});
+ const pts=[];GRAVES.forEach(g=>{pts.push(g.ll);const c=col(g.who[0]);window.L.circleMarker(g.ll,{radius:8,color:"#07080A",weight:2,fillColor:c,fillOpacity:1}).addTo(gmap).bindPopup(`<b>${esc(g.name)}</b><br>${esc(g.town)}<br>${g.who.map(p=>esc(D[p][0])).join("<br>")}<br><a data-dir="${g.id}" href="${amap(g)}" target="_blank" rel="noopener">Directions</a>`)});
  const oh=GRAVES.filter(g=>g.ll[0]>41).map(g=>g.ll);gmap.fitBounds(oh,{padding:[30,30]});
  document.querySelectorAll("[data-gfit]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.gfit;gmap.fitBounds(k==="oh"?oh:k==="wv"?GRAVES.filter(g=>g.ll[0]<40).map(g=>g.ll):pts,{padding:[30,30]});document.querySelectorAll("[data-gfit]").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
 }
@@ -203,3 +204,13 @@ drawGraves();
 function setMapSub(){const sub=location.hash.split("/")[1]||"";const g=sub==="graves"||sub.startsWith("g-");document.getElementById("gv").hidden=!g;document.getElementById("mig").hidden=g;document.getElementById("seg-gv").setAttribute("aria-selected",g);document.getElementById("seg-mig").setAttribute("aria-selected",!g);if(g){setTimeout(()=>{initGraveMap();if(gmap)gmap.invalidateSize()},60)}}
 window.addEventListener("hashchange",setMapSub);setMapSub();
 window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if(h&&h.startsWith("g-")){const c=document.getElementById(h);if(c){c.classList.remove("flash");void c.offsetWidth;c.classList.add("flash")}}});
+
+// ---------- directions: Apple or Google ----------
+function mapsPref(){try{return localStorage.getItem("bexten-maps")||""}catch(e){return""}}
+function setMapsPref(v){try{v?localStorage.setItem("bexten-maps",v):localStorage.removeItem("bexten-maps")}catch(e){}const sel=document.getElementById("mapsapp");if(sel)sel.value=v||""}
+function openDir(g,app){window.open(app==="google"?gmapUrl(g):amap(g),"_blank","noopener")}
+function chooseMaps(g){const old=document.getElementById("mapchoose");if(old)old.remove();
+ document.body.insertAdjacentHTML("beforeend",`<div class="mapchoose" id="mapchoose" role="dialog" aria-modal="true" aria-label="Open directions in"><div class="mcbox"><h3>Directions to ${esc(g.name)}</h3><button type="button" class="btn" data-app="apple">Apple Maps</button><button type="button" class="btn" data-app="google">Google Maps</button><label class="mcrem"><input type="checkbox" id="mcrem" checked> Always use this app</label><button type="button" class="mccancel" data-app="">Cancel</button></div></div>`);
+ const el=document.getElementById("mapchoose");el.addEventListener("click",e=>{const b=e.target.closest("[data-app]");if(!b&&e.target!==el)return;const app=b?b.dataset.app:"";if(app){if(document.getElementById("mcrem").checked)setMapsPref(app);openDir(g,app)}el.remove()})}
+document.addEventListener("click",e=>{const a=e.target.closest("[data-dir]");if(!a)return;const g=GRAVES.find(x=>x.id===a.dataset.dir);if(!g)return;e.preventDefault();const p=mapsPref();if(p)openDir(g,p);else chooseMaps(g)});
+(function(){const sel=document.getElementById("mapsapp");if(!sel)return;sel.value=mapsPref();sel.addEventListener("change",()=>setMapsPref(sel.value))})();
