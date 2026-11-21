@@ -83,5 +83,5 @@ function setIxSub(){const pl=location.hash.startsWith("#index/places");
 drawIndex();setIxSub();window.addEventListener("hashchange",setIxSub);
 document.getElementById("view-index").addEventListener("click",e=>{
  const a=e.target.closest("[data-l]");if(a){e.preventDefault();const t=document.getElementById("ix-"+a.dataset.l);if(t){const app=document.getElementById("app");app.scrollTo({top:t.getBoundingClientRect().top+app.scrollTop-12,behavior:"smooth"})}return}
- const b=e.target.closest("[data-id]");if(b){location.hash="#tree";setTimeout(()=>{showPerson(b.dataset.id);document.getElementById("app").scrollTo({top:0})},0)}});
+ const b=e.target.closest("[data-id]");if(b){showPerson(b.dataset.id);location.hash="#tree"}});
 document.getElementById("indexbtn").addEventListener("click",()=>{location.hash="#index"});

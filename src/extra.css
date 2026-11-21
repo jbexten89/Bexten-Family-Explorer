@@ -321,3 +321,10 @@ body.modal #app{overflow:hidden}
 .rchk li b{font-weight:700}.rchk li i{font-style:normal;color:var(--mute);font-size:14px}
 .rchk li small{display:block;color:var(--ink);opacity:.85;font-size:13.5px;margin-top:3px}
 .rchk .note{padding:0 14px 12px;margin:0}
+
+.crumbs{margin:0 0 12px;padding:0 0 10px;border-bottom:1px solid var(--line)}
+.crback{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--accent);border-radius:999px;background:var(--panel2);color:var(--accent);font:700 15px "Nunito Sans",sans-serif;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.crtrail{display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;margin-top:8px;font-size:13.5px;color:var(--mute)}
+.crtrail button{background:none;border:0;padding:4px 0;color:var(--accent);font:600 13.5px "Nunito Sans",sans-serif;cursor:pointer}
+.crtrail span{color:var(--ink);font-weight:700}.crtrail i{font-style:normal;color:var(--mute)}
+@media print{.crumbs{display:none}}
