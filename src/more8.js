@@ -51,3 +51,8 @@ function setHeader(){const v=crView(),h=location.hash.slice(1).split("/");const 
  const el=document.getElementById("pagename");if(el)el.textContent=lab}
 const _showPerson1=showPerson;showPerson=function(id){_showPerson1(id);setHeader()};
 window.addEventListener("hashchange",setHeader);setTimeout(setHeader,0);
+// menu jumps into the Tree keep a way back to where you were
+let CR_PREV=null;
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;if(crView()!=="tree")CR_PREV=crCapture();else CR_PREV=null},true);
+window.addEventListener("hashchange",()=>{if(CR.restoring||CR_PEND)return;const p=CR_PREV;CR_PREV=null;
+ if(crView()==="tree"){if(p&&cur!=="kids"&&D[cur]){CR.origin=p;CR.trail=[cur]}else if(!CR.origin){CR.trail=cur!=="kids"?[cur]:[]}crRender()}});
