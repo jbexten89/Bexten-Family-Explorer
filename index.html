@@ -412,7 +412,7 @@ html.slimhdr .pagename{display:block;margin:1px 0 0;font-size:17px;font-weight:7
 @media print{html.slimhdr header{position:static}}
 
 header{position:relative}
-.helpbtn{display:none!important;position:absolute;right:max(5vw,16px);top:calc(env(safe-area-inset-top) + 24px);width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--accent);display:flex;align-items:center;justify-content:center;font:800 18px "Nunito Sans",sans-serif;text-decoration:none;z-index:2}
+.helpbtn{position:absolute;right:max(5vw,16px);top:calc(env(safe-area-inset-top) + 24px);width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--accent);display:flex;align-items:center;justify-content:center;font:800 18px "Nunito Sans",sans-serif;text-decoration:none;z-index:2}
 html.slimhdr .helpbtn{top:calc(env(safe-area-inset-top) + 30px)}
 .help details{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:0 0 8px}
 .help summary{padding:14px 16px;font-weight:700;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
@@ -424,10 +424,11 @@ html.slimhdr .helpbtn{top:calc(env(safe-area-inset-top) + 30px)}
 .help p{margin:0 16px 8px;color:var(--mute)}
 .hsw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
 @media print{.helpbtn{display:none}}
-html.slimhdr .helpbtn{display:flex!important}
-.helplink{display:inline-block;margin-top:6px;color:var(--accent);font-weight:700;font-size:15px;text-decoration:none}
+.helplink{display:none;margin-top:6px;color:var(--accent);font-weight:700;font-size:15px;text-decoration:none}
 html.slimhdr .helplink{display:none}
 @media print{.helplink{display:none}}
+html:not(.slimhdr) .brand{padding-right:46px}
+@media(max-width:760px){html:not(.slimhdr) header h1{font-size:min(23px,4.7vw)}}
 </style>
 </head>
 <body>
