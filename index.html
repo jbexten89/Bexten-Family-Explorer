@@ -443,6 +443,9 @@ html:not(.slimhdr) .brand{padding-right:46px}
 .otdl{color:var(--accent);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;flex:none}
 .otds{color:var(--ink);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .otdc[open] summary{margin-bottom:6px}
+
+html.shortvp nav{padding-bottom:6px;background:#07080A}
+html.shortvp main{padding-bottom:84px}
 </style>
 </head>
 <body>
@@ -1774,7 +1777,7 @@ function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.include
 window.addEventListener("hashchange",route);route();
 }
 </script>
-<script>(function(){var mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function sa(){return navigator.standalone||mm("(display-mode: standalone)")}function short(){var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);return H-innerHeight>4}function flip(el){if(!el)return;var a=document.getElementById("app"),st=a?a.scrollTop:0;el.style.display="none";void el.offsetHeight;el.style.display="";if(a)a.scrollTop=st}function heal(){if(!sa()||!short())return;flip(document.getElementById("app"));setTimeout(function(){if(short())flip(document.body)},60)}addEventListener("load",function(){setTimeout(heal,50);setTimeout(heal,600)});addEventListener("pageshow",function(){setTimeout(heal,50)});document.addEventListener("visibilitychange",function(){if(!document.hidden)setTimeout(heal,100)});addEventListener("orientationchange",function(){setTimeout(heal,400)});addEventListener("focusout",function(){setTimeout(heal,150)})})()</script>
+<script>(function(){var mm=function(q){return window.matchMedia?window.matchMedia(q).matches:false};function sa(){return navigator.standalone||mm("(display-mode: standalone)")}function short(){var p=mm("(orientation: portrait)"),H=p?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width);return H-innerHeight>4}function flip(el){if(!el)return;var a=document.getElementById("app"),st=a?a.scrollTop:0;el.style.display="none";void el.offsetHeight;el.style.display="";if(a)a.scrollTop=st}function mark(){document.documentElement.classList.toggle("shortvp",sa()&&short())}mark();addEventListener("resize",mark);function heal(){mark();if(!sa()||!short())return;flip(document.getElementById("app"));setTimeout(function(){if(short())flip(document.body)},60)}addEventListener("load",function(){setTimeout(heal,50);setTimeout(heal,600)});addEventListener("pageshow",function(){setTimeout(heal,50)});document.addEventListener("visibilitychange",function(){if(!document.hidden)setTimeout(heal,100)});addEventListener("orientationchange",function(){setTimeout(heal,400)});addEventListener("focusout",function(){setTimeout(heal,150)})})()</script>
 <script>if("serviceWorker"in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{})</script>
 </body>
 </html>

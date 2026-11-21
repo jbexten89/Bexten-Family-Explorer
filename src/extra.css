@@ -371,3 +371,6 @@ html:not(.slimhdr) .brand{padding-right:46px}
 .otdl{color:var(--accent);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;flex:none}
 .otds{color:var(--ink);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .otdc[open] summary{margin-bottom:6px}
+
+html.shortvp nav{padding-bottom:6px;background:#07080A}
+html.shortvp main{padding-bottom:84px}
