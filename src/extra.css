@@ -289,3 +289,16 @@ body.modal #app{overflow:hidden}
 .cnav .chip[aria-selected=true]{color:var(--ink);border-color:var(--accent);background:var(--panel2)}
 .ch2{margin:4px 0 6px;font-size:22px}
 @media print{.cnav{display:none!important}.csec[hidden]{display:block!important}}
+
+.bowbox{overflow:auto;-webkit-overflow-scrolling:touch;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 0;overscroll-behavior-x:contain}
+#bowtie{display:block;height:auto;max-width:none}
+#bowtie .bt{cursor:pointer}#bowtie .bt:hover rect{fill:var(--panel2)}
+.cpl{margin:0 0 12px}.cplh{display:flex;justify-content:space-between;gap:10px;margin:0 0 5px;font-size:15px}.cplh span:last-child{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cplb{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)}.cplb span{display:block;height:100%}
+.fam{display:grid;grid-template-columns:84px 1fr;gap:10px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 6px;color:var(--ink);font:400 15px/1.35 "Nunito Sans",sans-serif;cursor:pointer}
+.fy{color:var(--mute);font-size:13px;padding-top:2px}
+.fb b{display:block;font-weight:700;margin:0 0 6px}
+.fbar{display:flex;align-items:center;gap:8px}.fbar span{display:block;height:10px;border-radius:5px}.fbar em{font-style:normal;font-weight:700}
+@media print{.bowbox{overflow:visible}}
+.bownav{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;margin:0 0 8px}.bownav .btn{min-height:40px;padding:0 10px;font-size:14px}
+@media print{.bownav{display:none}}

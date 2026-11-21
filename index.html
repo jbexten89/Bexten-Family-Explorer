@@ -361,6 +361,19 @@ body.modal #app{overflow:hidden}
 .cnav .chip[aria-selected=true]{color:var(--ink);border-color:var(--accent);background:var(--panel2)}
 .ch2{margin:4px 0 6px;font-size:22px}
 @media print{.cnav{display:none!important}.csec[hidden]{display:block!important}}
+
+.bowbox{overflow:auto;-webkit-overflow-scrolling:touch;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 0;overscroll-behavior-x:contain}
+#bowtie{display:block;height:auto;max-width:none}
+#bowtie .bt{cursor:pointer}#bowtie .bt:hover rect{fill:var(--panel2)}
+.cpl{margin:0 0 12px}.cplh{display:flex;justify-content:space-between;gap:10px;margin:0 0 5px;font-size:15px}.cplh span:last-child{color:var(--mute);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cplb{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)}.cplb span{display:block;height:100%}
+.fam{display:grid;grid-template-columns:84px 1fr;gap:10px;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:0 0 6px;color:var(--ink);font:400 15px/1.35 "Nunito Sans",sans-serif;cursor:pointer}
+.fy{color:var(--mute);font-size:13px;padding-top:2px}
+.fb b{display:block;font-weight:700;margin:0 0 6px}
+.fbar{display:flex;align-items:center;gap:8px}.fbar span{display:block;height:10px;border-radius:5px}.fbar em{font-style:normal;font-weight:700}
+@media print{.bowbox{overflow:visible}}
+.bownav{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;margin:0 0 8px}.bownav .btn{min-height:40px;padding:0 10px;font-size:14px}
+@media print{.bownav{display:none}}
 </style>
 </head>
 <body>
@@ -636,11 +649,16 @@ body.modal #app{overflow:hidden}
 </article>
 </section>
 <section class="view" id="view-charts" aria-label="Charts" hidden>
-<div class="cnav" role="tablist" aria-label="Charts"><a href="#charts/fan" class="chip" role="tab" data-c="fan">Fan chart</a><a href="#charts/lines" class="chip" role="tab" data-c="lines">Lines</a><a href="#charts/where" class="chip" role="tab" data-c="where">Origins</a><a href="#charts/lifetimes" class="chip" role="tab" data-c="lifetimes">Lifetimes</a><a href="#charts/numbers" class="chip" role="tab" data-c="numbers">Numbers</a><a href="#charts/cousins" class="chip" role="tab" data-c="cousins">Cousins</a></div>
+<div class="cnav" role="tablist" aria-label="Charts"><a href="#charts/fan" class="chip" role="tab" data-c="fan">Fan chart</a><a href="#charts/bowtie" class="chip" role="tab" data-c="bowtie">Bowtie</a><a href="#charts/lines" class="chip" role="tab" data-c="lines">Lines</a><a href="#charts/where" class="chip" role="tab" data-c="where">Origins</a><a href="#charts/lifetimes" class="chip" role="tab" data-c="lifetimes">Lifetimes</a><a href="#charts/families" class="chip" role="tab" data-c="families">Families</a><a href="#charts/complete" class="chip" role="tab" data-c="complete">Complete</a><a href="#charts/numbers" class="chip" role="tab" data-c="numbers">Numbers</a><a href="#charts/cousins" class="chip" role="tab" data-c="cousins">Cousins</a></div>
 <div class="csec" data-c="fan">
 <div class="bar"><p>Five generations at a time. Tap anyone to center the fan on them and see their own ancestors; tap the middle to open that person in the tree. Use + and − to zoom.</p><button class="btn" type="button" data-print>Print</button></div>
 <div class="fannav" id="fannav" hidden></div><div class="fanbox"><div class="fanwrap" id="fanwrap"><svg id="fan" role="img" aria-label="Fan chart of five generations of ancestors"></svg></div><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-z="-1" aria-label="Zoom out">−</button><button type="button" data-z="0" aria-label="Fit to screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button type="button" data-z="1" aria-label="Zoom in">+</button></div></div>
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
+</div>
+<div class="csec" data-c="bowtie" hidden>
+<h2 class="ch2">Bowtie chart</h2>
+<p class="note" style="margin:0 0 10px">Dad's side to the left, Mom's side to the right, four generations each way. Swipe sideways to see both sides; tap anyone to open them in the tree. Turn your phone sideways for a wider view.</p>
+<div class="bownav" id="bownav"><button type="button" class="btn" data-go="L">‹ Dad's side</button><button type="button" class="btn" data-go="C">Center</button><button type="button" class="btn" data-go="R">Mom's side ›</button></div><div class="bowbox" id="bowbox"><svg id="bowtie" role="img" aria-label="Bowtie chart of ancestors"></svg></div>
 </div>
 <div class="csec" data-c="lines" hidden>
 <h2 class="ch2">Lines of descent</h2>
@@ -656,6 +674,15 @@ body.modal #app{overflow:hidden}
 <p class="note" style="margin:0 0 10px">Every ancestor with known dates, oldest first, against events of their time. Tap anyone to open them in the tree.</p>
 <div class="chips" id="life-f"><button type="button" class="chip" data-f="all" aria-pressed="true">Everyone</button><button type="button" class="chip" data-f="F" style="color:var(--mint)">Dad's side</button><button type="button" class="chip" data-f="M" style="color:var(--peri)">Mom's side</button></div>
 <div class="lifebox"><svg id="life" role="img" aria-label="Lifespan timeline of ancestors"></svg></div>
+</div>
+<div class="csec" data-c="families" hidden>
+<h2 class="ch2">Family sizes</h2>
+<div id="fams"></div>
+</div>
+<div class="csec" data-c="complete" hidden>
+<h2 class="ch2">How complete is the tree</h2>
+<div id="complete"></div>
+<div class="legend" style="margin-top:10px"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag">Grey: not found yet</span></div>
 </div>
 <div class="csec" data-c="numbers" hidden>
 <h2 class="ch2">Family by the numbers</h2>
@@ -1411,6 +1438,38 @@ function setChartSub(){if(!location.hash.startsWith("#charts"))return;const k=(l
  const on=document.querySelector(`#view-charts .cnav [data-c="${c}"]`);if(on&&on.scrollIntoView)on.scrollIntoView({block:"nearest",inline:"center"});
  if(c==="fan"&&typeof centerFan==="function")setTimeout(centerFan,30)}
 window.addEventListener("hashchange",setChartSub);setChartSub();
+// ---------- bowtie, completeness, family sizes ----------
+function drawBowtie(){const G=4,bw=118,bh=38,gap=10,colW=bw+18,rows=2**(G-1),rowH=bh+gap,H=rows*rowH+56,cw=126;
+ const W=2*G*colW+cw+16,cx=8+G*colW,top=34;let s="";
+ const slotY=(g,i)=>{const span=rows/2**(g-1);return top+(i*span+span/2)*rowH-rowH/2};
+ const box=(x,y,id,side)=>{if(!id||!D[id])return`<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="8" fill="none" stroke="var(--line)" stroke-dasharray="4 4"/>`;
+  const u=D[id][5]==="u",c=side==="F"?"var(--mint)":"var(--peri)";
+  return`<g class="bt" data-id="${id}" role="button" tabindex="0" aria-label="${esc(D[id][0])}"><rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="8" fill="var(--panel)" stroke="${u?"var(--amber)":c}" stroke-width="1.3"/><text x="${x+bw/2}" y="${y+16}" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--ink)">${esc(short(CHN(id),19))}</text><text x="${x+bw/2}" y="${y+30}" text-anchor="middle" font-size="10.5" fill="var(--mute)">${esc(D[id][1]||"")}</text></g>`};
+ const ln=(x1,y1,x2,y2)=>`<path d="M${x1} ${y1} H${(x1+x2)/2} V${y2} H${x2}" fill="none" stroke="#3d4450" stroke-width="1.2"/>`;
+ [["tony","F",-1],["betty","M",1]].forEach(([root,side,dir])=>{let gen=[root];
+  for(let g=1;g<=G;g++){const x=dir<0?cx-g*colW:cx+cw+(g-1)*colW+18;
+   gen.forEach((id,i)=>{const y=slotY(g,i);s+=box(x,y,id,side);
+    if(g===1){s+=dir<0?`<line x1="${x+bw}" y1="${y+bh/2}" x2="${cx}" y2="${y+bh/2}" stroke="#3d4450" stroke-width="1.2"/>`:`<line x1="${cx+cw}" y1="${y+bh/2}" x2="${x}" y2="${y+bh/2}" stroke="#3d4450" stroke-width="1.2"/>`}
+    if(g<G&&id&&D[id]){[0,1].forEach(k=>{const ny=slotY(g+1,2*i+k)+bh/2;const nx=dir<0?x-colW+bw:x+colW;s+=dir<0?ln(x,y+bh/2,nx,ny):ln(x+bw,y+bh/2,nx,ny)})}});
+   gen=gen.flatMap(id=>id&&D[id]?[D[id][3]||null,D[id][4]||null]:[null,null])}});
+ const cy=slotY(1,0);s+=`<rect x="${cx}" y="${cy-14}" width="${cw}" height="${bh+28}" rx="10" fill="var(--panel2)" stroke="var(--accent)" stroke-width="1.5"/><text x="${cx+cw/2}" y="${cy+14}" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">Tony and Althea's</text><text x="${cx+cw/2}" y="${cy+30}" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--ink)">children</text>`;
+ s+=`<text x="10" y="18" font-size="13" font-weight="700" fill="var(--mint)">Dad's side</text><text x="${W-10}" y="18" text-anchor="end" font-size="13" font-weight="700" fill="var(--peri)">Mom's side</text>`;
+ const svg=document.getElementById("bowtie");svg.setAttribute("viewBox",`0 0 ${W} ${H}`);svg.style.width=W+"px";svg.innerHTML=s;
+ const box2=document.getElementById("bowbox");(window.requestAnimationFrame||setTimeout)(()=>{box2.scrollLeft=(box2.scrollWidth-box2.clientWidth)/2})}
+function drawComplete(){const c={};(function w(id,g,side){const d=D[id];[d[3],d[4]].forEach((p,ix)=>{if(p&&D[p]){const sd=side||(ix===0?"F":"M");(c[g]=c[g]||{F:0,M:0})[sd]++;w(p,g+1,sd)}})})("kids",1,null);
+ const nm=["","Parents","Grandparents","Great-grandparents","2nd great-grandparents","3rd great-grandparents"],ord=["","","","","","","4th","5th","6th","7th","8th","9th","10th","11th"];
+ const max=Math.max(...Object.keys(c).map(Number));let h="";
+ for(let g=1;g<=max;g++){const t=2**g,f=c[g]||{F:0,M:0},n=f.F+f.M,pc=n/t*100;const label=g<=5?nm[g]:ord[g]+" great-grandparents";
+  h+=`<div class="cpl"><div class="cplh"><span>${label}</span><span>${n} of ${t.toLocaleString()} · ${pc>=1||pc===0?Math.round(pc):pc.toFixed(1)}%</span></div><div class="cplb"><span style="width:${f.F/t*100}%;background:var(--mint)"></span><span style="width:${f.M/t*100}%;background:var(--peri)"></span></div></div>`}
+ document.getElementById("complete").innerHTML=h+`<p class="note" style="margin:12px 0 0">Each generation doubles: 2 parents, 4 grandparents, 8 great-grandparents and so on. Dad's side stops at the 3rd great-grandparents, where the German church records begin. A person who appears twice in the tree, like Jacob Forinash, is counted in each place.</p>`}
+const FAMS=[["1798","johndexter","elizabethw",13,"johng"],["1829","charles","janemartin",12,"floyd"],["1888","frankj","carrie",5,"herbert"],["1891","calvin","cora",5,"genevieve"],["1896","johnwj","amanda",9,"onal"],["1899","anthony","rosa",4,"nelson"],["about 1907","herbert","mamie",9,"caroline"],["about 1926","onal","genevieve",4,"betty"],["1928","nelson","caroline",5,"tony"],["1954","tony","betty",6,""]];
+function drawFams(){const mx=Math.max(...FAMS.map(f=>f[3]));
+ document.getElementById("fams").innerHTML=FAMS.map(([y,a,b,n,kid])=>{const c=SIDE[a]==="F"?"var(--mint)":SIDE[a]==="M"?"var(--peri)":"var(--accent)";
+  return`<button type="button" class="fam"${kid?` data-id="${kid}"`:""}><span class="fy">${esc(y)}</span><span class="fb"><b>${esc(CHN(a))} and ${esc(CHN(b))}</b><span class="fbar"><span style="width:${(n/mx*100).toFixed(1)}%;background:${c}"></span><em>${n}</em></span></span></button>`}).join("")+`<p class="note" style="margin:12px 0 0">Children per couple along the direct lines, by year married. Tap a couple to open the child in our line, whose card lists the brothers and sisters.</p>`}
+drawBowtie();drawComplete();drawFams();
+["bowtie","fams"].forEach(i=>{const el=document.getElementById(i);el.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}})});
+window.addEventListener("hashchange",()=>{if(location.hash==="#charts/bowtie"){const b=document.getElementById("bowbox");(window.requestAnimationFrame||setTimeout)(()=>{b.scrollLeft=(b.scrollWidth-b.clientWidth)/2})}});
+document.getElementById("bownav").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!b)return;const x=document.getElementById("bowbox");const t=b.dataset.go==="L"?0:b.dataset.go==="R"?x.scrollWidth:(x.scrollWidth-x.clientWidth)/2;x.scrollTo({left:t,behavior:"smooth"})});
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo","index"];

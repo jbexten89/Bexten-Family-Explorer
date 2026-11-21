@@ -19,11 +19,16 @@ __REPORT__
 </article>
 </section>
 <section class="view" id="view-charts" aria-label="Charts" hidden>
-<div class="cnav" role="tablist" aria-label="Charts"><a href="#charts/fan" class="chip" role="tab" data-c="fan">Fan chart</a><a href="#charts/lines" class="chip" role="tab" data-c="lines">Lines</a><a href="#charts/where" class="chip" role="tab" data-c="where">Origins</a><a href="#charts/lifetimes" class="chip" role="tab" data-c="lifetimes">Lifetimes</a><a href="#charts/numbers" class="chip" role="tab" data-c="numbers">Numbers</a><a href="#charts/cousins" class="chip" role="tab" data-c="cousins">Cousins</a></div>
+<div class="cnav" role="tablist" aria-label="Charts"><a href="#charts/fan" class="chip" role="tab" data-c="fan">Fan chart</a><a href="#charts/bowtie" class="chip" role="tab" data-c="bowtie">Bowtie</a><a href="#charts/lines" class="chip" role="tab" data-c="lines">Lines</a><a href="#charts/where" class="chip" role="tab" data-c="where">Origins</a><a href="#charts/lifetimes" class="chip" role="tab" data-c="lifetimes">Lifetimes</a><a href="#charts/families" class="chip" role="tab" data-c="families">Families</a><a href="#charts/complete" class="chip" role="tab" data-c="complete">Complete</a><a href="#charts/numbers" class="chip" role="tab" data-c="numbers">Numbers</a><a href="#charts/cousins" class="chip" role="tab" data-c="cousins">Cousins</a></div>
 <div class="csec" data-c="fan">
 <div class="bar"><p>Five generations at a time. Tap anyone to center the fan on them and see their own ancestors; tap the middle to open that person in the tree. Use + and − to zoom.</p><button class="btn" type="button" data-print>Print</button></div>
 <div class="fannav" id="fannav" hidden></div><div class="fanbox"><div class="fanwrap" id="fanwrap"><svg id="fan" role="img" aria-label="Fan chart of five generations of ancestors"></svg></div><div class="zoom" role="group" aria-label="Zoom"><button type="button" data-z="-1" aria-label="Zoom out">−</button><button type="button" data-z="0" aria-label="Fit to screen"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button><button type="button" data-z="1" aria-label="Zoom in">+</button></div></div>
 <div class="legend"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag unp">Amber outline: not yet proven</span><span class="tag">Dashed: not yet found</span></div>
+</div>
+<div class="csec" data-c="bowtie" hidden>
+<h2 class="ch2">Bowtie chart</h2>
+<p class="note" style="margin:0 0 10px">Dad's side to the left, Mom's side to the right, four generations each way. Swipe sideways to see both sides; tap anyone to open them in the tree. Turn your phone sideways for a wider view.</p>
+<div class="bownav" id="bownav"><button type="button" class="btn" data-go="L">‹ Dad's side</button><button type="button" class="btn" data-go="C">Center</button><button type="button" class="btn" data-go="R">Mom's side ›</button></div><div class="bowbox" id="bowbox"><svg id="bowtie" role="img" aria-label="Bowtie chart of ancestors"></svg></div>
 </div>
 <div class="csec" data-c="lines" hidden>
 <h2 class="ch2">Lines of descent</h2>
@@ -39,6 +44,15 @@ __REPORT__
 <p class="note" style="margin:0 0 10px">Every ancestor with known dates, oldest first, against events of their time. Tap anyone to open them in the tree.</p>
 <div class="chips" id="life-f"><button type="button" class="chip" data-f="all" aria-pressed="true">Everyone</button><button type="button" class="chip" data-f="F" style="color:var(--mint)">Dad's side</button><button type="button" class="chip" data-f="M" style="color:var(--peri)">Mom's side</button></div>
 <div class="lifebox"><svg id="life" role="img" aria-label="Lifespan timeline of ancestors"></svg></div>
+</div>
+<div class="csec" data-c="families" hidden>
+<h2 class="ch2">Family sizes</h2>
+<div id="fams"></div>
+</div>
+<div class="csec" data-c="complete" hidden>
+<h2 class="ch2">How complete is the tree</h2>
+<div id="complete"></div>
+<div class="legend" style="margin-top:10px"><span class="tag"><span class="dot" style="background:var(--mint)"></span>Dad's side</span><span class="tag"><span class="dot" style="background:var(--peri)"></span>Mom's side</span><span class="tag">Grey: not found yet</span></div>
 </div>
 <div class="csec" data-c="numbers" hidden>
 <h2 class="ch2">Family by the numbers</h2>
