@@ -374,6 +374,25 @@ body.modal #app{overflow:hidden}
 @media print{.bowbox{overflow:visible}}
 .bownav{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;margin:0 0 8px}.bownav .btn{min-height:40px;padding:0 10px;font-size:14px}
 @media print{.bownav{display:none}}
+
+.ixsrc{color:var(--mute);font-size:13px;margin:0 0 8px}
+.ixm{margin:4px 0 8px;padding:10px 12px;background:var(--panel2);border-radius:10px;font-size:14px;line-height:1.45;color:var(--ink)}
+.ixm span{display:block;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:0 0 2px}
+.ixm em,.sname em{color:var(--amber);font-style:normal;font-weight:700}
+.sname{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.sname b{font-weight:700}.sname span{color:var(--accent);font-size:13px;font-weight:700;margin-left:6px}
+.sname p{margin:4px 0 0;font-size:15px;line-height:1.45;color:var(--ink)}
+.rchk{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.rchk summary{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:12px 14px;cursor:pointer;list-style:none}
+.rchk summary::-webkit-details-marker{display:none}
+.rct{font-weight:700}.rcs{color:var(--mute);font-size:14px}
+.rchk ul{list-style:none;margin:0;padding:0 14px 6px}
+.rchk li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);line-height:1.4}
+.rci{width:20px;flex:none;text-align:center;font-weight:700}
+.rc2 .rci{color:var(--mint)}.rc1 .rci{color:var(--amber)}.rc0 .rci{color:var(--mute)}
+.rchk li b{font-weight:700}.rchk li i{font-style:normal;color:var(--mute);font-size:14px}
+.rchk li small{display:block;color:var(--ink);opacity:.85;font-size:13.5px;margin-top:3px}
+.rchk .note{padding:0 14px 12px;margin:0}
 </style>
 </head>
 <body>
@@ -1350,6 +1369,43 @@ var SHARE_URL="https://jbexten89.github.io/Bexten-Family-Explorer/";
 })();
 
 // ---------- story audio ----------
+// ---------- surname meanings ----------
+const SURN={
+ "Ankenbrandt":["German","The meaning isn't certain. It's a rare name, found among Germans who settled around Monroe, Michigan.",1],
+ "Ballantyne":["Scottish","Named after a place in the Scottish Borders (spelled Bellenden or Ballantyne in old records).",0],
+ "Beamer":["German, Americanized","An American spelling of Böhmer, meaning “someone from Bohemia,” today part of the Czech Republic.",0],
+ "Böhmer":["German","“Someone from Bohemia,” today part of the Czech Republic. In America it became Beamer.",0],
+ "Bexten":["German (Westphalia)","A rare Westphalian name; its meaning hasn't been settled. If the Stromberg lead is right, the family appears there as Bexte, and the “-n” was added in America. Many Westphalian surnames come from the name of a family farm.",1],
+ "Blossom":["English","From the Middle English word for a flower or bloom, probably a nickname.",1],
+ "Bonnell":["English or French","Either a form of the English name Bunnell, or the French name Bonnel, which some Huguenot families brought to England and America.",0],
+ "Bonnet":["French","A hatmaker's name, from French bonnet, a cap or hat. The family were Huguenots who left France for their faith.",0],
+ "Bonnett":["French","An English spelling of Bonnet, a hatmaker's name, from French bonnet, a cap or hat.",0],
+ "Byrd":["English","A form of Bird, a nickname, perhaps for someone cheerful or light on their feet.",0],
+ "Crites":["German, Americanized","An American spelling of Kreutz, for someone who lived near a roadside or boundary cross.",0],
+ "Desreux":["French","The meaning isn't certain.",1],
+ "Elsdon":["English","Named after the village of Elsdon in Northumberland, in the far north of England.",0],
+ "Ervin":["Scottish or English","A form of Erwin or Irvine; Irvine is a place in Ayrshire, Scotland.",1],
+ "Erwin":["Scottish or English","Either from an old English personal name or a form of Irvine, a place in Ayrshire, Scotland.",1],
+ "Fitz Randolph":["Anglo-Norman","“Son of Randolph.” Fitz comes from the Norman French word for son.",0],
+ "Fleischer":["German","A butcher, from German Fleisch, meat.",0],
+ "Forinash":["German, Americanized","Possibly an American spelling of vorm Esch, “in front of the open field,” a North German name for someone who lived by the village fields.",1],
+ "Goldsborough":["English","Named after Goldsborough, one of two villages of that name in Yorkshire. The old name means a fort belonging to a man named Godel or Golda.",0],
+ "Graf":["German","From the old German title Graf, a count or a royal official. It could also mark someone who served a count, or be a nickname for someone with airs.",0],
+ "Hardman":["English","Usually a herdsman, someone who looked after livestock.",0],
+ "Harris":["English","“Son of Harry,” the everyday medieval form of Henry.",0],
+ "Howes":["English","Usually for someone who lived by a hill or burial mound.",1],
+ "Johnson":["English","“Son of John.”",0],
+ "Langenderfer":["German, Americanized","An American spelling of Langendörfer, “someone from Langendorf” (“long village”), a common German place name.",0],
+ "Martin":["English and French","From the personal name Martin, popular in the Middle Ages after St. Martin of Tours.",0],
+ "May":["English","The name has several possible origins, including an old word for a young man; which one fits this family isn't known.",1],
+ "Miller":["English or German","A grain miller. In America it is often the English form of German Müller.",0],
+ "Peterson":["English or Scandinavian","“Son of Peter.”",0],
+ "Plant":["English","Probably a gardener or someone who raised young plants.",1],
+ "Reger":["German","From the old German word for a heron, a nickname for a tall, thin person; or a nickname for a lively, restless one.",0],
+ "Smith":["English, and German Schmidt","A smith, someone who worked metal. Our Smiths were German: Frank J. Smith's father was Wendelin Schmidt.",0],
+ "Waggoner":["German, Americanized","An American spelling of Wagner, a wagon maker or wagon driver.",0],
+ "Wine":["English or German","The meaning isn't certain; in some families it's an American spelling of a German name.",1]
+};
 // ---------- index (surnames and places) ----------
 const IX_PLACES=[
  ["Ohio",[["Toledo",/Toledo/],["Pioneer",/Pioneer/],["Sylvania",/Sylvania/],["Bryan",/Bryan, Ohio/],["Oregon",/Oregon, Ohio/],["Ottawa Hills",/Ottawa Hills/],["Sandusky",/Sandusky/],["Raab",/Raab/],["Lucas County",/Lucas County/]]],
@@ -1379,10 +1435,10 @@ function drawIndex(){
  const sk=Object.keys(IX.sur).sort((a,b)=>a.localeCompare(b,"en",{sensitivity:"base"}));
  const L=l=>l.normalize("NFD")[0].toUpperCase();const have=new Set(sk.map(L));
  const az="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(c=>have.has(c)?`<a href="#index" data-l="${c}">${c}</a>`:`<span>${c}</span>`).join("");
- let html=`<div class="ixaz">${az}</div>`,cur="";
+ let html=`<div class="ixaz">${az}</div><p class="ixsrc">Tap a name to see what it means and who carried it. Meanings follow the Dictionary of American Family Names and similar references; some old names can't be pinned down.</p>`,cur="";
  sk.forEach(s=>{const l=L(s);if(l!==cur){cur=l;html+=`<h3 class="ixl" id="ix-${l}">${l}</h3>`}
   const ids=IX.sur[s].slice().sort((a,b)=>(parseInt(D[a][1].replace(/\D/g," "))||9999)-(parseInt(D[b][1].replace(/\D/g," "))||9999));
-  html+=`<details class="ixr"><summary>${ixDots(ids)}<b>${esc(s)}</b><span class="ixc">${ids.length} ${ids.length>1?"people":"person"}</span></summary><div class="ixps">${ids.map(i=>ixPerson(i)).join("")}</div></details>`});
+  html+=`<details class="ixr"><summary>${ixDots(ids)}<b>${esc(s)}</b><span class="ixc">${ids.length} ${ids.length>1?"people":"person"}</span></summary><div class="ixps">${SURN[s]?`<p class="ixm"><span>${esc(SURN[s][0])}</span>${esc(SURN[s][1])}${SURN[s][2]?' <em>Not certain.</em>':""}</p>`:""}${ids.map(i=>ixPerson(i)).join("")}</div></details>`});
  document.getElementById("ix-sur").innerHTML=html;
  let ph="";IX_PLACES.forEach(([reg,list])=>{const rows=list.map(([p])=>IX.pl[reg+"|"+p]).filter(Boolean);if(!rows.length)return;
   ph+=`<h3 class="ixl">${esc(reg)}</h3>`;
@@ -1470,6 +1526,51 @@ drawBowtie();drawComplete();drawFams();
 ["bowtie","fams"].forEach(i=>{const el=document.getElementById(i);el.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g){showPerson(g.dataset.id);location.hash="#tree"}});el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){const g=e.target.closest("[data-id]");if(g){e.preventDefault();showPerson(g.dataset.id);location.hash="#tree"}}})});
 window.addEventListener("hashchange",()=>{if(location.hash==="#charts/bowtie"){const b=document.getElementById("bowbox");(window.requestAnimationFrame||setTimeout)(()=>{b.scrollLeft=(b.scrollWidth-b.clientWidth)/2})}});
 document.getElementById("bownav").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(!b)return;const x=document.getElementById("bowbox");const t=b.dataset.go==="L"?0:b.dataset.go==="R"?x.scrollWidth:(x.scrollWidth-x.clientWidth)/2;x.scrollTo({left:t,behavior:"smooth"})});
+// ---------- record checklist ----------
+const RC_ITEMS=[
+ ["birth","Birth",/birth record|birth certificate|birth register|baptism|christening/i,/^\s*(Born|Baptized)\b/i],
+ ["parents","Parents",null,null],
+ ["marriage","Marriage",/marriage|married|wedding|license/i,/\bMarried\b|\bmarried\b/],
+ ["census","Census",/census/i,/census/i],
+ ["immig","Immigration",/passenger|naturaliz|\bship\b|arriv/i,/Arrived|arrived|Came to|came to|immigrat|naturaliz|stowaway|Reached/],
+ ["death","Death",/death|died|obituar/i,/\bDied\b|\bdied\b|Killed|killed/],
+ ["burial","Burial",/grave|cemetery|burial|buried/i,/buried|Buried|Cemetery/]
+];
+const RC_ABROAD=/Germany|Westphalia|Baden|Württemberg|Hesse|Prussia|England|Nottinghamshire|Cambridge|Leiden|Holland|Netherlands|France|Palatinate/;
+function rcRegion(f){const t=f.join(" ");return /Toledo|Ohio|Lucas County|Pioneer|Sylvania|Bryan/.test(t)?"oh":/Michigan|Monroe|Whiteford|Ottawa Lake|Detroit/.test(t)?"mi":/Virginia|Weston|Lewis County|Braxton|Harrison County|Doddridge|Barbour|Philippi|Clarksburg/.test(t)?"wv":/New Jersey|Piscataway|Massachusetts|Plymouth|Barnstable|Scituate|Pennsylvania|Philadelphia/.test(t)?"col":RC_ABROAD.test(t)?"eu":""}
+const RC_HINT={
+ birth:{oh:"Ohio county probate courts kept birth registers 1867–1908; later births are at the Ohio Department of Health.",mi:"Michigan counties recorded births from 1867; the county clerk holds them.",wv:"West Virginia county births from 1853 are free at West Virginia Vital Research Records (wvculture.org).",eu:"The home parish's church book (baptisms), on FamilySearch or at the diocese archive.",col:"Town and church records, and published family genealogies.",x:"A baptism record, family Bible or later record that gives the birth date."},
+ parents:{x:"A death certificate, marriage record or baptism usually names the parents.",eu:"The baptism entry in the home parish's church book names both parents."},
+ marriage:{oh:"The county probate court (Lucas County for Toledo) holds marriage records.",mi:"The county clerk; Michigan marriages 1867–1952 are also indexed on FamilySearch.",wv:"West Virginia county marriages from the 1780s are at West Virginia Vital Research Records (wvculture.org).",eu:"The church book of the bride's parish.",col:"Church and town records, and published family genealogies.",x:"County marriage records or a church register."},
+ census:{x:"U.S. censuses 1790–1950 are free to search on FamilySearch."},
+ immig:{x:"Passenger lists, and naturalization papers at the county court or the National Archives."},
+ death:{oh:"Ohio death certificates 1908–1953 are free on FamilySearch; later deaths are in the Ohio Death Index and newspaper obituaries.",mi:"Michigan death records 1897–1952 are free on Michiganology.",wv:"West Virginia county deaths from 1853 are at West Virginia Vital Research Records (wvculture.org).",eu:"The parish burial register.",col:"Church and town records, gravestones and published genealogies.",x:"A death certificate, obituary or gravestone."},
+ burial:{x:"Find a Grave and BillionGraves, or the cemetery office; obituaries usually name the cemetery."}
+};
+function rcTokens(n){const nick=(n.match(/[“"]([^”"]+)[”"]/)||[])[1];const w=n.replace(/[“"][^”"]*[”"]/g,"").replace(/\([^)]*\)/g,"").replace(/^Rev\.\s*/,"").trim().split(/\s+/).slice(0,-1).filter(x=>x.length>2&&!/\.$/.test(x));if(nick)w.push(nick);return w.map(x=>x.toLowerCase())}
+function rcMine(lab,tok,all){const has=t=>tok.some(x=>t.toLowerCase().includes(x));const pos=[...lab.matchAll(/([A-Za-z]+)'s\b/g)];if(pos.length&&!pos.some(m=>has(lab.slice(Math.max(0,m.index-22),m.index+m[0].length))))return false;const ix=lab.match(/index:\s*([A-Z][a-z]+)/);if(ix&&!tok.includes(ix[1].toLowerCase()))return false;if(/obituar/i.test(lab)&&!has(lab))return false;return true}
+function recordCheck(id){const d=D[id];if(!d)return[];const tok=rcTokens(d[0]),facts=d[2]||[],all=d[0].replace(/[“”"().]/g," ").toLowerCase().split(/\s+/).filter(Boolean),src=(SRC[id]||[]).filter(x=>rcMine(x[1],tok,all)),yrs=String(d[1]||"").match(/\d{4}/g)||[],b=+(yrs[0]||0),dd=+(yrs[1]||0);
+ const born=facts.find(f=>/^\s*(Born|Baptized)/i.test(f))||"",abroad=RC_ABROAD.test(born)||id==="anthony";
+ const reg=rcRegion(facts)||"x";const out=[];
+ RC_ITEMS.forEach(([k,lab,sre,fre])=>{
+  if(k==="immig"&&(!abroad||reg==="eu"))return;
+  if(k==="census"&&(reg==="eu"||(dd&&dd<1790)||(!dd&&b&&b<1720)||(b&&b>1950)))return;
+  let st=0,how="";
+  if(k==="parents"){const n=[d[3],d[4]].filter(p=>p&&D[p]).length;st=n===2?2:n?1:0;how=n===2?"Both found":n?"One found":"Not found yet"}
+  else{const rec=src.find(x=>sre.test(x[1])||(k==="census"&&x[0]==="census")||(k==="burial"&&x[0]==="grave"));
+   const fact=facts.find(f=>fre.test(f))||(k==="burial"&&BURIED[id]?"y":"")||(k==="death"&&dd?"y":"")||(k==="birth"&&b?"y":"");
+   if(rec){st=2;how="Record linked"}else if(fact){st=1;how="Known, record not linked yet"}else{st=0;how="Not found yet"}}
+  const ff=k==="parents"?born:(facts.find(f=>fre&&fre.test(f))||""),r2=(k==="birth"||k==="parents")&&abroad?"eu":(rcRegion([ff])||reg);const hint=st<2?((RC_HINT[k][r2]||RC_HINT[k].x)):"";
+  out.push({k,lab,st,how,hint})});return out}
+function checklistHTML(id){const r=recordCheck(id);if(!r.length)return"";const done=r.filter(x=>x.st===2).length,next=r.find(x=>x.st===0)||r.find(x=>x.st===1);
+ const ic=["○","◐","✓"];
+ return`<details class="rchk"><summary><span class="rct">Record checklist</span><span class="rcs">${done} of ${r.length} documented${next?` · next: ${esc(next.lab.toLowerCase())}`:""}</span></summary><ul>${r.map(x=>`<li class="rc${x.st}"><span class="rci" aria-hidden="true">${ic[x.st]}</span><span><b>${esc(x.lab)}</b> <i>${esc(x.how)}</i>${x.hint?`<small>Where to look: ${esc(x.hint)}</small>`:""}</span></li>`).join("")}</ul><p class="note">✓ a record is linked in Sources · ◐ known from other records, but its own record isn't linked yet · ○ not found yet.</p></details>`}
+function surnameHTML(id){const n=D[id][0];let s=/Fitz Randolph/.test(n)?"Fitz Randolph":null;if(!s){const w=n.replace(/[“"][^”"]*[”"]/g,"").replace(/\([^)]*\)/g,"").replace(/^Rev\.\s*/,"").trim().split(/\s+/);let l=w[w.length-1];if(/^(Jr\.?|Sr\.?)$/.test(l))l=w[w.length-2];s=w.length>1?l:null}
+ const m=s&&SURN[s];if(!m)return"";return`<div class="sname"><b>The name ${esc(s)}</b> <span>${esc(m[0])}</span><p>${esc(m[1])}${m[2]?" <em>Not certain.</em>":""}</p></div>`}
+const _afterPerson0=afterPerson;
+afterPerson=function(id){_afterPerson0(id);if(id==="kids"||!D[id])return;const box=document.getElementById("focus");
+ const at=box.querySelector(".recs")||box.querySelector(".srcs");const h=surnameHTML(id)+checklistHTML(id);
+ if(at)at.insertAdjacentHTML("beforebegin",h);else box.insertAdjacentHTML("beforeend",h)};
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo","index"];

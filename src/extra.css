@@ -302,3 +302,22 @@ body.modal #app{overflow:hidden}
 @media print{.bowbox{overflow:visible}}
 .bownav{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;margin:0 0 8px}.bownav .btn{min-height:40px;padding:0 10px;font-size:14px}
 @media print{.bownav{display:none}}
+
+.ixsrc{color:var(--mute);font-size:13px;margin:0 0 8px}
+.ixm{margin:4px 0 8px;padding:10px 12px;background:var(--panel2);border-radius:10px;font-size:14px;line-height:1.45;color:var(--ink)}
+.ixm span{display:block;color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:0 0 2px}
+.ixm em,.sname em{color:var(--amber);font-style:normal;font-weight:700}
+.sname{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.sname b{font-weight:700}.sname span{color:var(--accent);font-size:13px;font-weight:700;margin-left:6px}
+.sname p{margin:4px 0 0;font-size:15px;line-height:1.45;color:var(--ink)}
+.rchk{margin:12px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.rchk summary{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:12px 14px;cursor:pointer;list-style:none}
+.rchk summary::-webkit-details-marker{display:none}
+.rct{font-weight:700}.rcs{color:var(--mute);font-size:14px}
+.rchk ul{list-style:none;margin:0;padding:0 14px 6px}
+.rchk li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);line-height:1.4}
+.rci{width:20px;flex:none;text-align:center;font-weight:700}
+.rc2 .rci{color:var(--mint)}.rc1 .rci{color:var(--amber)}.rc0 .rci{color:var(--mute)}
+.rchk li b{font-weight:700}.rchk li i{font-style:normal;color:var(--mute);font-size:14px}
+.rchk li small{display:block;color:var(--ink);opacity:.85;font-size:13.5px;margin-top:3px}
+.rchk .note{padding:0 14px 12px;margin:0}
