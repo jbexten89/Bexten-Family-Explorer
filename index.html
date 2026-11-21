@@ -410,6 +410,24 @@ html.slimhdr .h1full,html.slimhdr .sub{display:none}
 html.slimhdr .h1slim{display:inline}
 html.slimhdr .pagename{display:block;margin:1px 0 0;font-size:17px;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 90px)}
 @media print{html.slimhdr header{position:static}}
+
+header{position:relative}
+.helpbtn{display:none!important;position:absolute;right:max(5vw,16px);top:calc(env(safe-area-inset-top) + 24px);width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--accent);display:flex;align-items:center;justify-content:center;font:800 18px "Nunito Sans",sans-serif;text-decoration:none;z-index:2}
+html.slimhdr .helpbtn{top:calc(env(safe-area-inset-top) + 30px)}
+.help details{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:0 0 8px}
+.help summary{padding:14px 16px;font-weight:700;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.help summary::-webkit-details-marker{display:none}
+.help summary::after{content:"›";color:var(--accent);font-size:22px;transition:transform .2s}
+.help details[open] summary::after{transform:rotate(90deg)}
+.help ul{margin:0;padding:0 16px 12px 34px;line-height:1.5}
+.help li{margin:0 0 9px}
+.help p{margin:0 16px 8px;color:var(--mute)}
+.hsw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+@media print{.helpbtn{display:none}}
+html.slimhdr .helpbtn{display:flex!important}
+.helplink{display:inline-block;margin-top:6px;color:var(--accent);font-weight:700;font-size:15px;text-decoration:none}
+html.slimhdr .helplink{display:none}
+@media print{.helplink{display:none}}
 </style>
 </head>
 <body>
@@ -419,9 +437,10 @@ html.slimhdr .pagename{display:block;margin:1px 0 0;font-size:17px;font-weight:7
 <img class="appicon" src="icons/icon-192.png" alt="" width="64" height="64">
 <div>
 <h1><span class="h1full">The Bexten Family Explorer</span><span class="h1slim">Bexten Family Explorer</span></h1><p class="pagename" id="pagename"></p>
-<p class="sub">The ancestors of Tony and Althea Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer. Compiled November 2026.</p>
+<p class="sub">The ancestors of Tony and Althea Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer. Compiled November 2026.</p><a class="helplink" href="#help">How to use this app ›</a>
 </div>
 </div>
+<a class="helpbtn" href="#help" aria-label="Help: how to use the app" title="Help">?</a>
 <nav aria-label="Views"><a href="#tree" data-v="tree"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-7"/><path d="M12 14c-4 0-7-2.6-7-6a7 7 0 0 1 14 0c0 3.4-3 6-7 6z"/><path d="M9 21h6"/></svg><span>Tree</span></a><a href="#map" data-v="map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Map</span></a><a href="#story" data-v="story"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg><span>Story</span></a><a href="#report" data-v="report"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg><span>Report</span></a><a href="#charts" data-v="charts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18a9 9 0 0 1 18 0z"/><path d="M12 9v9M7.5 11l4.5 7M16.5 11L12 18"/></svg><span>Charts</span></a><a href="#todo" data-v="todo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8.5 12.5l2.5 2.5 5-5.5"/></svg><span>To-do</span></a></nav>
 </header>
 <main>
@@ -744,6 +763,103 @@ html.slimhdr .pagename{display:block;margin:1px 0 0;font-size:17px;font-weight:7
 <div class="seg" role="tablist" aria-label="Index views"><a href="#index" role="tab" id="seg-ixs">Surnames</a><a href="#index/places" role="tab" id="seg-ixp">Places</a></div>
 <p class="ixnote">Tap a name or place to see everyone, then tap a person to open them in the tree. <span class="ixd f"></span> Dad's side <span class="ixd m"></span> Mom's side</p>
 <div id="ix-sur"></div><div id="ix-pl" hidden></div>
+</section>
+
+<section class="view" id="view-help" aria-label="Help" hidden>
+<h2 class="ch2">How to use the app</h2>
+<p class="note" style="margin:0 0 14px">The Bexten Family Explorer is the family history of Tony and Betty A. “Althea” Bonnell Bexten's six children, traced back eleven generations. Tap a topic to open it.</p>
+<div class="help">
+<details open><summary>Getting started</summary>
+<ul>
+<li><b>Keep it on your phone.</b> On iPhone, open the link in Safari, tap Share, then Add to Home Screen. On Android, open it in Chrome, tap ⋮, then Add to Home screen or Install app. It then opens full-screen like any app.</li>
+<li><b>Works offline.</b> Once opened, the app keeps a copy on your phone, so the tree, story and charts work without a connection. Maps, record links and directions need the internet.</li>
+<li><b>Updates.</b> New research shows up the next time you open the app while online. If you don't see a change, close the app completely and open it again.</li>
+<li><b>Living people are left out.</b> This is a public copy, so Tony and Althea's six children and their families aren't named.</li>
+</ul></details>
+
+<details><summary>Getting around</summary>
+<ul>
+<li><b>Bottom menu.</b> Six tabs: Tree, Map, Story, Report, Charts and To-do.</li>
+<li><b>Top bar.</b> On the home screen you see the full title. Everywhere else a slim bar shows where you are, like “Charts · Lifetimes” or the person you're looking at, and stays at the top as you scroll. The ? button opens this help.</li>
+<li><b>Back to where you were.</b> When you open a person from a chart, the map, the index or anywhere else, their card starts with a “‹ Back to …” button and a trail of the people you've visited. Tap Back to return to the same chart, the same spot on the page and the same filters. Tap any name in the trail to jump back to that person. The iPhone swipe-back gesture works too.</li>
+<li><b>Tap names.</b> Almost every name in the app, on charts, lists, maps and timelines, opens that person's card.</li>
+</ul></details>
+
+<details><summary>Tree tab</summary>
+<ul>
+<li><b>Home screen.</b> Starts with Tony and Althea's children, their parents and grandparents, and a <b>Coming up</b> box of family births, weddings and deaths that fall on dates in the next few weeks. On a person's card it shows their own dates.</li>
+<li><b>Find a person.</b> Type any part of a name in the search box and pick from the list.</li>
+<li><b>Family index</b> (the list button). Every surname A–Z with what the name means and who carried it, and every place, grouped by state or country, with who was born, lived, married, died or was buried there.</li>
+<li><b>Share</b> (the arrow button). A QR code to scan, plus buttons to send or copy the link with instructions for adding the app to a home screen.</li>
+<li><b>Home</b> (the house button). Back to the children, and clears the back trail.</li>
+</ul></details>
+
+<details><summary>A person's card</summary>
+<ul>
+<li><b>Name, dates and side.</b> A green dot means Dad's side, pink means Mom's side. “From records” or “Unproven” says how solid the person is.</li>
+<li><b>Relationship.</b> How the person is related to Tony and Althea's children, like “2nd great-grandfather,” and how many generations back. <b>How they're connected</b> shows the line from the children up to this person.</li>
+<li><b>Facts.</b> Birth, marriage, work, military service, death and burial, as found in records.</li>
+<li><b>Parent of</b> links down to the child in our line.</li>
+<li><b>Buried at</b> the cemetery; tap it to see the cemetery on the graves map, where you'll also find Directions.</li>
+<li><b>Brothers and sisters</b>, when known.</li>
+<li><b>The name.</b> What the surname means and where it comes from. Names that can't be pinned down are marked “Not certain.”</li>
+<li><b>Record checklist.</b> Birth, parents, marriage, census, immigration, death and burial, each marked ✓ (record linked), ◐ (known, but its own record isn't linked yet) or ○ (not found yet), with a “Where to look” tip for anything missing.</li>
+<li><b>See the records.</b> Tiles that open the actual records online: census pages, certificates, Find a Grave memorials, FamilySearch and more.</li>
+<li><b>Sources.</b> Every record and reference behind the card.</li>
+<li><b>Ancestors.</b> Parents, grandparents and great-grandparents. Tap anyone to move up the tree.</li>
+</ul></details>
+
+<details><summary>Map tab</summary>
+<ul>
+<li><b>Journeys.</b> Two maps, Europe (where the families left from) and America (where they settled), with the routes each family line took. Tap a line's button to show only that family. Arrows off the edge of a map are Atlantic crossings; dashed routes are uncertain.</li>
+<li><b>Graves.</b> A street map of the seven cemeteries that hold family: four around Toledo and Pioneer, three in central West Virginia. Use Ohio, West Virginia or All to zoom, and the Ohio day trip button for a driving route. Each cemetery lists who is buried there, with Directions.</li>
+</ul></details>
+
+<details><summary>Story tab</summary>
+<ul>
+<li><b>Story.</b> The family history told as a book, from the Pilgrims and the German villages to Toledo and Pioneer. Use Jump to a chapter to skip ahead.</li>
+<li><b>Timeline.</b> Every dated event in order. Filter by Everything, Dad's side, Mom's side, or Family only (leaving out world events).</li>
+</ul></details>
+
+<details><summary>Report tab</summary>
+<ul>
+<li>The full research report: what was found, where, how sure it is, what conflicts between records, and what's still open. Use Jump to a section to move around.</li>
+</ul></details>
+
+<details><summary>Charts tab</summary>
+<p>Nine charts, chosen with the buttons at the top.</p>
+<ul>
+<li><b>Fan chart.</b> Five generations in a half-circle, Dad's side left and Mom's side right. Tap anyone to center the fan on them and see their ancestors; tap the middle to open that person. Back and Start over step out again. Use + and − to zoom.</li>
+<li><b>Bowtie.</b> Four generations each way in a sideways tree. Use ‹ Dad's side, Center and Mom's side › to move across, or swipe. Turning your phone sideways helps.</li>
+<li><b>Lines.</b> Each long family line traced from its earliest ancestor down to the children.</li>
+<li><b>Origins.</b> How much of the children's ancestry comes from each part of the world, worked out from the tree, and when each line arrived in America.</li>
+<li><b>Lifetimes.</b> A bar for each ancestor's life against the Mayflower, the Revolution, the Civil War and both World Wars. Filter by side.</li>
+<li><b>Families.</b> How many children each couple in our line had, from 13 in 1798 to 6 in 1954.</li>
+<li><b>Complete.</b> How many ancestors have been found in each generation, out of how many there are.</li>
+<li><b>Numbers.</b> Family statistics: how many ancestors, generations, the longest life, birthplaces and common first names.</li>
+<li><b>Cousins.</b> The brothers and sisters of each ancestor. Their descendants are the family's cousins: the further back the ancestor, the more distant the cousin. Living cousins aren't named.</li>
+</ul></details>
+
+<details><summary>To-do tab</summary>
+<ul>
+<li>The research still to do: record requests to send, visits to make and optional extras. Tick items off as you go; checkmarks are saved on this phone.</li>
+<li>The request letters are in the Bexten Record Request Letters doc. When a record or reply comes back, send it to Claude to read and add.</li>
+</ul></details>
+
+<details><summary>Colors and symbols</summary>
+<ul>
+<li><span class="hsw" style="background:var(--mint)"></span><b>Green</b> Dad's side (Bexten, Graf, Smith).</li>
+<li><span class="hsw" style="background:var(--peri)"></span><b>Pink</b> Mom's side (Bonnell, Beamer, Fitz Randolph and others).</li>
+<li><span class="hsw" style="background:var(--amber)"></span><b>Amber outline or “Unproven”</b> a likely connection that no record has confirmed yet.</li>
+<li><span class="hsw" style="border:1px dashed var(--mute);background:none"></span><b>Dashed box</b> an ancestor not found yet.</li>
+<li><b>✓ ◐ ○</b> on the record checklist: record linked, known but not linked, not found yet.</li>
+</ul></details>
+
+<details><summary>Printing</summary>
+<ul>
+<li>On a computer, the Print buttons on the Charts and To-do tabs print a clean copy without menus. The Story and Report also print well from the browser's Print command.</li>
+</ul></details>
+</div>
 </section>
 
 </main>
@@ -1598,7 +1714,7 @@ function crLabel(){const h=location.hash.slice(1).split("/"),v=crView();const vi
  if(v==="index")return(h[1]==="places"?"Index: Places":"Index: Surnames")+(openB?" · "+openB:"");
  if(v==="map")return h[1]&&h[1]!=="journeys"?"Graves":"Map";
  if(v==="story")return h[1]==="timeline"?"Timeline":"Story";
- return{report:"Report",todo:"To-do"}[v]||"Back"}
+ return{report:"Report",todo:"To-do",help:"Help"}[v]||"Back"}
 function crCapture(){const v=crView(),vis=document.getElementById("view-"+v),app=document.getElementById("app");
  return{hash:location.hash||"#tree",label:crLabel(),scroll:app.scrollTop,open:vis?[...vis.querySelectorAll("details")].map((d,i)=>d.open?i:-1).filter(i=>i>=0):[],
   fan:FANF,fanHist:FANHIST.slice(),life:typeof LIFE_F!=="undefined"?LIFE_F:"all",bow:(document.getElementById("bowbox")||{}).scrollLeft||0}}
@@ -1632,13 +1748,13 @@ function setHeader(){const v=crView(),h=location.hash.slice(1).split("/");const 
  else if(v==="index")lab="Index · "+(h[1]==="places"?"Places":"Surnames");
  else if(v==="map")lab=h[1]&&h[1]!=="journeys"?"Map · Graves":"Map · Journeys";
  else if(v==="story")lab=h[1]==="timeline"?"Story · Timeline":"Story";
- else lab={report:"Report",todo:"To-do"}[v]||"";
+ else lab={report:"Report",todo:"To-do",help:"Help"}[v]||"";
  const el=document.getElementById("pagename");if(el)el.textContent=lab}
 const _showPerson1=showPerson;showPerson=function(id){_showPerson1(id);setHeader()};
 window.addEventListener("hashchange",setHeader);setTimeout(setHeader,0);
 
 // ---------- views ----------
-const VIEWS=["tree","map","story","report","charts","todo","index"];
+const VIEWS=["tree","map","story","report","charts","todo","index","help"];
 function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.includes(h[0])?h[0]:"tree";VIEWS.forEach(k=>{document.getElementById("view-"+k).hidden=k!==v});document.querySelectorAll("nav a[data-v]").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});const tgt=h[1]&&document.getElementById(h[1]);if(tgt)tgt.scrollIntoView({block:"start"});else document.getElementById("app").scrollTo(0,0)}
 window.addEventListener("hashchange",route);route();
 }

@@ -28,7 +28,7 @@ t=t.replace('</main>',views+'\n</main>')
 t=t.replace('</style>',(S/'extra.css').read_text()+'</style>')
 t=t.replace('<title>Bexten Family Explorer</title>','<title>Bexten Family Explorer</title>\n<meta name="description" content="The Bexten family tree, migration map, family story and research notes.">\n<meta name="theme-color" content="#07080A">\n<meta name="apple-mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">\n<meta name="apple-mobile-web-app-title" content="Bexten Family">\n<link rel="manifest" href="manifest.webmanifest">\n<link rel="icon" href="icons/icon-192.png">\n<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">')
 old=re.search(r'// ---------- views ----------\nfunction route\(\)\{.*?\n',t).group(0)
-new='''const VIEWS=["tree","map","story","report","charts","todo","index"];
+new='''const VIEWS=["tree","map","story","report","charts","todo","index","help"];
 function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.includes(h[0])?h[0]:"tree";VIEWS.forEach(k=>{document.getElementById("view-"+k).hidden=k!==v});document.querySelectorAll("nav a[data-v]").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});const tgt=h[1]&&document.getElementById(h[1]);if(tgt)tgt.scrollIntoView({block:"start"});else document.getElementById("app").scrollTo(0,0)}
 '''
 t=t.replace(old,(S/'extra.js').read_text()+(S/'more.js').read_text()+(S/'more2.js').read_text()+(S/'more3.js').read_text()+(S/'more4.js').read_text()+(S/'more5.js').read_text()+(S/'more6.js').read_text()+(S/'more7.js').read_text()+(S/'more8.js').read_text()+'\n// ---------- views ----------\n'+new)
