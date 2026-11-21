@@ -456,6 +456,8 @@ html.shortvp main{padding-bottom:84px}
 .mcrem{display:flex;gap:8px;align-items:center;color:var(--mute);font-size:14px;margin:2px 0}
 .mccancel{background:none;border:0;color:var(--accent);font:700 15px "Nunito Sans",sans-serif;padding:10px;cursor:pointer}
 html.shortvp .mcbox{padding-bottom:20px}
+html.slimhdr header{isolation:isolate}
+.dir:focus{outline:none}
 </style>
 </head>
 <body>
@@ -1366,7 +1368,7 @@ window.addEventListener("hashchange",()=>{const h=location.hash.split("/")[1];if
 // ---------- directions: Apple or Google ----------
 function mapsPref(){try{return localStorage.getItem("bexten-maps")||""}catch(e){return""}}
 function setMapsPref(v){try{v?localStorage.setItem("bexten-maps",v):localStorage.removeItem("bexten-maps")}catch(e){}const sel=document.getElementById("mapsapp");if(sel)sel.value=v||""}
-function openDir(g,app){window.open(app==="google"?gmapUrl(g):amap(g),"_blank","noopener")}
+function openDir(g,app){window.open(app==="google"?gmapUrl(g):amap(g),"_blank","noopener");setTimeout(()=>{const f=document.activeElement;if(f&&f.blur)f.blur()},0)}
 function chooseMaps(g){const old=document.getElementById("mapchoose");if(old)old.remove();
  document.body.insertAdjacentHTML("beforeend",`<div class="mapchoose" id="mapchoose" role="dialog" aria-modal="true" aria-label="Open directions in"><div class="mcbox"><h3>Directions to ${esc(g.name)}</h3><button type="button" class="btn" data-app="apple">Apple Maps</button><button type="button" class="btn" data-app="google">Google Maps</button><label class="mcrem"><input type="checkbox" id="mcrem" checked> Always use this app</label><button type="button" class="mccancel" data-app="">Cancel</button></div></div>`);
  const el=document.getElementById("mapchoose");el.addEventListener("click",e=>{const b=e.target.closest("[data-app]");if(!b&&e.target!==el)return;const app=b?b.dataset.app:"";if(app){if(document.getElementById("mcrem").checked)setMapsPref(app);openDir(g,app)}el.remove()})}

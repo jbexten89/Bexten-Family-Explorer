@@ -384,3 +384,5 @@ html.shortvp main{padding-bottom:84px}
 .mcrem{display:flex;gap:8px;align-items:center;color:var(--mute);font-size:14px;margin:2px 0}
 .mccancel{background:none;border:0;color:var(--accent);font:700 15px "Nunito Sans",sans-serif;padding:10px;cursor:pointer}
 html.shortvp .mcbox{padding-bottom:20px}
+html.slimhdr header{isolation:isolate}
+.dir:focus{outline:none}
