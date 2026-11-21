@@ -34,3 +34,15 @@ document.getElementById("focus").addEventListener("click",e=>{const b=e.target.c
  if(k==="o")crBack();else{showPerson(k);document.getElementById("app").scrollTo({top:0,behavior:"smooth"})}},true);
 window.addEventListener("hashchange",()=>{if(CR.restoring)return;const v=crView();
  if(v!=="tree"&&CR.origin){const o=CR.origin;if(location.hash===o.hash){CR.origin=null;CR.trail=[];setTimeout(()=>crApply(o),40)}else{CR.origin=null;CR.trail=[]}}});
+
+function setHeader(){const v=crView(),h=location.hash.slice(1).split("/");const home=v==="tree"&&(typeof cur==="undefined"||cur==="kids");
+ document.documentElement.classList.toggle("slimhdr",!home);
+ let lab="";if(v==="tree")lab=home?"":CHN(cur);
+ else if(v==="charts")lab="Charts · "+(CR_CH[h[1]]||"Fan chart");
+ else if(v==="index")lab="Index · "+(h[1]==="places"?"Places":"Surnames");
+ else if(v==="map")lab=h[1]&&h[1]!=="journeys"?"Map · Graves":"Map · Journeys";
+ else if(v==="story")lab=h[1]==="timeline"?"Story · Timeline":"Story";
+ else lab={report:"Report",todo:"To-do"}[v]||"";
+ const el=document.getElementById("pagename");if(el)el.textContent=lab}
+const _showPerson1=showPerson;showPerson=function(id){_showPerson1(id);setHeader()};
+window.addEventListener("hashchange",setHeader);setTimeout(setHeader,0);

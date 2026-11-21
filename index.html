@@ -400,6 +400,16 @@ body.modal #app{overflow:hidden}
 .crtrail button{background:none;border:0;padding:4px 0;color:var(--accent);font:600 13.5px "Nunito Sans",sans-serif;cursor:pointer}
 .crtrail span{color:var(--ink);font-weight:700}.crtrail i{font-style:normal;color:var(--mute)}
 @media print{.crumbs{display:none}}
+
+.h1slim,.pagename{display:none}
+html.slimhdr header{position:sticky;top:0;z-index:30;background:#07080A;padding-top:calc(env(safe-area-inset-top) + 8px);padding-bottom:8px;border-bottom:1px solid var(--line);max-width:none}
+html.slimhdr .brand{gap:10px;align-items:center}
+html.slimhdr .appicon{width:32px;height:32px;border-radius:8px;box-shadow:none}
+html.slimhdr header h1{font-size:13px;font-weight:600;color:var(--mute);line-height:1.2}
+html.slimhdr .h1full,html.slimhdr .sub{display:none}
+html.slimhdr .h1slim{display:inline}
+html.slimhdr .pagename{display:block;margin:1px 0 0;font-size:17px;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 90px)}
+@media print{html.slimhdr header{position:static}}
 </style>
 </head>
 <body>
@@ -408,7 +418,7 @@ body.modal #app{overflow:hidden}
 <div class="brand">
 <img class="appicon" src="icons/icon-192.png" alt="" width="64" height="64">
 <div>
-<h1>The Bexten Family Explorer</h1>
+<h1><span class="h1full">The Bexten Family Explorer</span><span class="h1slim">Bexten Family Explorer</span></h1><p class="pagename" id="pagename"></p>
 <p class="sub">The ancestors of Tony and Althea Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer. Compiled November 2026.</p>
 </div>
 </div>
@@ -1614,6 +1624,18 @@ document.getElementById("focus").addEventListener("click",e=>{const b=e.target.c
  if(k==="o")crBack();else{showPerson(k);document.getElementById("app").scrollTo({top:0,behavior:"smooth"})}},true);
 window.addEventListener("hashchange",()=>{if(CR.restoring)return;const v=crView();
  if(v!=="tree"&&CR.origin){const o=CR.origin;if(location.hash===o.hash){CR.origin=null;CR.trail=[];setTimeout(()=>crApply(o),40)}else{CR.origin=null;CR.trail=[]}}});
+
+function setHeader(){const v=crView(),h=location.hash.slice(1).split("/");const home=v==="tree"&&(typeof cur==="undefined"||cur==="kids");
+ document.documentElement.classList.toggle("slimhdr",!home);
+ let lab="";if(v==="tree")lab=home?"":CHN(cur);
+ else if(v==="charts")lab="Charts · "+(CR_CH[h[1]]||"Fan chart");
+ else if(v==="index")lab="Index · "+(h[1]==="places"?"Places":"Surnames");
+ else if(v==="map")lab=h[1]&&h[1]!=="journeys"?"Map · Graves":"Map · Journeys";
+ else if(v==="story")lab=h[1]==="timeline"?"Story · Timeline":"Story";
+ else lab={report:"Report",todo:"To-do"}[v]||"";
+ const el=document.getElementById("pagename");if(el)el.textContent=lab}
+const _showPerson1=showPerson;showPerson=function(id){_showPerson1(id);setHeader()};
+window.addEventListener("hashchange",setHeader);setTimeout(setHeader,0);
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo","index"];

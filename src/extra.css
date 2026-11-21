@@ -328,3 +328,13 @@ body.modal #app{overflow:hidden}
 .crtrail button{background:none;border:0;padding:4px 0;color:var(--accent);font:600 13.5px "Nunito Sans",sans-serif;cursor:pointer}
 .crtrail span{color:var(--ink);font-weight:700}.crtrail i{font-style:normal;color:var(--mute)}
 @media print{.crumbs{display:none}}
+
+.h1slim,.pagename{display:none}
+html.slimhdr header{position:sticky;top:0;z-index:30;background:#07080A;padding-top:calc(env(safe-area-inset-top) + 8px);padding-bottom:8px;border-bottom:1px solid var(--line);max-width:none}
+html.slimhdr .brand{gap:10px;align-items:center}
+html.slimhdr .appicon{width:32px;height:32px;border-radius:8px;box-shadow:none}
+html.slimhdr header h1{font-size:13px;font-weight:600;color:var(--mute);line-height:1.2}
+html.slimhdr .h1full,html.slimhdr .sub{display:none}
+html.slimhdr .h1slim{display:inline}
+html.slimhdr .pagename{display:block;margin:1px 0 0;font-size:17px;font-weight:700;color:var(--ink);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 90px)}
+@media print{html.slimhdr header{position:static}}
