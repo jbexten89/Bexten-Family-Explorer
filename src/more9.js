@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-22","elizabethg","Proven: Elizabeth's parents were James and Margaret","Her Nov 8, 1863, marriage to Floyd Bonnell at Grafton, Taylor County, names her as Elisabeth Pitman, 29, daughter of Jas. and Margaret Goldeborough."],
  ["2026-11-22","jamesg","James Goldsberry's estate, 1846","Barbour County court records show James Goldsberry dead by April 1846, his estate administered by John Shockey. In 1850 his daughter Rebecca was living with the Shockeys."],
  ["2026-11-22","margaretg","Elizabeth Goldsborough's mother: Margaret Goldsberry","Her younger sisters' Barbour County marriage records (1856, 1860) name their parents as James and Margaret Goldsberry. Margaret now fills the empty place in the tree."],
  ["2026-11-21","catharinar","Anthony grew up with a stepfather","Catharina Rüdingloh remarried, to Carl Sander, and had four more children at Stromberg in 1870–75. Anthony's father Hermann seems to have died while Anthony was a baby."],
