@@ -153,6 +153,9 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  marie:[L.trees]
 };
 
+const ANC_IMG={"1002/14997358": "004142972_04752", "1265/1427414178": "1265_b698991-00034", "2238/268012684": "44017_08_00014-00767", "62374/2687836": "i2283786-00187", "6482/20084355": "005257166_05690", "7163/39843636": "4278435_00377", "7488/1928198": "NYM237_172-0187", "7602/45495653": "4117761_00493", "8801/12552071": "005871563_00006", "9093/3627954": "41326_342390-00233", "9093/816678": "41326_342390-00233", "1995/31874": "MIUSA1775D_134972-00265"};
+function ancPic(u){const m=(u||"").match(/ancestry\.com\/search\/collections\/(\d+)\/records\/(\d+)/);if(!m)return null;const id=ANC_IMG[m[1]+"/"+m[2]];return id?`https://www.ancestry.com/imageviewer/collections/${m[1]}/images/${id}?pId=${m[2]}`:null}
+const isAnc=u=>/ancestry\.com/.test(u||"");
 const STYPE={photo:"Photo",cert:"Record",census:"Census",news:"Newspaper",grave:"Grave",church:"Church or court",book:"Published",tree:"Online tree",mil:"Military",family:"Family story"};
 
 const GRAVES=[
@@ -184,10 +187,10 @@ function afterPerson(id){
  box.insertAdjacentHTML("beforeend",sibsHTML(id));
  const s=SRC[id];
  const tiles=(s||[]).filter(x=>x[3]&&x[2]);
- if(tiles.length){const host=u=>u.includes("familysearch")?"FamilySearch":u.includes("michigan.access")?"Michiganology":u.includes("findagrave")?"Find a Grave":u.includes("archive.org")?"Internet Archive":u.includes("revwarapps")?"Southern Campaigns pensions":u.includes("wvu.edu")||u.includes("wvhistoryonview")?"WV History OnView":u.includes("genealogytrails")?"Genealogy Trails":"Web";
+ if(tiles.length){const host=u=>u.includes("familysearch")?"FamilySearch":u.includes("michigan.access")?"Michiganology":u.includes("findagrave")?"Find a Grave":u.includes("archive.org")?"Internet Archive":u.includes("revwarapps")?"Southern Campaigns pensions":u.includes("wvu.edu")||u.includes("wvhistoryonview")?"WV History OnView":u.includes("genealogytrails")?"Genealogy Trails":u.includes("ancestry.com")?"Ancestry (subscription)":"Web";
   const ico={cert:'<path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h4"/>',census:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16"/>',grave:'<path d="M7 21V9a5 5 0 0 1 10 0v12"/><path d="M5 21h14M10 12h4M12 10v5"/>',photo:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/>',book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/>'};
   box.insertAdjacentHTML("beforeend",`<div class="recs"><h4>See the records</h4><div class="rtiles">${tiles.map(([t,lab,u,tl])=>`<a class="rtile" href="${u}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[t]||ico.cert}</svg><b>${esc(tl)}</b><span>${host(u)} ↗</span></a>`).join("")}</div></div>`)}
- if(s&&s.length)box.insertAdjacentHTML("beforeend",`<details class="srcs"><summary>Sources <span>${s.length}</span></summary><ul>${s.map(([t,lab,u])=>`<li><span class="st st-${t}">${STYPE[t]}</span>${u?`<a href="${u}" target="_blank" rel="noopener">${esc(lab)}</a>`:`<span>${esc(lab)}</span>`}</li>`).join("")}</ul><p class="note">Linked FamilySearch records need a free account. Newspaper articles are in the Toledo Blade archive at the Toledo-Lucas County Public Library.</p></details>`);
+ if(s&&s.length)box.insertAdjacentHTML("beforeend",`<details class="srcs"><summary>Sources <span>${s.length}</span></summary><ul>${s.map(([t,lab,u])=>`<li><span class="st st-${t}">${STYPE[t]}</span>${u?`<a href="${u}" target="_blank" rel="noopener">${esc(lab)}</a>`:`<span>${esc(lab)}</span>`}${isAnc(u)?`<span class="anc">${ancPic(u)?`<a href="${ancPic(u)}" target="_blank" rel="noopener">See the picture ↗</a> · `:""}Ancestry subscription needed</span>`:""}</li>`).join("")}</ul><p class="note">Linked FamilySearch records need a free account. Newspaper articles are in the Toledo Blade archive at the Toledo-Lucas County Public Library.</p></details>`);
 }
 function drawGraves(){
  const el=document.getElementById("graves-list");if(!el)return;
