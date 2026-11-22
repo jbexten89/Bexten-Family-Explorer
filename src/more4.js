@@ -27,6 +27,7 @@ const SURN={
  "Langenderfer":["German, Americanized","An American spelling of Langendörfer, “someone from Langendorf” (“long village”), a common German place name.",0],
  "Martin":["English and French","From the personal name Martin, popular in the Middle Ages after St. Martin of Tours.",0],
  "May":["English","The name has several possible origins, including an old word for a young man; which one fits this family isn't known.",1],
+ "Ackerman":["German","From Ackermann, a ploughman or farmer, someone who worked the field (Acker).",0],
  "Miller":["English or German","A grain miller. In America it is often the English form of German Müller.",0],
  "Peterson":["English or Scandinavian","“Son of Peter.”",0],
  "Plant":["English","Probably a gardener or someone who raised young plants.",1],
@@ -46,7 +47,8 @@ const IX_PLACES=[
  ["New Jersey",[["Piscataway",/Piscataway/]]],
  ["New York",[["New York",/New York(?! Artillery)/]]],
  ["Massachusetts",[["Plymouth",/Plymouth/],["Scituate",/Scituate/],["Barnstable",/Barnstable/]]],
- ["Germany",[["Westphalia",/Westphalia/],["Stromberg",/Stromberg/],["Baden",/Baden/],["Württemberg",/Württemberg/],["Ober-Seemen, Hesse",/Ober-Seemen/],["St. Wendel",/St\. Wendel/]]],
+ ["Germany",[["Westphalia",/Westphalia/],["Stromberg",/Stromberg/],["Baden",/Baden/],["Württemberg",/Württemberg/],["Ober-Seemen, Hesse",/Ober-Seemen/],["St. Wendel",/St\. Wendel/],["Bavaria",/Bavaria/]]],
+ ["France",[["Alsace",/Alsace/]]],
  ["England",[["Sutton-in-Ashfield",/Sutton-in-Ashfield/],["Kneesall",/Kneesall/],["Cambridge",/Cambridge/]]],
  ["Netherlands",[["Leiden",/Leiden/]]]
 ];
