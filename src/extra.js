@@ -80,7 +80,6 @@ const TODO=[
   ["deilingen","<b>On the same Perrysburg visit, look for Brigitta Reger's baptism</b> in the Deilingen (Württemberg) Catholic books, FamilySearch film 008208536. Start at March 25, 1832 (Maria Reger, entry 12) and read the next few entries for a Brigitta born March 28, 1832, daughter of a Johann Reger. She is not in the online index, so the entry may be misread or under another spelling (Brigida, Rieger)."]]],
  ["Optional extras","",[
   ["schmidt2","<b>Wendell Smith and Barbara Ankenbrandt</b>: their death records aren't online. Monroe County, Michigan, death records (about 1889 and 1906) would give exact dates and maybe their German hometown."],
-  ["stwendel","<b>Wendel and Mary Langenderfer</b>: check whether they really came from St. Wendel, Prussia, as an online tree says"],
   ["share","<b>Share the app</b> with siblings and cousins: tap the Share button next to the house on the Tree tab for a QR code and link."],
   ["ask","<b>Ask older relatives</b> for a family Bible, letters from Germany, old photos, and any details of the stowaway story (the ship, the port, who found him)"],
   ["dna","<b>Take a DNA test</b> (AncestryDNA or MyHeritage) to look for relatives descended from Anthony's three sisters in Germany"],
