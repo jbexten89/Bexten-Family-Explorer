@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-22","margaretg","Elizabeth Goldsborough's mother: Margaret Goldsberry","Her younger sisters' Barbour County marriage records (1856, 1860) name their parents as James and Margaret Goldsberry. Margaret now fills the empty place in the tree."],
  ["2026-11-21","catharinar","Anthony grew up with a stepfather","Catharina Rüdingloh remarried, to Carl Sander, and had four more children at Stromberg in 1870–75. Anthony's father Hermann seems to have died while Anthony was a baby."],
  ["2026-11-21","anthony","Anthony Bexten's mother found: Catharina Rüdingloh","His 1899 marriage record names his parents as “Hamlin Baxter” and “Chaterine Redingloch,” Hermann Bexte and Catharina Rüdingloh. That matches the 1868 Stromberg baptism, so Stromberg is almost certainly his hometown."],
  ["2026-11-21","catharinaf","A possible death record for Catharina (Kate) Miller","Katie Miller, a widow aged 76 born in Germany, died Jan 14, 1906, at 3623 Erie Street in South Toledo and was buried at Forest Cemetery. Not yet proven; her burial card is on the To-do list."],
