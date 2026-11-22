@@ -72,7 +72,7 @@ function drawBook(){if(BOOK_DONE)return;BOOK_DONE=true;
  const sur=Object.keys(SURN).sort((a,b)=>a.localeCompare(b));
  const idx=people.slice().sort((a,b)=>{const sa=D[a.id][0].split(" ").pop(),sb2=D[b.id][0].split(" ").pop();return sa.localeCompare(sb2)||D[a.id][0].localeCompare(D[b.id][0])});
  document.getElementById("book").innerHTML=`
- <div class="bkbar"><p>The whole family history as one book: the story, then every ancestor generation by generation with their sources. Download the PDF to keep or send to family, or print it. The PDF is updated whenever new finds are added.</p><div class="bkbtns"><a class="btn" href="Bexten-Family-Book.pdf" download>Download PDF</a><button class="btn" type="button" data-print>Print</button></div></div>
+ <div class="bkbar"><p>The story and every ancestor in one book, with sources.</p><div class="bkbtns"><a class="btn" href="Bexten-Family-Book.pdf" download>Download PDF</a><button class="btn" type="button" data-print>Print</button></div></div>
  <section class="bkcover"><p class="bkkick">A family history</p><h1>The Bexten Family</h1><p class="bksub">The ancestors of Tony and Althea Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer</p>
  <p class="bkstat">${people.length} ancestors · ${G.length-1} generations back</p><p class="bkdate">Compiled from records, November 2026 · this copy printed ${today}</p></section>
  <section class="bktoc"><h2>Contents</h2><ol><li>The family story</li><li>Ancestors, generation by generation<ol>${G.filter(g=>g>1).map(g=>`<li>Generation ${g}: ${GEN_NAME(g)} (${gens[g].filter(p=>!p.dup).length})</li>`).join("")}</ol></li><li>Where the surnames come from</li><li>Index of names</li></ol>

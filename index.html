@@ -560,10 +560,10 @@ html.slimhdr .homecard{display:none}
 /* desktop: keep the top menu clear of the round help button */
 @media screen and (min-width:761px){html.slimhdr header nav{margin-right:52px}}
 
-.booklink{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:760px;margin:0 auto 14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);text-decoration:none}
-.booklink b{display:block;font-weight:700;font-size:15.5px}.booklink small{display:block;color:var(--mute);font-size:13.5px;margin-top:2px;line-height:1.4}
-.booklink i{color:var(--accent);font-style:normal;font-size:22px}
-@media print{.booklink{display:none}}
+
+.seg.s3{grid-template-columns:1fr 1fr 1fr}
+
+@media print{#view-book>.seg{display:none}}
 </style>
 </head>
 <body>
@@ -635,9 +635,8 @@ html.slimhdr .homecard{display:none}
 <p class="note">Living relatives are left out of this public copy.</p>
 </div></div>
 <section class="view" id="view-story" aria-label="The Bexten Family Story" hidden>
-<div class="seg" role="tablist" aria-label="Story views"><a href="#story" role="tab" id="seg-story">Story</a><a href="#story/timeline" role="tab" id="seg-tl">Timeline</a></div>
+<div class="seg s3" role="tablist" aria-label="Story views"><a href="#story" role="tab" id="seg-story">Story</a><a href="#story/timeline" role="tab" id="seg-tl">Timeline</a><a href="#book" role="tab" aria-selected="false">Book</a></div>
 <div id="story-wrap">
-<a class="booklink" href="#book"><span><b>Family book</b><small>The story and every ancestor in one book, to download as a PDF or print</small></span><i aria-hidden="true">›</i></a>
 <div class="toc"><label class="jump"><span class="sr">Jump to a chapter</span><select id="story-toc"></select></label></div>
 <article class="prose" id="story-body">
 <h1>The Bexten Family Story</h1>
@@ -913,6 +912,7 @@ html.slimhdr .homecard{display:none}
 <div id="news"></div>
 </section>
 <section class="view" id="view-book" aria-label="Family book" hidden>
+<div class="seg s3" role="tablist" aria-label="Story views"><a href="#story" role="tab" aria-selected="false">Story</a><a href="#story/timeline" role="tab" aria-selected="false">Timeline</a><a href="#book" role="tab" aria-selected="true">Book</a></div>
 <div class="book" id="book"></div>
 </section>
 <section class="view" id="view-help" aria-label="Help" hidden>
@@ -1008,7 +1008,7 @@ html.slimhdr .homecard{display:none}
 <details><summary>What's new and the family book</summary>
 <ul>
 <li><b>What's new.</b> On the home screen, tap What's new to see the latest finds, newest first. The number shows how many you haven't seen yet. Tap a find to open that person.</li>
-<li><b>Family book.</b> On the Story tab, tap Family book at the top for the whole history as one book: the story, then every ancestor generation by generation with their facts and sources, the surname meanings and an index. Tap Download PDF to keep a copy or send it to family, or tap Print. The book on screen always includes the latest finds.</li>
+<li><b>Family book.</b> On the Story tab, tap Book at the top for the whole history as one book: the story, then every ancestor generation by generation with their facts and sources, the surname meanings and an index. Tap Download PDF to keep a copy or send it to family, or tap Print. The book on screen always includes the latest finds.</li>
 </ul>
 </details>
 <details><summary>Printing</summary>
@@ -1967,7 +1967,7 @@ function setHeader(){const v=crView(),h=location.hash.slice(1).split("/");const 
  else if(v==="index")lab="Index · "+(h[1]==="places"?"Places":"Surnames");
  else if(v==="map")lab=h[1]&&h[1]!=="journeys"?"Map · Graves":"Map · Journeys";
  else if(v==="story")lab=h[1]==="timeline"?"Story · Timeline":"Story";
- else lab={report:"Report",todo:"To-do",help:"Help",new:"What's new",book:"Family book"}[v]||"";
+ else lab={report:"Report",todo:"To-do",help:"Help",new:"What's new",book:"Story · Book"}[v]||"";
  const el=document.getElementById("pagename");if(el)el.textContent=lab}
 const _showPerson1=showPerson;showPerson=function(id){_showPerson1(id);setHeader()};
 window.addEventListener("hashchange",setHeader);setTimeout(setHeader,0);
@@ -2050,7 +2050,7 @@ function drawBook(){if(BOOK_DONE)return;BOOK_DONE=true;
  const sur=Object.keys(SURN).sort((a,b)=>a.localeCompare(b));
  const idx=people.slice().sort((a,b)=>{const sa=D[a.id][0].split(" ").pop(),sb2=D[b.id][0].split(" ").pop();return sa.localeCompare(sb2)||D[a.id][0].localeCompare(D[b.id][0])});
  document.getElementById("book").innerHTML=`
- <div class="bkbar"><p>The whole family history as one book: the story, then every ancestor generation by generation with their sources. Download the PDF to keep or send to family, or print it. The PDF is updated whenever new finds are added.</p><div class="bkbtns"><a class="btn" href="Bexten-Family-Book.pdf" download>Download PDF</a><button class="btn" type="button" data-print>Print</button></div></div>
+ <div class="bkbar"><p>The story and every ancestor in one book, with sources.</p><div class="bkbtns"><a class="btn" href="Bexten-Family-Book.pdf" download>Download PDF</a><button class="btn" type="button" data-print>Print</button></div></div>
  <section class="bkcover"><p class="bkkick">A family history</p><h1>The Bexten Family</h1><p class="bksub">The ancestors of Tony and Althea Bexten's six children, from Plymouth Colony and the Rhine to Toledo and Pioneer</p>
  <p class="bkstat">${people.length} ancestors · ${G.length-1} generations back</p><p class="bkdate">Compiled from records, November 2026 · this copy printed ${today}</p></section>
  <section class="bktoc"><h2>Contents</h2><ol><li>The family story</li><li>Ancestors, generation by generation<ol>${G.filter(g=>g>1).map(g=>`<li>Generation ${g}: ${GEN_NAME(g)} (${gens[g].filter(p=>!p.dup).length})</li>`).join("")}</ol></li><li>Where the surnames come from</li><li>Index of names</li></ol>
@@ -2073,7 +2073,7 @@ if(location.hash.slice(1).split("/")[0]==="new")setTimeout(drawNews,0);
 
 // ---------- views ----------
 const VIEWS=["tree","map","story","report","charts","todo","index","help","new","book"];
-function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.includes(h[0])?h[0]:"tree";VIEWS.forEach(k=>{document.getElementById("view-"+k).hidden=k!==v});document.querySelectorAll("nav a[data-v]").forEach(a=>{if(a.dataset.v===v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});const tgt=h[1]&&document.getElementById(h[1]);if(tgt)tgt.scrollIntoView({block:"start"});else document.getElementById("app").scrollTo(0,0)}
+function route(){const h=location.hash.slice(1).split("/");const v=VIEWS.includes(h[0])?h[0]:"tree";VIEWS.forEach(k=>{document.getElementById("view-"+k).hidden=k!==v});document.querySelectorAll("nav a[data-v]").forEach(a=>{if(a.dataset.v===(v==="book"?"story":v))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});const tgt=h[1]&&document.getElementById(h[1]);if(tgt)tgt.scrollIntoView({block:"start"});else document.getElementById("app").scrollTo(0,0)}
 window.addEventListener("hashchange",route);route();
 }
 </script>
