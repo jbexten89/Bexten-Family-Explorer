@@ -61,7 +61,6 @@ document.getElementById("app").addEventListener("scroll",markStuck,{passive:true
 // ---------- to-do ----------
 const TODO=[
  ["Send the record requests","Most letters are in the Bexten Record Request Letters doc in Claude; the library email is in your chat with Claude. Fill in the [brackets] before sending.",[
-  ["clerk","<b>Call the Monroe County Clerk</b> at (734) 240-7020 and order a genealogy copy of Anthony Bexten and Rosa Graf's April 11, 1899 marriage record. Most likely to name Anthony's German hometown."],
   ["natz","<b>Order Anthony Bexten's naturalization search</b> from the Archives of Michigan ($20, non-refundable) at <a href=\"https://shop.michiganology.org/products/naturalization-research\" target=\"_blank\" rel=\"noopener\">shop.michiganology.org</a>. Paste the request text into the order notes."],
   ["nysa","<b>Email the New York State Archives</b> at <a href=\"mailto:archref@nysed.gov\">archref@nysed.gov</a> for John Bonnell's Revolutionary War claim (Series A0200, Box RM-1-15-A, Roll 1, page 60)."],
   ["probate","<b>Ask the Monroe County Probate Court</b> (Monroe, Michigan) for a 1905–06 estate file for Joseph Graf (also Graff or Groff) of Whiteford Township. It names the heirs and may give his hometown in Baden."],

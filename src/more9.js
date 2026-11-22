@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-21","anthony","Anthony Bexten's mother found: Catharina Rüdingloh","His 1899 marriage record names his parents as “Hamlin Baxter” and “Chaterine Redingloch,” Hermann Bexte and Catharina Rüdingloh. That matches the 1868 Stromberg baptism, so Stromberg is almost certainly his hometown."],
  ["2026-11-21","catharinaf","A possible death record for Catharina (Kate) Miller","Katie Miller, a widow aged 76 born in Germany, died Jan 14, 1906, at 3623 Erie Street in South Toledo and was buried at Forest Cemetery. Not yet proven; her burial card is on the To-do list."],
  ["2026-11-21","mamie","Mamie (Miller) Smith probably died Nov 15, 1966","The Ohio death index has a Mary A. Smith, a widow aged 76, who died in Toledo that day. Her death certificate (on the To-do list) would prove it."],
  ["2026-11-21","caroline","Caroline Bexten's 1987 obituary","Toledo Blade, May 19, 1987: she died at Bryan at 77, with her funeral at Sacred Heart, Montpelier."],
