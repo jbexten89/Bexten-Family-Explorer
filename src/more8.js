@@ -8,7 +8,7 @@ function crLabel(){const h=location.hash.slice(1).split("/"),v=crView();const vi
  if(v==="index")return(h[1]==="places"?"Index: Places":"Index: Surnames")+(openB?" · "+openB:"");
  if(v==="map")return h[1]&&h[1]!=="journeys"?"Graves":"Map";
  if(v==="story")return h[1]==="timeline"?"Timeline":"Story";
- return{report:"Report",todo:"To-do",help:"Help"}[v]||"Back"}
+ return{report:"Report",todo:"To-do",help:"Help",new:"What's new",book:"Family book"}[v]||"Back"}
 function crCapture(){const v=crView(),vis=document.getElementById("view-"+v),app=document.getElementById("app");
  return{hash:location.hash||"#tree",label:crLabel(),scroll:app.scrollTop,open:vis?[...vis.querySelectorAll("details")].map((d,i)=>d.open?i:-1).filter(i=>i>=0):[],
   fan:FANF,fanHist:FANHIST.slice(),life:typeof LIFE_F!=="undefined"?LIFE_F:"all",bow:(document.getElementById("bowbox")||{}).scrollLeft||0}}
@@ -47,7 +47,7 @@ function setHeader(){const v=crView(),h=location.hash.slice(1).split("/");const 
  else if(v==="index")lab="Index · "+(h[1]==="places"?"Places":"Surnames");
  else if(v==="map")lab=h[1]&&h[1]!=="journeys"?"Map · Graves":"Map · Journeys";
  else if(v==="story")lab=h[1]==="timeline"?"Story · Timeline":"Story";
- else lab={report:"Report",todo:"To-do",help:"Help"}[v]||"";
+ else lab={report:"Report",todo:"To-do",help:"Help",new:"What's new",book:"Family book"}[v]||"";
  const el=document.getElementById("pagename");if(el)el.textContent=lab}
 const _showPerson1=showPerson;showPerson=function(id){_showPerson1(id);setHeader()};
 window.addEventListener("hashchange",setHeader);setTimeout(setHeader,0);
