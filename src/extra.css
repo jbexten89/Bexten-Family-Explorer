@@ -482,3 +482,6 @@ html.slimhdr .homelinks{display:none}
  .bkidx b{color:#111}
  .bksrc,.bkm,.bkn,.bky{color:#555}
 }
+
+/* desktop: keep the top menu clear of the round help button */
+@media screen and (min-width:761px){html.slimhdr header nav{margin-right:52px}}
