@@ -1,6 +1,6 @@
 // ---------- origins + lifetimes ----------
 const ORIG=[
- ["de19","Germany, came in the 1800s","Bexten, Graf, Reger, Schmidt, Langenderfer","var(--mint)",["anthony","herman","joseph","georgeg","brigitta","johnreger","wendell","barbara","wendelL","maryL"]],
+ ["de19","Germany, came in the 1800s","Bexten, Graf, Reger, Schmidt, Langenderfer, Miller, Ackerman","var(--mint)",["anthony","herman","joseph","georgeg","brigitta","johnreger","wendell","barbara","wendelL","maryL","fredm","margaretm","louisack"]],
  ["oh","Ohio families, roots not found yet","Fred Miller and Margaret Ackerman, Mamie's parents","#2a7a60",["fredm","margaretm"]],
  ["en","England and Holland, came 1629–1630","Blossom and Fitz Randolph, the Pilgrim line","var(--peri)",["thomasb","annee","edwardsr","franceshowes"]],
  ["de18","Germany, came in the 1700s","Waggoner of Hesse","#c77fa3",["wilhelm","agnesa"]],
@@ -9,7 +9,7 @@ const ORIG=[
 ];
 function originShares(){const cat={};ORIG.forEach(o=>o[4].forEach(id=>cat[id]=o[0]));const tot={};ORIG.forEach(o=>tot[o[0]]=0);
  (function w(id,f){const d=D[id];[d[3],d[4]].forEach(p=>{if(p&&D[p]&&!(D[p][5]==="u"&&!cat[p]))w(p,f/2);else tot[id==="kids"?"col":(cat[id]||"col")]+=f/2})})("kids",1);return tot}
-const ARRIVE=[["1629","thomasb","Thomas Blossom, a Pilgrim, reaches Plymouth from Leiden"],["1630","edward","Edward Fitz Randolph comes from Nottinghamshire"],["1733","jacques","Jacques Bonnet, a Huguenot, lands at Philadelphia on the ship Elizabeth"],["1748","wilhelm","Wilhelm Waggoner lands at Philadelphia from Hesse"],["by 1864","joseph","Joseph Graf and Brigitta Reger, from Baden and Württemberg, settle in Michigan"],["by 1865","wendell","Wendelin Schmidt and Barbara Ankenbrandt settle at Monroe, Michigan"],["1880","anthony","Anthony Bexten comes alone at 12 from Westphalia"]];
+const ARRIVE=[["1629","thomasb","Thomas Blossom, a Pilgrim, reaches Plymouth from Leiden"],["1630","edward","Edward Fitz Randolph comes from Nottinghamshire"],["1733","jacques","Jacques Bonnet, a Huguenot, lands at Philadelphia on the ship Elizabeth"],["1748","wilhelm","Wilhelm Waggoner lands at Philadelphia from Hesse"],["about 1850","louisack","Louis Ackerman, Mamie Miller's grandfather, comes from Germany; he settles in Toledo"],["by 1864","joseph","Joseph Graf and Brigitta Reger, from Baden and Württemberg, settle in Michigan"],["by 1865","wendell","Wendelin Schmidt and Barbara Ankenbrandt settle at Monroe, Michigan"],["1880","anthony","Anthony Bexten comes alone at 12 from Westphalia"]];
 function drawOrigins(){const t=originShares();const pct=v=>{const p=v*100;return(p<10?p.toFixed(1):p.toFixed(1)).replace(/\.0$/,"")+"%"};
  const rows=ORIG.filter(o=>t[o[0]]>0);
  document.getElementById("origins").innerHTML=`<div class="obar">${rows.map(o=>`<span style="width:${(t[o[0]]*100).toFixed(2)}%;background:${o[3]}" title="${esc(o[1])}"></span>`).join("")}</div>
