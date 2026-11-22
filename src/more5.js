@@ -23,7 +23,7 @@ function drawLife(){const ppl=Object.keys(D).filter(k=>k!=="kids"&&lifeYears(D[k
  const X0=16,X1=368,Y0=1570,Y1=2020,x=y=>X0+(y-Y0)*(X1-X0)/(Y1-Y0),top=48,rh=27,H=top+ppl.length*rh+30;
  let s=`<rect width="380" height="${H}" fill="transparent"/>`;
  LIFE_EV.forEach(([y,l],i)=>{const xx=x(y).toFixed(1);s+=`<line x1="${xx}" y1="36" x2="${xx}" y2="${H-26}" stroke="var(--amber)" stroke-width="1" stroke-dasharray="3 3" opacity=".55"/><text x="${xx}" y="${i===3?30:16}" text-anchor="middle" font-size="11" fill="var(--amber)">${l}</text>`});
- ppl.forEach(([k,a,b],i)=>{const y=top+i*rh,xa=x(a),xb=x(b),lab=`${CHN(k)} ${a}–${b}`,w=lab.length*6.1,lx=Math.max(2,Math.min(xa,376-w)),c=SIDE[k]==="F"?"var(--mint)":"var(--peri)",u=D[k][5]==="u";
+ ppl.forEach(([k,a,b],i)=>{const y=top+i*rh,xa=x(a),xb=x(b),lab=`${CHS(k)} ${a}–${b}`,w=lab.length*6.1,lx=Math.max(2,Math.min(xa,376-w)),c=SIDE[k]==="F"?"var(--mint)":"var(--peri)",u=D[k][5]==="u";
   s+=`<g class="lbar" data-id="${k}" role="button" tabindex="0" aria-label="${esc(D[k][0])}, ${a} to ${b}"><rect x="0" y="${y-4}" width="380" height="${rh}" fill="transparent"/><text x="${lx.toFixed(1)}" y="${y+8}" font-size="11" fill="var(--ink)">${esc(lab)}</text><rect x="${xa.toFixed(1)}" y="${y+12}" width="${Math.max(3,xb-xa).toFixed(1)}" height="8" rx="4" fill="${c}"${u?' fill-opacity=".35" stroke="var(--amber)" stroke-width="1"':""}/></g>`});
  [1600,1700,1800,1900,2000].forEach(y=>s+=`<text x="${x(y).toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--mute)">${y}</text>`);
  const svg=document.getElementById("life");svg.setAttribute("viewBox",`0 0 380 ${H}`);svg.innerHTML=s;
