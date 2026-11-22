@@ -142,7 +142,7 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  agnesa:[L.werWW,L.rwWW],
  frankj:[L.dcFrank,L.obFrank,L.c1900s],
  carrie:[L.dcCarrie,L.c1900s,L.obFrank],
- wendelL:[L.dcCarrie,L.fsShared],
+ wendelL:[["church","Marriage index: Wendelinus Langendorfer and Anna Maria, Sankt Wendel, Feb 20, 1849 (FamilySearch)","https://www.familysearch.org/ark:/61903/1:1:W6BP-VGT2"],L.dcCarrie,L.fsShared],
  maryL:[L.dcCarrie,L.fsShared],
  wendell:[L.dcFrank,L.fsShared,["church","Monroe County, Michigan deed, July 1869 (recorded 1873)","https://www.familysearch.org/ark:/61903/3:1:3Q9M-C37K-N3K8-S","Monroe deed, 1869"]],
  barbara:[L.dcFrank,L.fsShared,["church","Monroe County, Michigan deed, July 1869 (recorded 1873)","https://www.familysearch.org/ark:/61903/3:1:3Q9M-C37K-N3K8-S","Monroe deed, 1869"]],
