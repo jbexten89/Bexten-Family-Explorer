@@ -1,6 +1,6 @@
 // ---------- origins + lifetimes ----------
 const ORIG=[
- ["de19","Germany, came in the 1800s","Bexten, Graf, Reger, Schmidt, Langenderfer, Miller, and Augusta Datzel of Bavaria","var(--mint)",["anthony","herman","joseph","georgeg","brigitta","johnreger","wendell","barbara","wendelL","maryL","fredm","augustad"]],
+ ["de19","Germany, came in the 1800s","Bexten, Graf, Reger, Schmidt, Langenderfer, Miller, and Augusta Datzel of Bavaria","var(--mint)",["anthony","herman","joseph","georgeg","brigitta","johnreger","wendell","barbara","wendelL","maryL","fredm","johnm","augustad"]],
  ["als","Alsace, came about 1850","Louis Ackerman","#3f8fbf",["louisack"]],
  ["oh","Ohio families, roots not found yet","","#2a7a60",[]],
  ["en","England and Holland, came 1629–1630","Blossom and Fitz Randolph, the Pilgrim line","var(--peri)",["thomasb","annee","edwardsr","franceshowes"]],
