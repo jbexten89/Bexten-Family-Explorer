@@ -18,7 +18,7 @@ function drawFan(){
   const u=D[id][5]==="u";
   const rm=(r0+r1)/2,[tx,ty]=P(rm,am);
   let t;
-  if(g<2){const nm=short(CHN(id),g===0?24:20),deg=90-am*180/Math.PI;t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${g===0?16:14}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(nm)}</tspan><tspan x="0" dy="1.3em" font-weight="400" fill="var(--mute)" font-size="12.5">${esc(D[id][1]||"")}</tspan></text></g>`}
+  if(g<2){const nm=short(id==="betty"?"Betty A. Bonnell":CHN(id),g===0?24:20),deg=90-am*180/Math.PI;t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${g===0?16:14}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(nm)}</tspan><tspan x="0" dy="1.3em" font-weight="400" fill="var(--mute)" font-size="12.5">${esc(D[id][1]||"")}</tspan></text></g>`}
   else{let deg=-am*180/Math.PI;if(am>Math.PI/2)deg+=180;const fs=g===2?13:g===3?11.5:10.5,mx=g===2?17:g===3?16:17;
    t=`<g transform="translate(${tx},${ty}) rotate(${deg.toFixed(1)})"><text text-anchor="middle" font-size="${fs}" fill="var(--ink)" font-weight="700"><tspan x="0" dy="-0.15em">${esc(short(id==="betty"?"Betty A. Bonnell":CHN(id),mx))}</tspan><tspan x="0" dy="1.2em" font-weight="400" fill="var(--mute)" font-size="${fs-1}">${esc(D[id][1]||"")}</tspan></text></g>`}
   const more=fanHas(id);s+=`<g class="seg${more?" more":""}" data-id="${id}" role="button" tabindex="0" aria-label="${esc(D[id][0])}${more?": show their ancestors":""}"><title>${esc(D[id][0])} ${esc(D[id][1])}${u?" (not yet proven)":""}</title><path d="${d}" fill="${fill(id)}" fill-opacity="${u?0.08:0.2}" stroke="${u?"var(--amber)":"var(--bg)"}" stroke-width="${u?1.5:2}"/>${t}</g>`;
