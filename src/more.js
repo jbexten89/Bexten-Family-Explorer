@@ -90,7 +90,7 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  joseph:[["tree","Possible arrival: Joseph Graf, 22, of Baden, ship Wild Wave, Le Havre to New York, Apr 11, 1857 (Ancestry)","https://www.ancestry.com/search/collections/7488/records/1928198"],["news","Toledo Blade, Dec 11, 1905, p. 4: “Joseph Graff Met His Death” (NewsBank, through the Toledo library)","https://www.toledolibrary.org/"],L.dcJoseph,L.obJoseph,L.c1900g,L.cards],
  brigitta:[L.dcBrig,L.cards,L.stjoe],
  floyd:[["mil","Civil War pension index card: Floyd N. Bonnell, Co. B, 6th W. Va. Inf., filed Jan 20, 1890 (Ancestry)","https://www.ancestry.com/search/collections/4654/records/506061"],L.drFloyd,W("John W. Bonnell")],
- elizabethg:[L.drEJG,["cert","Son George L. Pitman's death record, Barbour County, 1929 (mother: Elizabeth Goldeberry)","https://www.familysearch.org/ark:/61903/1:1:F1Y5-9L1"],M("Taylor County marriage index, 1863"),W("John W. Bonnell")],
+ elizabethg:[L.drEJG,["census","1850 census, Barbour County (Isaac Pitman household)","https://www.familysearch.org/ark:/61903/1:1:M88G-P9T"],["cert","Son James W. Pitman's birth, Barbour County, July 15, 1853","https://www.familysearch.org/ark:/61903/1:1:HV2Z-CLT2"],["cert","Son George L. Pitman's death record, Barbour County, 1929 (mother: Elizabeth Goldeberry)","https://www.familysearch.org/ark:/61903/1:1:F1Y5-9L1"],M("Taylor County marriage index, 1863"),W("John W. Bonnell")],
  johnmay:[W("John May"),M("Braxton County marriage record, 1872"),W("Amanda Bonnell")],
  sarah:[W("Sarah Johnson May"),M("Braxton County marriage record, 1872"),W("Amanda Bonnell")],
  andrew:[W("Calvin B. Beamer"),M("Greenbrier County marriage record, 1845"),L.monroe],
