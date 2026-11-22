@@ -39,7 +39,7 @@ function drawNews(){
 }
 document.getElementById("news").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){location.hash="#tree";showPerson(b.dataset.id)}});
 function homeLinks(){const el=document.getElementById("homelinks");if(!el)return;const seen=newsSeen(),n=NEWS.filter(x=>x[1]&&x[0]>seen).length;
- el.innerHTML=`<a href="#new" class="hl"><b>What's new</b>${seen&&n?`<span class="nbadge">${n}</span>`:!seen?`<span class="nbadge">${NEWS.filter(x=>x[1]).length}</span>`:""}</a><a href="#book" class="hl"><b>Family book</b><span class="hls">Read or print</span></a>`}
+ el.innerHTML=`<a href="#new" class="hl"><b>What's new</b>${seen&&n?`<span class="nbadge">${n}</span>`:!seen?`<span class="nbadge">${NEWS.filter(x=>x[1]).length}</span>`:""}</a>`}
 homeLinks();
 window.addEventListener("hashchange",()=>{const v=location.hash.slice(1).split("/")[0];
  if(v==="new"){drawNews();setTimeout(()=>{try{localStorage.setItem(NKEY,newsLatest)}catch(e){}homeLinks()},800)}
