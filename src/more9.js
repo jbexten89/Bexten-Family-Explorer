@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-22","brigitta","Brigitta was in New York, 1858–1864","Her Jaeger daughters married the Hecker brothers in a double wedding in 1880. Their records say both girls were born in New York, like Rosa, so Brigitta, Mr. Jaeger and then Joseph Graf were in New York before coming to Michigan."],
  ["2026-11-22","brigitta","The Grafs in the Sylvania parish census","St. Joseph's, Sylvania, kept a household census in the 1880s. The Graf page gives the Jaeger daughters' exact birthdays and confirms Rosa was born May 6, 1864. Two Regers in the same parish came from Deilingen, Württemberg, the best lead yet for Brigitta's home village."],
  ["2026-11-22","elizabethg","Proven: Elizabeth's parents were James and Margaret","Her Nov 8, 1863, marriage to Floyd Bonnell at Grafton, Taylor County, names her as Elisabeth Pitman, 29, daughter of Jas. and Margaret Goldeborough."],
  ["2026-11-22","jamesg","James Goldsberry's estate, 1846","Barbour County court records show James Goldsberry dead by April 1846, his estate administered by John Shockey. In 1850 his daughter Rebecca was living with the Shockeys."],
