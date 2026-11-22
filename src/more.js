@@ -89,7 +89,7 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  herman:[L.dcAnthony,L.c1920b,["church", "Baptism index: Caspar Anton Bexte, Stromberg (St. Lambertus), July 1868", "https://www.familysearch.org/ark:/61903/1:1:NRZR-P31", "Possible baptism, 1868"], ["church", "Marriage index: Theodor Hermann Bexte and Catharina Ruedingloh, St. Vit, 1860", "https://www.familysearch.org/ark:/61903/1:1:JHDN-LZN"]],
  joseph:[["tree","Possible arrival: Joseph Graf, 22, of Baden, ship Wild Wave, Le Havre to New York, Apr 11, 1857 (Ancestry)","https://www.ancestry.com/search/collections/7488/records/1928198"],["news","Toledo Blade, Dec 11, 1905, p. 4: “Joseph Graff Met His Death” (NewsBank, through the Toledo library)","https://www.toledolibrary.org/"],L.dcJoseph,L.obJoseph,L.c1900g,L.cards],
  brigitta:[L.dcBrig,L.cards,L.stjoe],
- floyd:[L.drFloyd,W("John W. Bonnell")],
+ floyd:[["mil","Civil War pension index card: Floyd N. Bonnell, Co. B, 6th W. Va. Inf., filed Jan 20, 1890 (Ancestry)","https://www.ancestry.com/search/collections/4654/records/506061"],L.drFloyd,W("John W. Bonnell")],
  elizabethg:[L.drEJG,M("Taylor County marriage index, 1863"),W("John W. Bonnell")],
  johnmay:[W("John May"),M("Braxton County marriage record, 1872"),W("Amanda Bonnell")],
  sarah:[W("Sarah Johnson May"),M("Braxton County marriage record, 1872"),W("Amanda Bonnell")],
@@ -127,7 +127,7 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  charlesf:[L.trees],
  peterman:[L.wtPH,L.wtEW],
  charlotte:[L.wtPH],
- johnw:[L.sarJW,L.pension,L.werMW,L.onview],
+ johnw:[["mil","Revolutionary War pension file S7824, John Waggoner (Waggener), Virginia (Ancestry)","https://www.ancestry.com/search/collections/1995/records/62928"],L.sarJW,L.pension,L.werMW,L.onview],
  margaretb:[L.werMW,L.pension],
  jonathan:[L.efr],
  david:[L.efr],
@@ -153,7 +153,7 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  marie:[L.trees]
 };
 
-const ANC_IMG={"1002/14997358": "004142972_04752", "1265/1427414178": "1265_b698991-00034", "2238/268012684": "44017_08_00014-00767", "62374/2687836": "i2283786-00187", "6482/20084355": "005257166_05690", "7163/39843636": "4278435_00377", "7488/1928198": "NYM237_172-0187", "7602/45495653": "4117761_00493", "8801/12552071": "005871563_00006", "9093/3627954": "41326_342390-00233", "9093/816678": "41326_342390-00233", "1995/31874": "MIUSA1775D_134972-00265"};
+const ANC_IMG={"1995/62928":"MIUSA1775D_137099-00529","4654/506061":"32959_032704-00704","1002/14997358": "004142972_04752", "1265/1427414178": "1265_b698991-00034", "2238/268012684": "44017_08_00014-00767", "62374/2687836": "i2283786-00187", "6482/20084355": "005257166_05690", "7163/39843636": "4278435_00377", "7488/1928198": "NYM237_172-0187", "7602/45495653": "4117761_00493", "8801/12552071": "005871563_00006", "9093/3627954": "41326_342390-00233", "9093/816678": "41326_342390-00233", "1995/31874": "MIUSA1775D_134972-00265"};
 function ancPic(u){const m=(u||"").match(/ancestry\.com\/search\/collections\/(\d+)\/records\/(\d+)/);if(!m)return null;const id=ANC_IMG[m[1]+"/"+m[2]];return id?`https://www.ancestry.com/imageviewer/collections/${m[1]}/images/${id}?pId=${m[2]}`:null}
 const isAnc=u=>/ancestry\.com/.test(u||"");
 const STYPE={photo:"Photo",cert:"Record",census:"Census",news:"Newspaper",grave:"Grave",church:"Church or court",book:"Published",tree:"Online tree",mil:"Military",family:"Family story"};
