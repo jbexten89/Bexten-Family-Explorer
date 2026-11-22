@@ -51,6 +51,17 @@ nav a svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
 .task input{width:22px;height:22px;accent-color:var(--accent);margin:2px 0 0;cursor:pointer}
 .task.done span{color:var(--mute);text-decoration:line-through}
 .task b{font-weight:700}
+.task.req{cursor:default;grid-template-columns:14px minmax(0,1fr)}
+.rqdot{width:12px;height:12px;border-radius:50%;border:2px solid var(--mute);margin-top:5px}
+.req.sent .rqdot{border-color:#E3A04F;background:#E3A04F}
+.req.answered .rqdot{border-color:var(--accent);background:var(--accent)}
+.req.answered .rqtext{color:var(--mute)}
+.rqbar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.rqbar button{font:inherit;font-size:14px;padding:7px 12px;min-height:36px;border-radius:18px;border:1px solid var(--line);background:transparent;color:var(--mute);cursor:pointer}
+.rqbar button.on{background:var(--accent);border-color:var(--accent);color:#07080A;font-weight:700}
+.req.sent .rqbar button.on{background:#E3A04F;border-color:#E3A04F}
+.rqwhen{font-size:13px;color:var(--mute);margin:8px 0 0}
+.req textarea{width:100%;box-sizing:border-box;margin-top:8px;font:inherit;font-size:16px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:inherit;resize:vertical}
 .prog{font-size:14px;color:var(--mute)}
 .prog b{color:var(--accent)}
 @media print{

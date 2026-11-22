@@ -82,10 +82,32 @@ const TODO=[
 ];
 const TKEY="bexten-todo-v1";let done={};try{done=JSON.parse(localStorage.getItem(TKEY))||{}}catch(e){done={}}
 if(!done._sent1){["natz","nysa","wvu"].forEach(k=>{done[k]=done[k]||Date.now()});done._sent1=1;try{localStorage.setItem(TKEY,JSON.stringify(done))}catch(e){}}
-function drawTodo(){
- const all=TODO.flatMap(s=>s[2]),n=all.filter(t=>done[t[0]]).length;
- document.getElementById("todo-prog").innerHTML=`<b>${n}</b> of ${all.length} done`;
- document.getElementById("todo-list").innerHTML=TODO.map(([h,hint,items])=>`<h2>${esc(h)}</h2>${hint?`<p class="hint">${esc(hint)}</p>`:""}${items.map(([k,html])=>`<label class="task ${done[k]?"done":""}"><input type="checkbox" data-k="${k}" ${done[k]?"checked":""}><span>${html}</span></label>`).join("")}`).join("");
+// Record requests track a status (not sent / sent / answered) with dates and a note.
+const RKEY="bexten-req-v1";let req={};try{req=JSON.parse(localStorage.getItem(RKEY))||{}}catch(e){req={}}
+const REQ=new Set(TODO[0][2].map(t=>t[0]));
+if(!req._mig){REQ.forEach(k=>{if(done[k]&&!req[k])req[k]={s:"sent",sent:done[k]}});req._mig=1;try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}}
+const saveReq=()=>{try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}};
+const fmtD=t=>new Date(t).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+function reqCard(k,html){
+ const r=req[k]||{},st=r.s||"";
+ const when=st==="answered"?`Sent ${r.sent?fmtD(r.sent):"—"} · answered ${fmtD(r.ans)}`:st==="sent"?`Sent ${fmtD(r.sent)} · waiting for a reply`:"";
+ const btn=(v,l)=>`<button type="button" data-rq="${k}" data-s="${v}" aria-pressed="${st===v}" class="${st===v?"on":""}">${l}</button>`;
+ return `<div class="task req ${st}"><span class="rqdot" aria-hidden="true"></span><div><span class="rqtext">${html}</span>
+ <div class="rqbar" role="group" aria-label="Status">${btn("","Not sent")}${btn("sent","Sent")}${btn("answered","Answered")}</div>
+ ${when?`<p class="rqwhen">${when}</p>`:""}
+ ${st?`<textarea data-note="${k}" rows="2" placeholder="Notes: fee paid, who you talked to, what came back…">${esc(r.note||"")}</textarea>`:""}</div></div>`;
 }
-document.getElementById("todo-list").addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked)done[k]=Date.now();else delete done[k];try{localStorage.setItem(TKEY,JSON.stringify(done))}catch(err){}drawTodo()});
+function drawTodo(){
+ const all=TODO.flatMap(s=>s[2]),isDone=k=>REQ.has(k)?(req[k]||{}).s==="answered":!!done[k];
+ const n=all.filter(t=>isDone(t[0])).length,w=[...REQ].filter(k=>(req[k]||{}).s==="sent").length;
+ document.getElementById("todo-prog").innerHTML=`<b>${n}</b> of ${all.length} done`+(w?` · <b>${w}</b> waiting for a reply`:"");
+ document.getElementById("todo-list").innerHTML=TODO.map(([h,hint,items])=>`<h2>${esc(h)}</h2>${hint?`<p class="hint">${esc(hint)}</p>`:""}${items.map(([k,html])=>REQ.has(k)?reqCard(k,html):`<label class="task ${done[k]?"done":""}"><input type="checkbox" data-k="${k}" ${done[k]?"checked":""}><span>${html}</span></label>`).join("")}`).join("");
+}
+const tl=document.getElementById("todo-list");
+tl.addEventListener("change",e=>{const k=e.target.dataset.k;if(k){if(e.target.checked)done[k]=Date.now();else delete done[k];try{localStorage.setItem(TKEY,JSON.stringify(done))}catch(err){}drawTodo();return}
+ const nk=e.target.dataset.note;if(nk&&req[nk]){req[nk].note=e.target.value;saveReq()}});
+tl.addEventListener("input",e=>{const nk=e.target.dataset.note;if(nk&&req[nk]){req[nk].note=e.target.value;saveReq()}});
+tl.addEventListener("click",e=>{const b=e.target.closest("button[data-rq]");if(!b)return;const k=b.dataset.rq,v=b.dataset.s,r=req[k]||{};
+ if(!v){delete req[k]}else{r.s=v;if(v==="sent"){r.sent=r.sent||Date.now();delete r.ans}if(v==="answered"){r.sent=r.sent||Date.now();r.ans=Date.now()}req[k]=r}
+ saveReq();drawTodo()});
 drawTodo();
