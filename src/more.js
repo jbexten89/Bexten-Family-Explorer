@@ -87,7 +87,7 @@ genevieve:[L.genObit,["church","Indiana marriage record: John Rosentreter and Ge
  cora:[M("Braxton County marriage record, 1891"),["cert","Genevieve's Braxton County birth record, 1906"],L.trees],
  onal:[W("Onal Bonnell"),L.c1940b,L.onMach,["census","1910 census, Lewis County (his parents’ household)","https://www.familysearch.org/ark:/61903/1:1:MPNT-936","1910 census page"]],
  herman:[L.dcAnthony,L.c1920b,["church", "Baptism index: Caspar Anton Bexte, Stromberg (St. Lambertus), July 1868", "https://www.familysearch.org/ark:/61903/1:1:NRZR-P31", "Possible baptism, 1868"], ["church", "Marriage index: Theodor Hermann Bexte and Catharina Ruedingloh, St. Vit, 1860", "https://www.familysearch.org/ark:/61903/1:1:JHDN-LZN"]],
- joseph:[["news","Toledo Blade, Dec 11, 1905, p. 4: “Joseph Graff Met His Death” (NewsBank, through the Toledo library)","https://www.toledolibrary.org/"],L.dcJoseph,L.obJoseph,L.c1900g,L.cards],
+ joseph:[["tree","Possible arrival: Joseph Graf, 22, of Baden, ship Wild Wave, Le Havre to New York, Apr 11, 1857 (Ancestry)","https://www.ancestry.com/search/collections/7488/records/1928198"],["news","Toledo Blade, Dec 11, 1905, p. 4: “Joseph Graff Met His Death” (NewsBank, through the Toledo library)","https://www.toledolibrary.org/"],L.dcJoseph,L.obJoseph,L.c1900g,L.cards],
  brigitta:[L.dcBrig,L.cards,L.stjoe],
  floyd:[L.drFloyd,W("John W. Bonnell")],
  elizabethg:[L.drEJG,M("Taylor County marriage index, 1863"),W("John W. Bonnell")],
