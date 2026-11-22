@@ -60,13 +60,15 @@ document.getElementById("app").addEventListener("scroll",markStuck,{passive:true
 
 // ---------- to-do ----------
 const TODO=[
- ["Send the record requests","The letters are in the Bexten Record Request Letters doc in Claude. Fill in the [brackets] before sending.",[
+ ["Send the record requests","Most letters are in the Bexten Record Request Letters doc in Claude; the library email is in your chat with Claude. Fill in the [brackets] before sending.",[
   ["clerk","<b>Call the Monroe County Clerk</b> at (734) 240-7020 and order a genealogy copy of Anthony Bexten and Rosa Graf's April 11, 1899 marriage record. Most likely to name Anthony's German hometown."],
   ["natz","<b>Order Anthony Bexten's naturalization search</b> from the Archives of Michigan ($20, non-refundable) at <a href=\"https://shop.michiganology.org/products/naturalization-research\" target=\"_blank\" rel=\"noopener\">shop.michiganology.org</a>. Paste the request text into the order notes."],
   ["nysa","<b>Email the New York State Archives</b> at <a href=\"mailto:archref@nysed.gov\">archref@nysed.gov</a> for John Bonnell's Revolutionary War claim (Series A0200, Box RM-1-15-A, Roll 1, page 60)."],
   ["probate","<b>Ask the Monroe County Probate Court</b> (Monroe, Michigan) for a 1905–06 estate file for Joseph Graf (also Graff or Groff) of Whiteford Township. It names the heirs and may give his hometown in Baden."],
   ["wvu","<b>Submit the WVU History Center form</b> at <a href=\"https://westvirginia.libanswers.com/wvrhc\" target=\"_blank\" rel=\"noopener\">westvirginia.libanswers.com/wvrhc</a> asking about the \"Beamer Family\" file (A&amp;M 2537, Box 44)."],
-  ["munster","<b>Email or mail the Bistumsarchiv Münster</b> (Georgskommende 19, 48143 Münster, Germany) for Caspar Anton Bexte's 1868 Stromberg baptism, using the German letter in the doc."]]],
+  ["munster","<b>Email or mail the Bistumsarchiv Münster</b> (Georgskommende 19, 48143 Münster, Germany) for Caspar Anton Bexte's 1868 Stromberg baptism, using the German letter in the doc."],
+  ["bgsu","<b>Send letter #5 to Bowling Green State University</b> (Center for Archival Collections, Jerome Library, Bowling Green, OH 43403) for Louis Ackerman's naturalization papers. They may name his village in Alsace. Check the CAC website for their email and copy fee first."],
+  ["wcpl","<b>Email the Williams County Public Library</b> local history manager, Jared Schnee, at <a href=\"mailto:jared@mywcpl.org\">jared@mywcpl.org</a> for copies of the obituaries of Caroline (Leader-Enterprise, May 20, 1987), Betty (Bryan Times, Jan 29, 1983, and Leader-Enterprise, Feb 2, 1983) and Tony (Bryan Times, Mar 30–31, 2011). Also ask them to look for Nelson's obituary, around Nov 25 – Dec 2, 1987; he isn't in their index. Free, up to 10 per request. Search the index at <a href=\"https://obits.mywcpl.org\" target=\"_blank\" rel=\"noopener\">obits.mywcpl.org</a>."]]],
  ["Visits and sign-ins","Things only you can do. Claude can't type your passwords for you.",[
   ["stromberg","<b>Look at Anthony's possible baptism</b> at the Toledo Ohio FamilySearch Center, 11050 Avenue Road, Perrysburg (by appointment: 419-392-4643). Ask for FamilySearch films 8206436 or 7992106, Stromberg (St. Lambertus), and find Caspar Anton Bexte, born July 16, 1868, with any notes in the margin. Also check the death register 1868–1885 for him."]]],
  ["Optional extras","",[
