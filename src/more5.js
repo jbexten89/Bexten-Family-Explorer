@@ -1,7 +1,7 @@
 // ---------- origins + lifetimes ----------
 const ORIG=[
  ["de19","Germany, came in the 1800s","Bexten, Graf, Reger, Schmidt, Langenderfer","var(--mint)",["anthony","herman","joseph","georgeg","brigitta","johnreger","wendell","barbara","wendelL","maryL"]],
- ["oh","Ohio-born, roots not found yet","Mamie Miller's family","#2a7a60",["mamie"]],
+ ["oh","Ohio families, roots not found yet","Fred Miller and Margaret Ackerman, Mamie's parents","#2a7a60",["fredm","margaretm"]],
  ["en","England and Holland, came 1629–1630","Blossom and Fitz Randolph, the Pilgrim line","var(--peri)",["thomasb","annee","edwardsr","franceshowes"]],
  ["de18","Germany, came in the 1700s","Waggoner of Hesse","#c77fa3",["wilhelm","agnesa"]],
  ["fr","France, came 1733","Bonnet, Huguenots","#a8668a",["jacques","marie"]],

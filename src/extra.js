@@ -66,7 +66,6 @@ const TODO=[
   ["nysa","<b>Email the New York State Archives</b> at <a href=\"mailto:archref@nysed.gov\">archref@nysed.gov</a> for John Bonnell's Revolutionary War claim (Series A0200, Box RM-1-15-A, Roll 1, page 60)."],
   ["probate","<b>Ask the Monroe County Probate Court</b> (Monroe, Michigan) for a 1905–06 estate file for Joseph Graf (also Graff or Groff) of Whiteford Township. It names the heirs and may give his hometown in Baden."],
   ["wvu","<b>Submit the WVU History Center form</b> at <a href=\"https://westvirginia.libanswers.com/wvrhc\" target=\"_blank\" rel=\"noopener\">westvirginia.libanswers.com/wvrhc</a> asking about the \"Beamer Family\" file (A&amp;M 2537, Box 44)."],
-  ["mamie2","<b>Mail the Lucas County Probate Court</b> (700 Adams St., Suite 200, Toledo) for Herbert Smith and Mamie Miller's marriage record, about 1907. It may name Mamie's parents."],
   ["munster","<b>Email or mail the Bistumsarchiv Münster</b> (Georgskommende 19, 48143 Münster, Germany) for Caspar Anton Bexte's 1868 Stromberg baptism, using the German letter in the doc."]]],
  ["Visits and sign-ins","Things only you can do. Claude can't type your passwords for you.",[
   ["stromberg","<b>Look at Anthony's possible baptism</b> at the Toledo Ohio FamilySearch Center, 11050 Avenue Road, Perrysburg (by appointment: 419-392-4643). Ask for FamilySearch films 8206436 or 7992106, Stromberg (St. Lambertus), and find Caspar Anton Bexte, born July 16, 1868, with any notes in the margin. Also check the death register 1868–1885 for him."]]],
