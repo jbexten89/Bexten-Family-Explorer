@@ -38,8 +38,8 @@ function drawNews(){
   return `<h3>${fmtDay(d)}</h3><ul class="nwl">${fs.map(item).join("")}</ul>${ap.length?`<ul class="nwl app">${ap.map(item).join("")}</ul>`:""}`}).join("");
 }
 document.getElementById("news").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){location.hash="#tree";showPerson(b.dataset.id)}});
-function homeLinks(){const el=document.getElementById("homelinks");if(!el)return;const seen=newsSeen(),n=NEWS.filter(x=>x[1]&&x[0]>seen).length;
- el.innerHTML=`<a href="#new" class="hl"><b>What's new</b>${seen&&n?`<span class="nbadge">${n}</span>`:!seen?`<span class="nbadge">${NEWS.filter(x=>x[1]).length}</span>`:""}</a>`}
+function homeLinks(){const el=document.getElementById("homelinks");if(!el)return;const seen=newsSeen(),finds=NEWS.filter(x=>x[1]),fresh=finds.filter(x=>x[0]>seen),n=seen?fresh.length:finds.length,top=(fresh[0]||finds[0]);
+ el.innerHTML=`<a href="#new" class="hl"><span class="otdl">What's new</span><span class="otds">${esc(top?top[2]:"")}</span>${n?`<span class="nbadge" aria-label="${n} new">${n}</span>`:""}<i aria-hidden="true">›</i></a>`}
 homeLinks();
 window.addEventListener("hashchange",()=>{const v=location.hash.slice(1).split("/")[0];
  if(v==="new"){drawNews();setTimeout(()=>{try{localStorage.setItem(NKEY,newsLatest)}catch(e){}homeLinks()},800)}

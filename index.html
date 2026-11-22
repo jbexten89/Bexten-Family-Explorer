@@ -479,14 +479,16 @@ html.slimhdr header{isolation:isolate}
 
 .srcs li .anc{display:block;font-size:12px;color:var(--mute,#8a8f98);margin-top:2px}.srcs li .anc a{color:var(--blue,#2F9BFF);font-weight:600}
 
-/* home links: what's new, family book */
-.homelinks{display:flex;gap:10px;margin:0 0 12px}
-html.slimhdr .homelinks{display:none}
-.homelinks .hl{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:48px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);text-decoration:none}
-.homelinks .hl b{font-weight:700;font-size:15px}
-.homelinks .hls{color:var(--mute);font-size:13px}
-.nbadge{min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:var(--accent);color:#07080A;font-weight:800;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
-@media print{.homelinks{display:none}}
+/* home card: this week + what's new in one box */
+.homecard{margin:0 0 12px;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+html.slimhdr .homecard{display:none}
+.homecard .otd{margin:0;border:0;border-radius:0;background:none}
+.homecard .otd:not([hidden])+.homelinks{border-top:1px solid var(--line)}
+.homelinks .hl{display:flex;align-items:center;gap:10px;min-height:48px;padding:12px 14px;color:var(--ink);text-decoration:none;box-sizing:border-box}
+.homelinks .otds{flex:1}
+.homelinks i{font-style:normal;color:var(--accent);font-size:20px;line-height:1;flex:none}
+.nbadge{min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:var(--accent);color:#07080A;font-weight:800;font-size:12.5px;display:inline-flex;align-items:center;justify-content:center;flex:none}
+@media print{.homecard{display:none}}
 /* what's new */
 #view-new{max-width:760px;margin:0 auto}
 #news h3{font-size:14px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.05em;margin:22px 0 8px}
@@ -585,8 +587,10 @@ html.slimhdr .homelinks{display:none}
 <button class="iconbtn" id="sharebtn" type="button" aria-label="Share with family" title="Share with family"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4"/><path d="M8 8l4-4 4 4"/><path d="M6 12v8h12v-8"/></svg></button>
 <button class="iconbtn" id="home" type="button" aria-label="Back to the start" title="Back to the start"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg></button>
 </div>
+<div class="homecard" id="homecard">
 <div class="otd" id="otd" hidden></div>
 <div class="homelinks" id="homelinks"></div>
+</div>
 <div class="card focus"><div id="focus"></div></div>
 <div class="scroll">
 <div class="colh"><span>Selected</span><span>Parents</span><span>Grandparents</span><span>Great-grandparents</span></div>
@@ -2012,8 +2016,8 @@ function drawNews(){
   return `<h3>${fmtDay(d)}</h3><ul class="nwl">${fs.map(item).join("")}</ul>${ap.length?`<ul class="nwl app">${ap.map(item).join("")}</ul>`:""}`}).join("");
 }
 document.getElementById("news").addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b){location.hash="#tree";showPerson(b.dataset.id)}});
-function homeLinks(){const el=document.getElementById("homelinks");if(!el)return;const seen=newsSeen(),n=NEWS.filter(x=>x[1]&&x[0]>seen).length;
- el.innerHTML=`<a href="#new" class="hl"><b>What's new</b>${seen&&n?`<span class="nbadge">${n}</span>`:!seen?`<span class="nbadge">${NEWS.filter(x=>x[1]).length}</span>`:""}</a>`}
+function homeLinks(){const el=document.getElementById("homelinks");if(!el)return;const seen=newsSeen(),finds=NEWS.filter(x=>x[1]),fresh=finds.filter(x=>x[0]>seen),n=seen?fresh.length:finds.length,top=(fresh[0]||finds[0]);
+ el.innerHTML=`<a href="#new" class="hl"><span class="otdl">What's new</span><span class="otds">${esc(top?top[2]:"")}</span>${n?`<span class="nbadge" aria-label="${n} new">${n}</span>`:""}<i aria-hidden="true">›</i></a>`}
 homeLinks();
 window.addEventListener("hashchange",()=>{const v=location.hash.slice(1).split("/")[0];
  if(v==="new"){drawNews();setTimeout(()=>{try{localStorage.setItem(NKEY,newsLatest)}catch(e){}homeLinks()},800)}
