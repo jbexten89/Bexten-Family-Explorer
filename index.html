@@ -20,7 +20,7 @@
    PICTURE: the pedigree itself (tree view) and a two-panel voyage map, Europe and America
    COLOUR and TYPE: near-black ground, charcoal panels, mint for Dad's side, periwinkle for Mom's, amber only for unproven; Nunito Sans, light numerals
    LAYOUT: title row with two views; selected-person card above a four-generation grid; map panels side by side, stacking on phones */
-:root{color-scheme:dark;--bg:#07080A;--panel:#111317;--panel2:#171a20;--line:#252a33;--ink:#E6E8EB;--mute:#9AA0A6;--accent:#2E8BFF;--mint:#3CC79A;--peri:#F28DB2;--amber:#E3A04F;--land:#262c37}
+:root{color-scheme:dark;--bg:#07080A;--panel:#111317;--panel2:#171a20;--line:#252a33;--ink:#E6E8EB;--mute:#9AA0A6;--accent:#2E8BFF;--mint:#F2C14E;--peri:#B39DFF;--ok:#3CC79A;--amber:#E3A04F;--land:#262c37}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Nunito Sans",system-ui,sans-serif;overflow-x:clip}
 a{color:var(--accent)}
@@ -400,7 +400,7 @@ body.modal #app{overflow:hidden}
 .rchk ul{list-style:none;margin:0;padding:0 14px 6px}
 .rchk li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line);line-height:1.4}
 .rci{width:20px;flex:none;text-align:center;font-weight:700}
-.rc2 .rci{color:var(--mint)}.rc1 .rci{color:var(--amber)}.rc0 .rci{color:var(--mute)}
+.rc2 .rci{color:var(--ok)}.rc1 .rci{color:var(--amber)}.rc0 .rci{color:var(--mute)}
 .rchk li b{font-weight:700}.rchk li i{font-style:normal;color:var(--mute);font-size:14px}
 .rchk li small{display:block;color:var(--ink);opacity:.85;font-size:13.5px;margin-top:3px}
 .rchk .note{padding:0 14px 12px;margin:0}
@@ -474,7 +474,7 @@ html.slimhdr header{isolation:isolate}
 .rcstrip>span{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0}
 .rcstrip i{font-style:normal;font-weight:800;font-size:17px;line-height:1.1}
 .rcstrip em{font-style:normal;font-size:10.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.rcstrip .rc2 i{color:var(--mint)}.rcstrip .rc1 i{color:var(--amber)}.rcstrip .rc0 i{color:var(--mute)}
+.rcstrip .rc2 i{color:var(--ok)}.rcstrip .rc1 i{color:var(--amber)}.rcstrip .rc0 i{color:var(--mute)}
 .rchk[open] .rcstrip{display:none}
 
 .srcs li .anc{display:block;font-size:12px;color:var(--mute,#8a8f98);margin-top:2px}.srcs li .anc a{color:var(--blue,#2F9BFF);font-weight:600}
@@ -946,7 +946,7 @@ html.slimhdr .homecard{display:none}
 
 <details><summary>A person's card</summary>
 <ul>
-<li><b>Name, dates and side.</b> A green dot means Dad's side, pink means Mom's side. “From records” or “Unproven” says how solid the person is.</li>
+<li><b>Name, dates and side.</b> A gold dot means Dad's side, lavender means Mom's side. “From records” or “Unproven” says how solid the person is.</li>
 <li><b>Relationship.</b> How the person is related to Tony and Althea's children, like “2nd great-grandfather,” and how many generations back. <b>How they're connected</b> shows the line from the children up to this person.</li>
 <li><b>Facts.</b> Birth, marriage, work, military service, death and burial, as found in records.</li>
 <li><b>Parent of</b> links down to the child in our line.</li>
@@ -998,8 +998,8 @@ html.slimhdr .homecard{display:none}
 
 <details><summary>Colors and symbols</summary>
 <ul>
-<li><span class="hsw" style="background:var(--mint)"></span><b>Green</b> Dad's side (Bexten, Graf, Smith).</li>
-<li><span class="hsw" style="background:var(--peri)"></span><b>Pink</b> Mom's side (Bonnell, Beamer, Fitz Randolph and others).</li>
+<li><span class="hsw" style="background:var(--mint)"></span><b>Gold</b> Dad's side (Bexten, Graf, Smith).</li>
+<li><span class="hsw" style="background:var(--peri)"></span><b>Lavender</b> Mom's side (Bonnell, Beamer, Fitz Randolph and others).</li>
 <li><span class="hsw" style="background:var(--amber)"></span><b>Amber outline or “Unproven”</b> a likely connection that no record has confirmed yet.</li>
 <li><span class="hsw" style="border:1px dashed var(--mute);background:none"></span><b>Dashed box</b> an ancestor not found yet.</li>
 <li><b>✓ ◐ ○</b> on the record checklist: record linked, known but not linked, not found yet.</li>
