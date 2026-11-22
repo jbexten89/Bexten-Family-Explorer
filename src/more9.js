@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-22","jemimah","Jemimah Harris's probable parents","The 1850 census puts John and Jemima Harris, 71 and 70, in Braxton County with sons born the same years as Jemimah. They are added to the tree as probable parents, not yet proven."],
  ["2026-11-22","wendelL","Proven: the Langenderfers came from near Sankt Wendel","Wendel (born 1828) and Anna Maria (born 1826) were both from Hofeld-Mauschbach in the Prussian Rhineland. They married at Sankt Wendel in 1849 and landed at New York together in 1850. Their baptisms add four new ancestors: Wilhelm Langendoerfer, Gertrud Lay, Jacob Langendoerfer and Anna Maria Bick."],
  ["2026-11-22","brigitta","Brigitta was in New York, 1858–1864","Her Jaeger daughters married the Hecker brothers in a double wedding in 1880. Their records say both girls were born in New York, like Rosa, so Brigitta, Mr. Jaeger and then Joseph Graf were in New York before coming to Michigan."],
  ["2026-11-22","brigitta","The Grafs in the Sylvania parish census","St. Joseph's, Sylvania, kept a household census in the 1880s. The Graf page gives the Jaeger daughters' exact birthdays and confirms Rosa was born May 6, 1864. Two Regers in the same parish came from Deilingen, Württemberg, the best lead yet for Brigitta's home village."],
