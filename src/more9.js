@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-23","elspeth","The Beamer Family file arrives from WVU","Margaret Ballard's 1970s research file gives Philip Beamer Sr.'s death (Dec 12, 1838, age 75), his will and estate inventory, and Elspeth Ballantyne's Scottish parents, Andrew Ballantyne and Agnes Smart, who came from Dundee in 1801. Elspeth died near Hillsdale in 1879."],
  ["2026-11-23","sarah","Causes of death for the West Virginia family","West Virginia death records give causes for eleven more ancestors: strokes for Floyd Bonnell, Sarah May, Calvin Beamer and probably Philip Beamer Jr.; heart disease for John W. J. Bonnell and John May; measles for Jane Martin Bonnell in 1865; old age for Rulanah Bonnell and Andrew Beamer; and a truck accident for Amanda May Bonnell in 1958."],
  ["2026-11-23","onal","How Onal died","His 1940 death certificate gives the cause: meningitis from chronic mastoiditis, an ear-bone infection he had had for about ten years."],
  ["2026-11-23","johnbonnell","John Bonnell's 1783 muster certificate","A certificate signed at West Point on Feb 26, 1783, records John Bonnell mustered as a recruit in the New York artillery, enlisted by Capt. Thomas Machin for the rest of the war, just as he told the court in 1818."],

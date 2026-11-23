@@ -95,6 +95,7 @@ const RKEY="bexten-req-v1";let req={};try{req=JSON.parse(localStorage.getItem(RK
 const REQ=new Set(TODO[0][2].map(t=>t[0]));
 if(!req._mig){REQ.forEach(k=>{if(done[k]&&!req[k])req[k]={s:"sent",sent:done[k]}});req._mig=1;try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}}
 const saveReq=()=>{try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}};
+if(!req._wvu1){req.wvu={s:"answered",sent:(req.wvu&&req.wvu.sent)||Date.parse("2026-11-23T15:18:00-05:00"),ans:Date.parse("2026-11-23T15:18:00-05:00"),note:(req.wvu&&req.wvu.note)||"Scans of the Beamer Family folder (80 pages) received from Andrew Linderman, Reference Supervisor."};req._wvu1=1;saveReq()}
 const fmtD=t=>new Date(t).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
 function reqCard(k,html){
  const r=req[k]||{},st=r.s||"";
