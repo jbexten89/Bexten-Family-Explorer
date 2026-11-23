@@ -13,6 +13,9 @@ const SIBS={
  rosa:{list:[["Maria Jaeger","half-sister, born about 1859"],["Teresia (Tracy) Jaeger","half-sister, about 1861–1881"]],note:"Brigitta's daughters by her first husband. Both married into the Hecker family."},
  elizabethw:{list:[["Mary Waggoner","taken captive with her in 1792; home after 1795"],["Peter Waggoner","taken at about 6; found in 1812 living with the Shawnee"]],note:"Several other brothers and sisters were killed in the 1792 raid."},
  samuelbonnett:{list:[["Margaret Bonnet","b. 1725"],["Johann Adam Bonnet","b. 1726/27"],["Susanna Magdalena Bonnet","b. 1729"],["Christina Bonnet","b. 1731"],["John Martin Bonnet","b. 1733"],["Lewis Bonnett Sr.","b. 1737; married Anna Elizabeth Waggoner"]],note:"Two little sisters died on the 1733 voyage."},
+ philipjr:{list:[["Elizabeth (Mrs. Conrad Cart)","married 1808; died by 1831"],["Joseph Beamer","born 1796"],["John Beamer","1798–1868"],["Michael Beamer","1801–1882"],["George Beamer","1805–1877"],["Henry Beamer","went to Oregon"],["Benjamin Beamer","went to Oregon"],["Sarah (Mrs. James Crosier)","married 1820"],["Mary, called Polly","died single, 1879"],["Hannah (Mrs. Milholland)",""]],note:"Named in Philip Sr.'s will and the 1837 deed of his heirs."},
+ andrew:{list:[["Jean Beamer",""],["Eliza Beamer",""],["Mary C. (Mrs. George R. Williams)","1833–1915"],["Franklin Beamer",""],["Louise Beamer","about 1840"]],note:"From Margaret Ballard's 1970s research."},
+ elspeth:{list:[["Jean (Mrs. Michael Beamer)","married 1824"],["Catharine (Mrs. Robert Boyd)",""],["Robert Ballantyne","married Mary Harper"],["Marjorie (Mrs. John Crawford)","born at sea, 1801"]],note:"From Morton's History of Monroe County."},
  johnw:{list:[["Anna Elizabeth Waggoner","half-sister; married Lewis Bonnett Sr."]]}
 };
 const CORD=["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh"];
@@ -58,12 +61,16 @@ const TL=[
  ["1795",1795,"Treaty of Greenville ends the frontier war; Elizabeth is home again","elizabethw"],
  ["1798",1798,"Elizabeth Waggoner marries John Dexter Hardman","elizabethw"],
  ["c.1799",1799,"Philip Beamer Sr. settles near Hillsdale, Monroe County, Virginia","philipsr"],
+ ["1801",1801,"Andrew Ballantyne brings his family from Dundee, Scotland, to Norfolk, then to Monroe County","andrewbal"],
  ["1812",1812,"War of 1812; Peter Waggoner is found living with the Shawnee",""],
+ ["1817",1817,"Philip Beamer Jr. marries Elspeth Ballantyne; her father signs the marriage bond","philipjr"],
  ["1825",1825,"Samuel Fitz Randolph, founder of New Salem, dies","samuel"],
  ["1829",1829,"Charles Bonnell marries Jane Martin in Harrison County","charles"],
  ["1832",1832,"John Waggoner applies for his Revolutionary War pension","johnw"],
  ["1834",1834,"Joseph Graf is born in Baden","joseph"],
- ["1845",1845,"Andrew Ballentine Beamer marries Rebecca Erwin","andrew"],
+ ["1838",1838,"Philip Beamer Sr. dies, at 75","philipsr"],
+ ["1845",1845,"Andrew Ballentine Beamer marries Rebecca Erwin in Greenbrier County","andrew"],
+ ["c.1854",1854,"Philip Jr. and Elspeth Beamer sell their Monroe farm and move to Braxton County","philipjr"],
  ["1848",1848,"Revolutions across the German states send many Germans to America",""],
  ["c.1859",1859,"Brigitta Reger is in Michigan","brigitta"],
  ["1861",1861,"The Civil War begins; Floyd Bonnell enlists in the 6th West Virginia Infantry","floyd"],
@@ -71,8 +78,10 @@ const TL=[
  ["1863",1863.1,"Floyd Bonnell marries Elizabeth Goldsborough Pitman","floyd"],
  ["1864",1864,"Rosa Graf is born","rosa"],
  ["1865",1865,"The Civil War ends",""],
+ ["1865",1865.2,"Rulanah Bonnell dies of old age and Jane Martin Bonnell of measles, in Doddridge County","rulanah"],
  ["1867",1867,"Anthony Bexten is born in Westphalia","anthony"],
  ["1868",1868,"William Forinash marries Cynthia Hardman","william"],
+ ["1879",1879,"Elspeth Ballantyne Beamer dies at Hillsdale, Monroe County, at 82","elspeth"],
  ["1880",1880,"Anthony Bexten, about 12, crosses to America alone","anthony"],
  ["1888",1888,"Frank J. Smith marries Carrie Langenderfer","frankj"],
  ["1889",1889,"Herbert Smith is born in Toledo","herbert"],
@@ -103,7 +112,7 @@ const TL=[
 ];
 let tlf="all";
 function drawTL(){
- const rows=TL.filter(([, ,t,id])=>tlf==="all"?true:tlf==="fam"?!!id:id&&(SIDE[id]===tlf||(id==="tony"&&tlf==="F")||(id==="betty"&&tlf==="M")));
+ const rows=TL.slice().sort((p,q)=>p[1]-q[1]).filter(([, ,t,id])=>tlf==="all"?true:tlf==="fam"?!!id:id&&(SIDE[id]===tlf||(id==="tony"&&tlf==="F")||(id==="betty"&&tlf==="M")));
  let h="",cent=0;
  rows.sort((a,b)=>a[1]-b[1]).forEach(([y,s,t,id])=>{const c=Math.floor(s/100);if(c!==cent){h+=`<li class="cent">${c+1}${c+1===21?"st":"th"} century</li>`;cent=c}
   h+=id?`<li class="ev fam"><span class="yr">${esc(y)}</span><button type="button" data-person="${id}"><span class="dot" style="background:${col(id)}"></span><span>${esc(t)}</span></button></li>`:`<li class="ev world"><span class="yr">${esc(y)}</span><span class="wt">${esc(t)}</span></li>`});
