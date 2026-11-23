@@ -54,6 +54,8 @@ nav a svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
 .task.req{cursor:default;grid-template-columns:14px minmax(0,1fr)}
 .rqdot{width:12px;height:12px;border-radius:50%;border:2px solid var(--mute);margin-top:5px}
 .req.sent .rqdot{border-color:#E3A04F;background:#E3A04F}
+.req.partial .rqdot{border-color:var(--peri);background:linear-gradient(90deg,var(--peri) 50%,transparent 50%)}
+.req.partial .rqbar button.on{background:var(--peri);border-color:var(--peri);color:#111}
 .req.answered .rqdot{border-color:var(--accent);background:var(--accent)}
 .req.answered .rqtext{color:var(--mute)}
 .rqbar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}

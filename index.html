@@ -126,6 +126,8 @@ nav a svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
 .task.req{cursor:default;grid-template-columns:14px minmax(0,1fr)}
 .rqdot{width:12px;height:12px;border-radius:50%;border:2px solid var(--mute);margin-top:5px}
 .req.sent .rqdot{border-color:#E3A04F;background:#E3A04F}
+.req.partial .rqdot{border-color:var(--peri);background:linear-gradient(90deg,var(--peri) 50%,transparent 50%)}
+.req.partial .rqbar button.on{background:var(--peri);border-color:var(--peri);color:#111}
 .req.answered .rqdot{border-color:var(--accent);background:var(--accent)}
 .req.answered .rqtext{color:var(--mute)}
 .rqbar{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
@@ -1309,20 +1311,21 @@ if(!req._mig){REQ.forEach(k=>{if(done[k]&&!req[k])req[k]={s:"sent",sent:done[k]}
 const saveReq=()=>{try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}};
 if(!req._wvu1){req.wvu={s:"answered",sent:(req.wvu&&req.wvu.sent)||Date.parse("2026-11-23T15:18:00-05:00"),ans:Date.parse("2026-11-23T15:18:00-05:00"),note:(req.wvu&&req.wvu.note)||"Scans of the Beamer Family folder (80 pages) received from Andrew Linderman, Reference Supervisor."};req._wvu1=1;saveReq()}
 if(!req._nysa1){const o=req.nysa||{};req.nysa={s:"answered",sent:o.sent||Date.parse("2026-11-23T12:00:00-05:00"),ans:Date.parse("2026-11-23T12:00:00-05:00"),note:(o.note?o.note+"\n":"")+"Answered Nov 23, 2026: the Archives sent a scan (NYSA_A0200_B1_p000060.pdf) from Series A0200, Box 1, page 60. It is a certificate signed at West Point on Feb 26, 1783, showing John Bonnell mustered as a recruit in the New York artillery, enlisted by Capt. Thomas Machin for the rest of the war. Added to John Bonnell in the app."};req._nysa1=1;saveReq()}
+if(!req._wcpl1){const o=req.wcpl||{};req.wcpl={s:"partial",sent:o.sent||Date.parse("2026-11-23T15:31:00-05:00"),ans:Date.parse("2026-11-23T15:31:00-05:00"),note:(o.note?o.note+"\n":"")+"Partly answered Nov 23, 2026. Still waiting on the rest."};req._wcpl1=1;saveReq()}
 const fmtD=t=>new Date(t).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
 function reqCard(k,html){
  const r=req[k]||{},st=r.s||"";
- const when=st==="answered"?`Sent ${r.sent?fmtD(r.sent):"—"} · answered ${fmtD(r.ans)}`:st==="sent"?`Sent ${fmtD(r.sent)} · waiting for a reply`:"";
+ const when=st==="partial"?`Sent ${r.sent?fmtD(r.sent):"—"} · partly answered ${fmtD(r.ans)}`:st==="answered"?`Sent ${r.sent?fmtD(r.sent):"—"} · answered ${fmtD(r.ans)}`:st==="sent"?`Sent ${fmtD(r.sent)} · waiting for a reply`:"";
  const btn=(v,l)=>`<button type="button" data-rq="${k}" data-s="${v}" aria-pressed="${st===v}" class="${st===v?"on":""}">${l}</button>`;
  return `<div class="task req ${st}"><span class="rqdot" aria-hidden="true"></span><div><span class="rqtext">${html}</span>
- <div class="rqbar" role="group" aria-label="Status">${btn("","Not sent")}${btn("sent","Sent")}${btn("answered","Answered")}</div>
+ <div class="rqbar" role="group" aria-label="Status">${btn("","Not sent")}${btn("sent","Sent")}${btn("partial","Partly")}${btn("answered","Answered")}</div>
  ${when?`<p class="rqwhen">${when}</p>`:""}
  ${st?`<textarea data-note="${k}" rows="2" placeholder="Notes: fee paid, who you talked to, what came back…">${esc(r.note||"")}</textarea>`:""}</div></div>`;
 }
 function drawTodo(){
- const rk=k=>({"":0,sent:1,answered:2})[(req[k]||{}).s||""]??0;
+ const rk=k=>({"":0,sent:1,partial:2,answered:3})[(req[k]||{}).s||""]??0;
  const all=TODO.flatMap(s=>s[2]),isDone=k=>REQ.has(k)?(req[k]||{}).s==="answered":!!done[k];
- const n=all.filter(t=>isDone(t[0])).length,w=[...REQ].filter(k=>(req[k]||{}).s==="sent").length;
+ const n=all.filter(t=>isDone(t[0])).length,w=[...REQ].filter(k=>["sent","partial"].includes((req[k]||{}).s)).length;
  document.getElementById("todo-prog").innerHTML=`<b>${n}</b> of ${all.length} done`+(w?` · <b>${w}</b> waiting for a reply`:"");
  document.getElementById("todo-list").innerHTML=TODO.map(([h,hint,items])=>`<h2>${esc(h)}</h2>${hint?`<p class="hint">${esc(hint)}</p>`:""}${(items.some(t=>REQ.has(t[0]))?[...items].sort((a,b)=>rk(a[0])-rk(b[0])):items).map(([k,html])=>REQ.has(k)?reqCard(k,html):`<label class="task ${done[k]?"done":""}"><input type="checkbox" data-k="${k}" ${done[k]?"checked":""}><span>${html}</span></label>`).join("")}`).join("");
 }
@@ -1331,7 +1334,7 @@ tl.addEventListener("change",e=>{const k=e.target.dataset.k;if(k){if(e.target.ch
  const nk=e.target.dataset.note;if(nk&&req[nk]){req[nk].note=e.target.value;saveReq()}});
 tl.addEventListener("input",e=>{const nk=e.target.dataset.note;if(nk&&req[nk]){req[nk].note=e.target.value;saveReq()}});
 tl.addEventListener("click",e=>{const b=e.target.closest("button[data-rq]");if(!b)return;const k=b.dataset.rq,v=b.dataset.s,r=req[k]||{};
- if(!v){delete req[k]}else{r.s=v;if(v==="sent"){r.sent=r.sent||Date.now();delete r.ans}if(v==="answered"){r.sent=r.sent||Date.now();r.ans=Date.now()}req[k]=r}
+ if(!v){delete req[k]}else{r.s=v;if(v==="sent"){r.sent=r.sent||Date.now();delete r.ans}if(v==="answered"||v==="partial"){r.sent=r.sent||Date.now();r.ans=Date.now()}req[k]=r}
  saveReq();drawTodo()});
 drawTodo();
 
