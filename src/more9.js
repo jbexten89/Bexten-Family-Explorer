@@ -1,6 +1,7 @@
 // ---------- what's new ----------
 // [date, person id or "", headline, detail]. Newest first. Research finds only; app changes go in the "app" group.
 const NEWS=[
+ ["2026-11-23","johnbonnell","John Bonnell's 1783 muster certificate","A certificate signed at West Point on Feb 26, 1783, records John Bonnell mustered as a recruit in the New York artillery, enlisted by Capt. Thomas Machin for the rest of the war, just as he told the court in 1818."],
  ["2026-11-23","nelson","Nelson's obituary found","His 1987 obituary confirms his birth in Monroe County on June 3, 1903, his move to a Madison Township farm near Pioneer in 1958, and his membership at Sacred Heart in Montpelier."],
  ["2026-11-22","phelden","“Phelden” Johnson was Fielding M. Johnson","The 1860 census finds Fielding M. Johnson and Nancy in Roane County with Sarah and her siblings; a sister's death record names the same parents, Fields Johnstone and Nancy Wine."],
  ["2026-11-22","jemimah","Jemimah Harris's probable parents","The 1850 census puts John and Jemima Harris, 71 and 70, in Braxton County with sons born the same years as Jemimah. They are added to the tree as probable parents, not yet proven."],
