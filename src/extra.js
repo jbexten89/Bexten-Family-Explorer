@@ -113,7 +113,7 @@ function drawTodo(){
  const all=TODO.flatMap(s=>s[2]),isDone=k=>REQ.has(k)?(req[k]||{}).s==="answered":!!done[k];
  const n=all.filter(t=>isDone(t[0])).length,w=[...REQ].filter(k=>["sent","partial"].includes((req[k]||{}).s)).length;
  document.getElementById("todo-prog").innerHTML=`<b>${n}</b> of ${all.length} done`+(w?` · <b>${w}</b> waiting for a reply`:"");
- document.getElementById("todo-list").innerHTML=TODO.map(([h,hint,items])=>`<h2>${esc(h)}</h2>${hint?`<p class="hint">${esc(hint)}</p>`:""}${(items.some(t=>REQ.has(t[0]))?[...items].sort((a,b)=>rk(a[0])-rk(b[0])):items).map(([k,html])=>REQ.has(k)?reqCard(k,html):`<label class="task ${done[k]?"done":""}"><input type="checkbox" data-k="${k}" ${done[k]?"checked":""}><span>${html}</span></label>`).join("")}`).join("");
+ document.getElementById("todo-list").innerHTML=TODO.map(([h,hint,items])=>`<h2>${esc(h)}</h2>${hint?`<p class="hint">${esc(hint)}</p>`:""}${(items.some(t=>REQ.has(t[0]))?[...items].sort((a,b)=>rk(a[0])-rk(b[0])):[...items].sort((a,b)=>(done[a[0]]?1:0)-(done[b[0]]?1:0))).map(([k,html])=>REQ.has(k)?reqCard(k,html):`<label class="task ${done[k]?"done":""}"><input type="checkbox" data-k="${k}" ${done[k]?"checked":""}><span>${html}</span></label>`).join("")}`).join("");
 }
 const tl=document.getElementById("todo-list");
 tl.addEventListener("change",e=>{const k=e.target.dataset.k;if(k){if(e.target.checked)done[k]=Date.now();else delete done[k];try{localStorage.setItem(TKEY,JSON.stringify(done))}catch(err){}drawTodo();return}
