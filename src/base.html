@@ -115,7 +115,7 @@ input[type=search]{min-height:44px;font:16px "Nunito Sans",sans-serif;padding:0 
 </div>
 <div id="gv" hidden>
 <h2 class="sect">Where they're buried</h2>
-<p class="note">Seven cemeteries hold ancestors found so far: four around Toledo and Pioneer, three in central West Virginia. Tap a name to open that person, or Directions to drive there.</p>
+<p class="note">Eight cemeteries hold ancestors found so far: four around Toledo and Pioneer, three in central West Virginia and one in Monroe County, West Virginia. Tap a name to open that person, or Directions to drive there.</p>
 <p class="mapsapp"><label>Directions open in <select id="mapsapp"><option value="">Ask each time</option><option value="apple">Apple Maps</option><option value="google">Google Maps</option></select></label></p>
 <div class="gbar"><button type="button" class="chip" data-gfit="oh" aria-pressed="true">Ohio</button><button type="button" class="chip" data-gfit="wv">West Virginia</button><button type="button" class="chip" data-gfit="all">All</button><a class="chip trip" id="trip" target="_blank" rel="noopener">Ohio day trip route</a></div>
 <div id="gmap" class="gmap" role="region" aria-label="Map of family burial places"></div>
@@ -282,9 +282,9 @@ const LINES=[
  am:[["@","philadelphia"],["philadelphia","southbranch"],["southbranch","hackers"],["hackers","detroit","d"],["hackers","weston"]],
  steps:[["1733","The Bonnets, French Protestants from Baden, reach Philadelphia on the Elizabeth"],["1748","Wilhelm Waggoner of Ober-Seemen, Hesse, reaches Philadelphia"],["1750s","Both families farm the South Branch of the Potomac; Wilhelm is killed in a raid"],["1780s","John and Margaret Waggoner settle on Hacker's Creek"],["1792–95","Elizabeth Waggoner is captured, taken west, and escapes to Detroit"],["1798–1891","Her Hardman and Forinash descendants stay in Lewis and Braxton counties"]]},
 {id:"beamer",name:"Beamer",side:"Mom's side",c:"#6EC6E8",
- eu:[],
- am:[["reading","hillsdale"],["hillsdale","newville"],["newville","weston"]],
- steps:[["c.1799","Philip Beamer leaves Reading, Pennsylvania, for Tennessee; settles near Hillsdale, Monroe County, instead"],["1800s","Andrew Ballentine Beamer grows up in Monroe County"],["1891","Calvin Beamer marries Cora Forinash in Braxton County"],["1906","Genevieve Beamer born at Newville; later Weston"]]},
+ eu:[["dundee","@"]],
+ am:[["reading","hillsdale"],["@","norfolk"],["norfolk","hillsdale"],["hillsdale","newville"],["newville","weston"]],
+ steps:[["c.1799","Philip Beamer leaves Reading, Pennsylvania, for Tennessee; settles near Hillsdale, Monroe County, instead"],["1801","Andrew Ballantyne, a weaver, sails from Dundee, Scotland, to Norfolk with his family, then moves to the Sinks of Monroe"],["1817","His daughter Elspeth marries Philip Beamer Jr."],["c.1854","Philip Jr. and Elspeth move to Braxton County"],["1891","Calvin Beamer marries Cora Forinash in Braxton County"],["1906","Genevieve Beamer born at Newville; later Weston"]]},
 {id:"graf",name:"Graf",side:"Dad's side",c:"#F08A7E",
  eu:[["baden","@","d"]],
  am:[["@","newyork","d"],["newyork","ottawalake"]],
@@ -294,8 +294,8 @@ const LINES=[
  am:[["@","newyork","d"],["newyork","ottawalake","d"],["ottawalake","pioneer"]],
  steps:[["1880","Anthony Bexten, about 12, leaves Westphalia alone, by family tradition as a stowaway"],["1899","He marries Rosa Graf at Ottawa Lake, Michigan"],["1928","Nelson Bexten marries Caroline Smith of Toledo"],["1954","Tony Bexten marries Betty A. “Althea” Bonnell in Toledo; later Pioneer, Ohio"]]}
 ];
-const LBL={eu:{cambridge:["Cambridge",8,14,"start"],sutton:["Sutton-in-Ashfield",8,4,"start"],leiden:["Leiden",8,-6,"start"],rotterdam:["Rotterdam",8,14,"start"],oberseemen:["Ober-Seemen",-8,-6,"end"],baden:["Baden",8,4,"start"],westphalia:["Westphalia",8,-6,"start"],bremen:["Bremen",8,4,"start"]},
-am:{plymouth:["Plymouth",-8,-8,"end"],barnstable:["Barnstable",-8,18,"end"],piscataway:["Piscataway",0,19,"middle"],newyork:["New York",8,-6,"start"],philadelphia:["Philadelphia",8,16,"start"],reading:["Reading",-8,-6,"end"],southbranch:["South Branch",8,4,"start"],salem:["Salem",-8,-6,"end"],weston:["Weston, Hacker's Creek",-8,12,"end"],hackers:["",0,0,"start"],hillsdale:["Hillsdale",8,4,"start"],newville:["Newville",8,14,"start"],detroit:["Detroit",8,4,"start"],ottawalake:["Ottawa Lake",8,-8,"start"],toledo:["Toledo",8,14,"start"],pioneer:["Pioneer",0,22,"middle"]}};
+const LBL={eu:{cambridge:["Cambridge",8,14,"start"],sutton:["Sutton-in-Ashfield",8,4,"start"],leiden:["Leiden",8,-6,"start"],rotterdam:["Rotterdam",8,14,"start"],oberseemen:["Ober-Seemen",-8,-6,"end"],baden:["Baden",8,4,"start"],westphalia:["Westphalia",8,-6,"start"],bremen:["Bremen",8,4,"start"],dundee:["Dundee, Scotland ↑",8,12,"start"]},
+am:{plymouth:["Plymouth",-8,-8,"end"],barnstable:["Barnstable",-8,18,"end"],piscataway:["Piscataway",0,19,"middle"],newyork:["New York",8,-6,"start"],philadelphia:["Philadelphia",8,16,"start"],reading:["Reading",-8,-6,"end"],southbranch:["South Branch",8,4,"start"],salem:["Salem",-8,-6,"end"],weston:["Weston, Hacker's Creek",-8,12,"end"],hackers:["",0,0,"start"],hillsdale:["Hillsdale",8,4,"start"],norfolk:["Norfolk",8,4,"start"],newville:["Newville",8,14,"start"],detroit:["Detroit",8,4,"start"],ottawalake:["Ottawa Lake",8,-8,"start"],toledo:["Toledo",8,14,"start"],pioneer:["Pioneer",0,22,"middle"]}};
 let active="all";
 function pt(m,k,other){const g=GEO[m];if(k!=="@")return g.places[k];const o=g.places[other];return m==="eu"?[0,o[1]+20]:[g.w,o[1]-10]}
 function curve(a,b){const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1];return `M${a[0]},${a[1]} Q${mx-dy*0.15},${my+dx*0.15} ${b[0]},${b[1]}`}

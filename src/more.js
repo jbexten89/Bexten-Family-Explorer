@@ -173,7 +173,8 @@ const GRAVES=[
  {id:"stjoe",name:"St. Joseph Cemetery",town:"Sylvania, Ohio",ll:[41.7104,-83.6995], who:["nelson","caroline","anthony","rosa","brigitta"],note:"On Ravine Drive, beside Ravine Cemetery. Joseph Graf was buried in Sylvania in 1905, very likely here"},
  {id:"ohmp",name:"Ottawa Hills Memorial Park",town:"Toledo, Ohio",ll:[41.6806,-83.6408],who:["genevieve"],note:"4210 W. Central Ave."},
  {id:"carmel",name:"Mount Carmel Cemetery",town:"Toledo, Ohio",ll:[41.6861,-83.5453],who:["herbert","frankj","carrie"],note:"15 E. Manhattan Blvd."},
- {id:"machpelah",name:"Machpelah Cemetery",town:"Weston, West Virginia",ll:[39.0487,-80.4643],who:["onal"]},
+ {id:"machpelah",name:"Machpelah Cemetery",town:"Weston, West Virginia",ll:[39.0487,-80.4643],who:["onal","floyd","johnmay"]},
+ {id:"oldlebanon",name:"Old Lebanon Cemetery",town:"near Union, West Virginia",ll:[37.6568,-80.4867],who:["philipsr"],note:"Location approximate: on a farm west of U.S. 219, north of Union. His stone was found broken and lying flat in 1974"},
  {id:"masonic",name:"Weston Masonic Cemetery",town:"Weston, West Virginia",ll:[39.0224,-80.4202],who:["johnwj","amanda","calvin"],note:"Now Lewis County Memorial Gardens, Chapman Ave."},
  {id:"salem",name:"Seventh Day Baptist Cemetery",town:"Salem, West Virginia",ll:[39.2829,-80.5654],who:["samuel","margaretfr"],note:"Pin is approximate: the old church graveyard in Salem",approx:1}
 ];
@@ -205,7 +206,7 @@ function afterPerson(id){
 function drawGraves(){
  const el=document.getElementById("graves-list");if(!el)return;
  el.innerHTML=GRAVES.map(g=>`<div class="card grave" id="g-${g.id}"><h3>${esc(g.name)}</h3><p class="town">${esc(g.town)}${g.note?` · ${esc(g.note)}`:""}</p><div class="who">${g.who.map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div><a class="dir" data-dir="${g.id}" href="${amap(g)}" target="_blank" rel="noopener">Directions</a></div>`).join("")
- +`<div class="card grave"><h3>Weston, West Virginia</h3><p class="town">Cemetery not yet identified</p><div class="who">${["johnmay","sarah"].map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div></div>`;
+ +`<div class="card grave"><h3>Weston, West Virginia</h3><p class="town">Cemetery not yet identified</p><div class="who">${["sarah"].map(p=>`<button type="button" data-person="${p}"><span class="dot" style="background:${col(p)}"></span>${esc(D[p][0])}<small>${esc(D[p][1])}</small></button>`).join("")}</div></div>`;
  document.getElementById("trip").href=OHIO_TRIP;
 }
 document.getElementById("graves-list").addEventListener("click",e=>{const b=e.target.closest("[data-person]");if(b){showPerson(b.dataset.person);location.hash="#tree"}});
