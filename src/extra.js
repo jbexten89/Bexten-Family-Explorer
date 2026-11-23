@@ -96,6 +96,7 @@ const REQ=new Set(TODO[0][2].map(t=>t[0]));
 if(!req._mig){REQ.forEach(k=>{if(done[k]&&!req[k])req[k]={s:"sent",sent:done[k]}});req._mig=1;try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}}
 const saveReq=()=>{try{localStorage.setItem(RKEY,JSON.stringify(req))}catch(e){}};
 if(!req._wvu1){req.wvu={s:"answered",sent:(req.wvu&&req.wvu.sent)||Date.parse("2026-11-23T15:18:00-05:00"),ans:Date.parse("2026-11-23T15:18:00-05:00"),note:(req.wvu&&req.wvu.note)||"Scans of the Beamer Family folder (80 pages) received from Andrew Linderman, Reference Supervisor."};req._wvu1=1;saveReq()}
+if(!req._nysa1){const o=req.nysa||{};req.nysa={s:"answered",sent:o.sent||Date.parse("2026-11-23T12:00:00-05:00"),ans:Date.parse("2026-11-23T12:00:00-05:00"),note:(o.note?o.note+"\n":"")+"Answered Nov 23, 2026: the Archives sent a scan (NYSA_A0200_B1_p000060.pdf) from Series A0200, Box 1, page 60. It is a certificate signed at West Point on Feb 26, 1783, showing John Bonnell mustered as a recruit in the New York artillery, enlisted by Capt. Thomas Machin for the rest of the war. Added to John Bonnell in the app."};req._nysa1=1;saveReq()}
 const fmtD=t=>new Date(t).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
 function reqCard(k,html){
  const r=req[k]||{},st=r.s||"";
