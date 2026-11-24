@@ -17,6 +17,8 @@ const SIBS={
  andrew:{list:[["Jean Beamer",""],["Eliza Beamer",""],["Mary C. (Mrs. George R. Williams)","1833–1915"],["Franklin Beamer",""],["Louise Beamer","about 1840"]],note:"From Margaret Ballard's 1970s research."},
  elspeth:{list:[["Jean (Mrs. Michael Beamer)","married 1824"],["Catharine (Mrs. Robert Boyd)",""],["Robert Ballantyne","married Mary Harper"],["Marjorie (Mrs. John Crawford)","born at sea, 1801"]],note:"From Morton's History of Monroe County."},
  sarah:{list:[["Margaret Ann (Mrs. James Butcher)","born March 19, 1856; died Feb 8, 1934, Weston, of influenza; buried Machpelah Cemetery (her death certificate names her parents as Fields Johnstone and Nancy Wine)"]],note:"Found so far from records; Sarah may have had more brothers and sisters."},
+ calvin:{list:[["Jamima A. (Mrs. James Lloyd Liggett)","died May 12, 1936, Randolph County"],["Alice S. (Mrs. Cutlip)","died Oct 25, 1940, Braxton County"]],note:"Found so far from West Virginia death records that name Andrew Beamer and Rebecca Ervin as parents."},
+ cora:{list:[["Nathan Theodore Forinash","died Oct 24, 1936, Lewis County; married Sarah B. Hoover"],["Mary Florence (Mrs. Lewis)","died March 14, 1944, Nicholas County"]],note:"Found so far from West Virginia death records that name Dexter Forinash and Cynthia (Jane) Hardman as parents."},
  johnw:{list:[["Anna Elizabeth Waggoner","half-sister; married Lewis Bonnett Sr."]]}
 };
 const CORD=["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh"];
