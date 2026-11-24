@@ -494,3 +494,18 @@ html.slimhdr .homecard{display:none}
 .seg.s3{grid-template-columns:1fr 1fr 1fr}
 
 @media print{#view-book>.seg{display:none}}
+
+.agescard .ageshead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.agescard .ageshead h3{margin:0}
+.agescard .agesort{display:flex;gap:6px}
+.agescard ol.ages{list-style:none;margin:10px 0 0;padding:0;counter-reset:ag}
+.agescard ol.ages li{counter-increment:ag}
+.agescard ol.ages button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:26px 10px minmax(0,1.4fr) minmax(40px,1fr) 64px;gap:8px;align-items:center;padding:7px 4px;border-top:1px solid var(--line,rgba(255,255,255,.07))}
+.agescard ol.ages button::before{content:counter(ag);color:var(--mute);font-size:12.5px;text-align:right}
+.agescard ol.ages button:focus-visible{outline:2px solid var(--accent,#2F9BFF);outline-offset:2px;border-radius:6px}
+.agescard .an{display:flex;flex-direction:column;min-width:0}
+.agescard .an b{font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agescard .an small{color:var(--mute);font-size:12.5px}
+.agescard ol.ages i{display:block;height:6px;border-radius:3px;opacity:.75}
+.agescard ol.ages em{font-style:normal;text-align:right;font-size:14.5px;font-weight:500;font-variant-numeric:tabular-nums}
+@media print{.agescard .agesort{display:none!important}}

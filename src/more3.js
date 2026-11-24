@@ -35,7 +35,19 @@ function drawStats(){
  document.getElementById("stats-box").innerHTML=`<div class="tiles">${tile(ids.length,"ancestors named")}${tile(maxG,"generations back","to the Pilgrims, about 1580")}${tile(Math.round(proven/ids.length*100)+"%","backed by records","the rest from published genealogies and trees")}${tile(avg,"average lifespan, years",lives.length+" ancestors with both dates")}${tile(oldest.age,"longest life, years",esc(D[oldest.id][0])+", "+oldest.b+"–"+oldest.dd)}${tile(earliest.y<1600?"c."+earliest.y:earliest.y,"earliest birth",esc(D[earliest.id][0]))}</div>
  <div class="card statcard"><h3>Where they were born</h3><p class="note">For the ${pl.reduce(function(s,x){return s+x[1]},0)} ancestors whose birthplace is recorded</p>${pl.map(function(x){return `<div class="bar"><span>${x[0]}</span><i style="width:${Math.max(6,x[1]/pmax*100)}%"></i><b>${x[1]}</b></div>`}).join("")}</div>
  <div class="card statcard"><h3>Most common first names</h3>${top.map(function(x){return `<div class="nm"><span>${esc(x[0])}</span><b>${x[1]}</b></div>`}).join("")}</div>`;
+drawAges();
 }
+var AGES_ORDER="old";
+function drawAges(){
+ var box=document.getElementById("stats-box");if(!box)return;
+ var all=Object.keys(D).filter(function(k){return k!=="kids"});
+ var rows=[];all.forEach(function(k){var t=ageAtDeath(k);if(!t)return;var inf=/infant/.test(t),m=t.match(/(\d+)/);var a=inf?0:(m?+m[1]:null);if(a===null)return;rows.push({id:k,a:a,about:/about/.test(t),inf:inf})});
+ rows.sort(function(x,y){return AGES_ORDER==="old"?(y.a-x.a||D[x.id][0].localeCompare(D[y.id][0])):(x.a-y.a||D[x.id][0].localeCompare(D[y.id][0]))});
+ var max=rows.reduce(function(m,r){return Math.max(m,r.a)},1),missing=all.length-rows.length;
+ var html=`<div class="card statcard agescard" id="ages-card"><div class="ageshead"><h3>Ages at death</h3><div class="agesort" role="group" aria-label="Order"><button type="button" class="chip" data-ages="old" aria-pressed="${AGES_ORDER==="old"}">Oldest first</button><button type="button" class="chip" data-ages="young" aria-pressed="${AGES_ORDER==="young"}">Youngest first</button></div></div><p class="note">${rows.length} ancestors. Tap a name to open their card. “About” means the age is worked out from the years alone.</p><ol class="ages">${rows.map(function(r){return `<li><button type="button" data-id="${r.id}"><span class="dot" style="background:${col(r.id)}"></span><span class="an"><b>${esc(D[r.id][0])}</b><small>${esc(D[r.id][1]||"")}</small></span><i style="width:${Math.max(3,r.a/max*100)}%;background:${col(r.id)}"></i><em>${r.inf?"infant":(r.about?"about ":"")+(r.inf?"":r.a)}</em></button></li>`}).join("")}</ol>${missing?`<p class="note">${missing} more ancestors are left out because their age at death isn't known yet.</p>`:""}</div>`;
+ var old=document.getElementById("ages-card");if(old)old.outerHTML=html;else box.insertAdjacentHTML("beforeend",html);
+}
+document.getElementById("stats-box").addEventListener("click",function(e){var c=e.target.closest("[data-ages]");if(c){AGES_ORDER=c.dataset.ages;drawAges();return}var b=e.target.closest("#ages-card [data-id]");if(b){showPerson(b.dataset.id);location.hash="#tree"}});
 drawStats();
 
 // ---------- share ----------
