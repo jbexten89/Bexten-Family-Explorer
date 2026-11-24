@@ -81,7 +81,6 @@ const TODO=[
   ["stromberg","<b>Look at Anthony's possible baptism</b> at the Toledo Ohio FamilySearch Center, 11050 Avenue Road, Perrysburg (by appointment: 419-392-4643). Ask for FamilySearch films 8206436 or 7992106, Stromberg (St. Lambertus), and find Caspar Anton Bexte, born July 16, 1868, with any notes in the margin. Also check the death register 1868–1885 for him."],
   ["deilingen","<b>On the same Perrysburg visit, look for Brigitta Reger's baptism</b> in the Deilingen (Württemberg) Catholic books, FamilySearch film 008208536. Start at March 25, 1832 (Maria Reger, entry 12) and read the next few entries for a Brigitta born March 28, 1832, daughter of a Johann Reger. She is not in the online index, so the entry may be misread or under another spelling (Brigida, Rieger)."]]],
  ["Optional extras","",[
-  ["schmidt2","<b>Wendell Smith and Barbara Ankenbrandt</b>: their death records aren't online. Monroe County, Michigan, death records (about 1889 and 1906) would give exact dates and maybe their German hometown."],
   ["share","<b>Share the app</b> with siblings and cousins: tap the Share button next to the house on the Tree tab for a QR code and link."],
   ["ask","<b>Ask older relatives</b> for a family Bible, letters from Germany, old photos, and any details of the stowaway story (the ship, the port, who found him)"],
   ["dna","<b>Take a DNA test</b> (AncestryDNA or MyHeritage) to look for relatives descended from Anthony's three sisters in Germany"],
