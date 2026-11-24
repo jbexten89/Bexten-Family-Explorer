@@ -1,7 +1,7 @@
 
 // ---------- brothers and sisters (cousins) ----------
 const SIBS={
- tony:{list:[["Joanne Lucille (later Johnson)","1934–2020"],["Carl, called Carly","died as a baby, 1936"],["A brother","born about 1939"],["Patricia Ann (later Delcamp)","1942–2024"]]},
+ tony:{list:[["Joanne Lucille (later Johnson)","1934–2020"],["Carl, called Carly","born May 12, 1936; died Dec 15, 1936, of influenza, at 6 months (Michigan death certificate)"],["A brother","born about 1939"],["Patricia Ann (later Delcamp)","1942–2024"]]},
  betty:{list:[["Robert Eugene Bonnell","1927–2007"],["Wallace L. Bonnell","1928–1983"],["Charles Eddie Bonnell","1931–1933"]]},
  nelson:{list:[["Joseph Herman Bexten","1900–1989"],["Mary Theresia (Mrs. Arnold C. Miller)","1905–1992"],["Lawrence Arnold Bexten","1909–1999"]]},
  caroline:{list:[["Sylvester G. Smith","born March 7, 1908"],["Gertrude, “Aunt DoDo” (later Lentz)","born about 1912"],["Lucille M. (later Boutwell)","born 1919"],["Kathryn (later Brozozwicz)","born about 1921"],["Mildred, “Aunt PeeWee” (later Frelin)","born about 1924"],["Roland Smith","born about 1928"],["Al H. “Whitey” Smith","1930–2017"],["Frederick “Fritz” Smith","born about 1931"]],note:"The 1920, 1930 and 1940 censuses name these eight and Caroline: nine children. Herbert's 1949 obituary names the same nine: five daughters and four sons, Sylvester, Roland, Herbert and Frederick. Its son Herbert is Al, recorded in 1950 as Aloisius H. Smith."},
