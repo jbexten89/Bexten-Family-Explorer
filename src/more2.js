@@ -16,6 +16,7 @@ const SIBS={
  philipjr:{list:[["Elizabeth (Mrs. Conrad Cart)","married 1808; died by 1831"],["Joseph Beamer","born 1796"],["John Beamer","1798–1868"],["Michael Beamer","1801–1882"],["George Beamer","1805–1877"],["Henry Beamer","went to Oregon"],["Benjamin Beamer","went to Oregon"],["Sarah (Mrs. James Crosier)","married 1820"],["Mary, called Polly","died single, 1879"],["Hannah (Mrs. Milholland)",""]],note:"Named in Philip Sr.'s will and the 1837 deed of his heirs."},
  andrew:{list:[["Jean Beamer",""],["Eliza Beamer",""],["Mary C. (Mrs. George R. Williams)","1833–1915"],["Franklin Beamer",""],["Louise Beamer","about 1840"]],note:"From Margaret Ballard's 1970s research."},
  elspeth:{list:[["Jean (Mrs. Michael Beamer)","married 1824"],["Catharine (Mrs. Robert Boyd)",""],["Robert Ballantyne","married Mary Harper"],["Marjorie (Mrs. John Crawford)","born at sea, 1801"]],note:"From Morton's History of Monroe County."},
+ sarah:{list:[["Margaret Ann (Mrs. James Butcher)","born March 19, 1856; died Feb 8, 1934, Weston, of influenza; buried Machpelah Cemetery (her death certificate names her parents as Fields Johnstone and Nancy Wine)"]],note:"Found so far from records; Sarah may have had more brothers and sisters."},
  johnw:{list:[["Anna Elizabeth Waggoner","half-sister; married Lewis Bonnett Sr."]]}
 };
 const CORD=["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh"];
