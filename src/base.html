@@ -263,7 +263,8 @@ const NAMES=Object.keys(D).map(k=>({k,n:D[k][0],y:D[k][1]})).sort((a,b)=>a.n.loc
 const fi=document.getElementById("find"),sg=document.getElementById("sugg");
 function pick(k){showPerson(k);fi.value="";sg.hidden=true;fi.blur();document.getElementById("app").scrollTo({top:0,behavior:"smooth"})}
 fi.addEventListener("input",()=>{const q=fi.value.trim().toLowerCase();if(!q){sg.hidden=true;return}
- const hits=NAMES.filter(x=>x.n.toLowerCase().split(/[\s“”"().]+/).some(w=>w.startsWith(q))||x.n.toLowerCase().includes(q)).slice(0,8);
+ const SIBN=typeof SIBS==="undefined"?[]:Object.entries(SIBS).flatMap(([k,v])=>D[k]?(v.list||[]).map(([n])=>({k,n,y:"sibling of "+D[k][0].replace(/[“"][^”"]*[”"]\s*/g,"").split(" ")[0]})):[]);
+ const hits=NAMES.concat(SIBN).filter(x=>x.n.toLowerCase().split(/[\s“”"().,]+/).some(w=>w.startsWith(q))||x.n.toLowerCase().includes(q)).slice(0,10);
  sg.innerHTML=hits.length?hits.map(x=>`<button type="button" data-k="${x.k}"><span class="dot" style="background:${col(x.k)}"></span><b>${esc(x.n)}</b><span>${esc(x.y||"")}</span></button>`).join(""):`<p>No one by that name yet</p>`;sg.hidden=false});
 sg.addEventListener("mousedown",e=>e.preventDefault());
 sg.addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)pick(b.dataset.k)});
