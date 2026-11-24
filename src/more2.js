@@ -78,6 +78,8 @@ const TL=[
  ["1817",1817,"Philip Beamer Jr. marries Elspeth Ballantyne; her father signs the marriage bond","philipjr"],
  ["1825",1825,"Samuel Fitz Randolph, founder of New Salem, dies","samuel"],
  ["1829",1829,"Charles Bonnell marries Jane Martin in Harrison County","charles"],
+ ["1870",1870.5,"Isaac and Milly Forinash farm at Bulltown, Braxton County","isaac"],
+ ["1880",1880.5,"Charles Bonnell, 72 and remarried, still farms in Doddridge County","charles"],
  ["1832",1832,"John Waggoner applies for his Revolutionary War pension","johnw"],
  ["1834",1834,"Joseph Graf is born in Baden","joseph"],
  ["1838",1838,"Philip Beamer Sr. dies, at 75","philipsr"],
