@@ -1708,7 +1708,7 @@ const SIBS={
 };
 const CORD=["","first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","eleventh"];
 const genOf=id=>{const p=allPaths(id)[0];return p?p.length-1:0};
-const cousinLine=g=>g===1?"Their children are first cousins of Tony and Althea's children.":g===2?"Their grandchildren are second cousins of Tony and Althea's children.":`Their descendants in the same generation as Tony and Althea's children are ${CORD[g]||ordn(g)} cousins.`;
+const cousinLine=g=>{const p="great-".repeat(g-1),r=`These are your ${p}uncles and ${p}aunts`;return g===1?r+"; their children are your first cousins.":g===2?r+"; their grandchildren are your second cousins.":`${r}; their descendants in your generation are your ${CORD[g]||ordn(g)} cousins.`};
 function sibsHTML(id){const s=SIBS[id];if(!s)return"";return `<div class="sibs"><h4>Brothers and sisters</h4>${s.list.length?`<ul>${s.list.map(([n,y])=>`<li><b>${esc(n)}</b>${y?`<span>${esc(y)}</span>`:""}</li>`).join("")}</ul>`:""}${s.note?`<p class="note">${esc(s.note)}</p>`:""}<p class="cz">${cousinLine(genOf(id))}</p></div>`}
 function drawCousins(){
  const ids=Object.keys(SIBS).sort((a,b)=>genOf(a)-genOf(b));let h="",last=0;
